@@ -36,9 +36,9 @@ export default function Home() {
                   <Tasks tasks={tasks} />
                 </div>
                 <LeaveRequests leaveRequests={leaveRequests} />
+                <SchedulePanel schedule={schedule} />
               </div>
               <div className="lg:col-span-1 flex flex-col gap-6">
-                <SchedulePanel schedule={schedule} />
                 <InternshipCard />
               </div>
             </div>
