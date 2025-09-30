@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Badge } from '@/components/ui/badge';
-import { Calendar } from 'lucide-react';
+import { Calendar, MoreHorizontal } from 'lucide-react';
 
 type TasksProps = {
   tasks: Task[];
@@ -16,15 +16,15 @@ export function Tasks({ tasks }: TasksProps) {
     switch(tag.toLowerCase()) {
         case 'payroll': return 'bg-orange-100 text-orange-800';
         case 'recruitment': return 'bg-blue-100 text-blue-800';
-        case 'important': return 'bg-red-100 text-red-800';
+        case 'urgent': return 'bg-red-100 text-red-800';
         default: return 'bg-gray-100 text-gray-800';
     }
   }
   return (
     <Card>
       <CardHeader className="flex flex-row items-center justify-between">
-        <CardTitle className="text-lg">Tasks</CardTitle>
-        <Button variant="ghost" size="sm">+ Add</Button>
+        <CardTitle className="text-lg">Task Today</CardTitle>
+        <Button variant="ghost" size="sm">See All</Button>
       </CardHeader>
       <CardContent className="space-y-4">
         {tasks.map((task) => (
@@ -33,11 +33,9 @@ export function Tasks({ tasks }: TasksProps) {
                 <Checkbox id={`task-${task.id}`} className="mt-1" />
                 <div className="flex-1">
                     <label htmlFor={`task-${task.id}`} className="font-medium">{task.title}</label>
-                    <p className="text-sm text-muted-foreground">{task.description}</p>
-                    <div className="flex items-center justify-between mt-2">
+                     <div className="flex items-center justify-between mt-1">
                         <div>
-                             <Badge variant={task.status === 'Pending' ? 'warning' : 'success'} className="mr-2">{task.status}</Badge>
-                             <Badge className={`${getTagColor(task.tag)}`}>{task.tag}</Badge>
+                             <Badge variant={task.status === 'Pending' ? 'warning' : 'success'} className={`capitalize ${task.status === "Completed" ? "bg-green-100 text-green-800" : "bg-orange-100 text-orange-800"}`}>{task.status}</Badge>
                         </div>
                         <div className="flex items-center gap-2 text-sm text-muted-foreground">
                             <Calendar className="h-4 w-4" />
@@ -45,6 +43,9 @@ export function Tasks({ tasks }: TasksProps) {
                         </div>
                     </div>
                 </div>
+                 <Button variant="ghost" size="icon" className="w-8 h-8">
+                  <MoreHorizontal className="h-4 w-4" />
+                </Button>
             </div>
           </div>
         ))}

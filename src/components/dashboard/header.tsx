@@ -11,8 +11,8 @@ export function DashboardHeader() {
   return (
     <div className="flex items-center justify-between w-full">
         <div>
-            <h1 className="text-2xl font-bold">Juwita</h1>
-            <p className="text-muted-foreground">Welcome back to HRsync 👋</p>
+            <h1 className="text-2xl font-bold">Hello, Juwita!</h1>
+            <p className="text-muted-foreground">Welcome back and check your dashboard</p>
         </div>
       <div className="flex items-center gap-4">
         <Dialog>
@@ -37,11 +37,6 @@ export function DashboardHeader() {
         <Button variant="ghost" size="icon">
             <Bell className="h-5 w-5" />
         </Button>
-        <Button variant="outline">
-            <Calendar className="mr-2 h-4 w-4" />
-            Schedule
-        </Button>
-        <Button>+ Create Request</Button>
         <Avatar className="h-10 w-10">
           <AvatarImage src={userAvatar?.imageUrl} alt="Juwita" data-ai-hint={userAvatar?.imageHint} />
           <AvatarFallback>J</AvatarFallback>

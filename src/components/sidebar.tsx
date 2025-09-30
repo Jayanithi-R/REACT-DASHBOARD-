@@ -35,12 +35,11 @@ export function AppSidebar() {
     <>
       <SidebarHeader>
         <div className="flex items-center gap-2">
-            <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-primary text-primary-foreground">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-circle-dollar-sign"><circle cx="12" cy="12" r="10"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4h-6"/><path d="M12 18V6"/></svg>
+            <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-primary text-primary-foreground font-bold text-xl">
+                H
             </div>
           <div className="flex flex-col">
             <h2 className="text-lg font-semibold">HRsync</h2>
-            <p className="text-xs text-muted-foreground">HR Management</p>
           </div>
         </div>
       </SidebarHeader>
@@ -56,78 +55,49 @@ export function AppSidebar() {
             </SidebarMenuItem>
             <SidebarMenuItem>
               <SidebarMenuButton>
+                <Users />
+                Employees
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+            <SidebarMenuItem>
+              <SidebarMenuButton>
+                <Briefcase />
+                Recruitment
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+             <SidebarMenuItem>
+              <SidebarMenuButton>
                 <Calendar />
                 Schedule
               </SidebarMenuButton>
             </SidebarMenuItem>
             <SidebarMenuItem>
               <SidebarMenuButton>
-                <Users />
-                Attendance
-              </SidebarMenuButton>
-            </SidebarMenuItem>
-            <SidebarMenuItem>
-              <SidebarMenuButton>
-                <Briefcase />
-                Departments
-              </SidebarMenuButton>
-            </SidebarMenuItem>
-             <SidebarMenuItem>
-              <SidebarMenuButton>
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 22h2a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h2"/><path d="M12 18v-5"/><path d="M12 8V6"/><path d="m9 11 3-3 3 3"/></svg>
-                Integrations
-              </SidebarMenuButton>
-            </SidebarMenuItem>
-            <SidebarMenuItem>
-              <SidebarMenuButton>
-                <FileText />
-                Reports
+                <BarChart />
+                Report
               </SidebarMenuButton>
             </SidebarMenuItem>
           </SidebarMenu>
         </SidebarGroup>
         <SidebarGroup>
-          <SidebarGroupLabel>SHORTCUTS</SidebarGroupLabel>
+          <SidebarGroupLabel>OTHERS</SidebarGroupLabel>
           <SidebarMenu>
             <SidebarMenuItem>
               <SidebarMenuButton>
-                <span className="w-2 h-2 mr-2 bg-green-500 rounded-full"></span>
-                New Hire Onboarding
-                <Badge variant="secondary" className="ml-auto">1</Badge>
+                 <HelpCircle />
+                Support
               </SidebarMenuButton>
             </SidebarMenuItem>
             <SidebarMenuItem>
               <SidebarMenuButton>
-                 <span className="w-2 h-2 mr-2 bg-red-500 rounded-full"></span>
-                Leave Requests
-                <Badge variant="secondary" className="ml-auto">2</Badge>
-              </SidebarMenuButton>
-            </SidebarMenuItem>
-            <SidebarMenuItem>
-              <SidebarMenuButton>
-                <span className="w-2 h-2 mr-2 bg-yellow-500 rounded-full"></span>
-                Performance Reviews
-                <Badge variant="secondary" className="ml-auto">3</Badge>
+                <Settings />
+                Settings
               </SidebarMenuButton>
             </SidebarMenuItem>
           </SidebarMenu>
         </SidebarGroup>
       </SidebarContent>
       <SidebarFooter className="p-2">
-        <SidebarMenu>
-          <SidebarMenuItem>
-            <SidebarMenuButton>
-              <Settings />
-              Settings
-            </SidebarMenuButton>
-          </SidebarMenuItem>
-          <SidebarMenuItem>
-            <SidebarMenuButton>
-              <HelpCircle />
-              Help Center
-            </SidebarMenuButton>
-          </SidebarMenuItem>
-        </SidebarMenu>
         <SidebarSeparator />
         <div className="flex items-center justify-between p-2">
           <div className="flex items-center gap-2">
@@ -140,7 +110,7 @@ export function AppSidebar() {
               <p className="text-xs text-muted-foreground">juvv@hr-mikom.com</p>
             </div>
           </div>
-          <ChevronRight className="h-4 w-4 text-muted-foreground" />
+          <LogOut className="h-4 w-4 text-muted-foreground" />
         </div>
       </SidebarFooter>
     </>

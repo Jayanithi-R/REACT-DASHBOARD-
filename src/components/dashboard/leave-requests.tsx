@@ -52,7 +52,8 @@ export function LeaveRequests({ leaveRequests }: LeaveRequestsProps) {
           <TableHeader>
             <TableRow>
               <TableHead>Employee</TableHead>
-              <TableHead>Leave Type & Date</TableHead>
+              <TableHead>Leave Type</TableHead>
+              <TableHead>Date</TableHead>
               <TableHead>Status</TableHead>
               <TableHead className="text-right"></TableHead>
             </TableRow>
@@ -70,12 +71,13 @@ export function LeaveRequests({ leaveRequests }: LeaveRequestsProps) {
                     </Avatar>
                     <div>
                       <p className="font-medium">{request.employee.name}</p>
-                      <p className="text-sm text-muted-foreground">{request.employee.role}</p>
                     </div>
                   </div>
                 </TableCell>
                 <TableCell>
                   <p className="font-medium">{request.leaveType}</p>
+                </TableCell>
+                <TableCell>
                   <p className="text-sm text-muted-foreground">{request.dateRange}</p>
                 </TableCell>
                 <TableCell>

@@ -33,37 +33,23 @@ export function SchedulePanel({ schedule }: SchedulePanelProps) {
   return (
     <div className="space-y-6 sticky top-6">
         <Card>
-            <CardHeader className="flex-row items-center justify-between">
-                <CardTitle>Schedule</CardTitle>
-                <Button variant="ghost" size="sm">See All</Button>
-            </CardHeader>
-            <CardContent>
+            <CardContent className="p-4">
                 <Calendar
                     mode="single"
                     selected={selectedDate}
                     onSelect={setSelectedDate}
-                    className="rounded-md p-0"
+                    className="rounded-md"
                     />
-                <div className="relative mt-4">
-                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                    <Input placeholder="Search..." className="pl-10" />
-                </div>
             </CardContent>
         </Card>
 
-      <Tabs defaultValue="meetings" className="w-full">
-        <TabsList className="grid w-full grid-cols-2">
-          <TabsTrigger value="meetings">Meetings</TabsTrigger>
-          <TabsTrigger value="events">Events</TabsTrigger>
-        </TabsList>
-        <TabsContent value="meetings" className="mt-4">
-            <ScheduleAccordion items={filteredMeetings} emptyMessage="No meetings scheduled for this day." />
-        </TabsContent>
-        <TabsContent value="events" className="mt-4">
-            <ScheduleAccordion items={filteredEvents} emptyMessage="No events scheduled for this day." />
-        </TabsContent>
-      </Tabs>
-      <InternshipCard />
+      <div className="space-y-4">
+        <h3 className="text-lg font-semibold">
+          {selectedDate ? format(selectedDate, "MMMM dd, yyyy") : "Schedule"}
+        </h3>
+        <ScheduleAccordion items={[...filteredMeetings, ...filteredEvents]} emptyMessage="No meetings or events for this day." />
+      </div>
+
     </div>
   );
 }
@@ -79,17 +65,11 @@ function ScheduleAccordion({ items, emptyMessage }: { items: ScheduleItem[]; emp
   }
 
   return (
-    <Accordion type="single" collapsible defaultValue="item-0" className="w-full space-y-4">
+    <div className="w-full space-y-4">
       {items.map((item, index) => (
-        <AccordionItem key={item.id} value={`item-${index}`} className="border-none">
-          <Card>
-            <CardHeader className="p-4">
-              <AccordionTrigger className="p-0 font-semibold text-base w-full justify-between hover:no-underline">
-                <span>{item.title}</span>
-              </AccordionTrigger>
-            </CardHeader>
-            <AccordionContent className="px-4 pb-4">
-              <div className="space-y-4">
+          <Card key={item.id} className="p-4">
+              <div className="space-y-2">
+                 <p className="font-semibold">{item.title}</p>
                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
                     <Clock className="h-4 w-4" />
                     <span>{item.time}</span>
@@ -105,48 +85,9 @@ function ScheduleAccordion({ items, emptyMessage }: { items: ScheduleItem[]; emp
                     </div>
                     {item.avatars && item.avatars.length > 3 && <span className="text-sm text-muted-foreground">+{item.avatars.length - 3}</span>}
                 </div>
-                <div className="flex items-center justify-between">
-                    <span className="text-sm text-muted-foreground">{item.location}</span>
-                    <Badge variant="outline" className="py-1 px-3 bg-primary/10 text-primary border-primary/20">{item.team}</Badge>
-                </div>
               </div>
-            </AccordionContent>
           </Card>
-        </AccordionItem>
       ))}
-    </Accordion>
+    </div>
   );
-}
-
-function InternshipCard() {
-    return (
-        <Card>
-            <CardHeader className="flex-row justify-between items-start">
-                <div>
-                    <CardTitle className="text-lg">Internship</CardTitle>
-                    <CardDescription>Total Intern: 8</CardDescription>
-                </div>
-                <Button variant="outline" size="sm">Details</Button>
-            </CardHeader>
-            <CardContent>
-                <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                         <div className="flex -space-x-2 overflow-hidden">
-                            <Avatar className="inline-block h-8 w-8 rounded-full ring-2 ring-background">
-                                <AvatarImage src="https://picsum.photos/seed/emp1/100/100" />
-                            </Avatar>
-                             <Avatar className="inline-block h-8 w-8 rounded-full ring-2 ring-background">
-                                <AvatarImage src="https://picsum.photos/seed/emp2/100/100" />
-                            </Avatar>
-                             <Avatar className="inline-block h-8 w-8 rounded-full ring-2 ring-background">
-                                <AvatarImage src="https://picsum.photos/seed/emp3/100/100" />
-                            </Avatar>
-                        </div>
-                        <span className="text-sm text-muted-foreground">8 Attended</span>
-                    </div>
-                    <Button variant="default">View Progress</Button>
-                </div>
-            </CardContent>
-        </Card>
-    )
 }

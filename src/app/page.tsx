@@ -5,10 +5,18 @@ import { AttendanceReport } from '@/components/dashboard/attendance-report';
 import { Tasks } from '@/components/dashboard/tasks';
 import { SchedulePanel } from '@/components/dashboard/schedule-panel';
 import { LeaveRequests } from '@/components/dashboard/leave-requests';
+import { StatsCard } from '@/components/dashboard/stats-card';
 import { attendance, leaveRequests, schedule, tasks, employees } from '@/lib/data';
+import { BarChart, Briefcase, Calendar, Check, TrendingUp, Users } from 'lucide-react';
 
 export default function Home() {
   const onLeave = employees.filter((e) => e.status === 'On Leave').length;
+  const totalEmployees = employees.length;
+  const activeInterns = 8;
+  const totalOnLeave = employees.filter(e => e.status === 'On Leave').length;
+  const newHires = 4;
+
+
   return (
     <SidebarProvider>
       <Sidebar collapsible="icon" className="bg-card">
@@ -23,11 +31,17 @@ export default function Home() {
             </div>
           </header>
           <main className="flex-1 p-4 sm:p-6 lg:p-8">
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-              <div className="lg:col-span-2 space-y-6">
-                 <div className="grid md:grid-cols-2 gap-6">
-                  <AttendanceReport attendance={attendance} />
-                  <Tasks tasks={tasks} />
+            <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+              <div className="lg:col-span-3 space-y-6">
+                 <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                  <StatsCard title="Total Employees" value={totalEmployees} icon={Users} trend="12%" />
+                  <StatsCard title="On Leave" value={totalOnLeave} icon={Calendar} trend="3%" trendDown />
+                  <StatsCard title="Active Intern" value={activeInterns} icon={Briefcase} trend="8%" />
+                  <StatsCard title="New Hired" value={newHires} icon={TrendingUp} trend="10%" />
+                </div>
+                <div className="grid md:grid-cols-2 gap-6">
+                    <AttendanceReport attendance={attendance} />
+                    <Tasks tasks={tasks} />
                 </div>
                 <LeaveRequests leaveRequests={leaveRequests} />
               </div>
