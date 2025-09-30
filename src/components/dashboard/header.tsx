@@ -16,14 +16,14 @@ export function DashboardHeader() {
                 <AvatarFallback>J</AvatarFallback>
             </Avatar>
             <div>
-                <h1 className="text-xl font-semibold">Juwita</h1>
-                <p className="text-sm text-muted-foreground">Welcome back to HRsync 👋</p>
+                <h1 className="text-xl font-semibold">Welcome back, Juwita 👋</h1>
+                <p className="text-sm text-muted-foreground">HRsync Dashboard</p>
             </div>
         </div>
         <div className="flex items-center gap-1 sm:gap-2">
           <Dialog>
             <DialogTrigger asChild>
-              <Button variant="ghost" size="icon">
+              <Button variant="ghost" size="icon" className="h-9 w-9">
                   <Search className="h-5 w-5" />
               </Button>
             </DialogTrigger>
@@ -40,16 +40,22 @@ export function DashboardHeader() {
               </div>
             </DialogContent>
           </Dialog>
-          <Button variant="ghost" size="icon">
-              <Bell className="h-5 w-5" />
-          </Button>
-          <Button variant="ghost" className="hidden md:flex">
+           <div className="relative">
+            <Button variant="ghost" size="icon" className="h-9 w-9">
+                <Bell className="h-5 w-5" />
+            </Button>
+            <span className="absolute top-2 right-2 flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+            </span>
+          </div>
+          <Button variant="outline" className="hidden md:flex h-9">
             <Calendar className="h-4 w-4 mr-2"/>
             Schedule
           </Button>
-          <Button>
+          <Button className="h-9">
             <Plus className="h-4 w-4 sm:mr-2" />
-            <span className="hidden sm:inline">Create Request</span>
+            <span className="hidden sm:inline">Add Request</span>
           </Button>
         </div>
     </div>
