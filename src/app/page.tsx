@@ -40,7 +40,6 @@ export default function Home() {
               </div>
               <div className="xl:col-span-1 flex flex-col gap-6">
                 <SchedulePanel schedule={schedule} />
-                <InternshipCard />
               </div>
             </div>
           </main>
