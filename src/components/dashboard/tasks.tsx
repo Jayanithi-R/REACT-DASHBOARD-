@@ -27,8 +27,9 @@ export function Tasks({ tasks }: TasksProps) {
             <CheckSquare className="h-5 w-5 text-muted-foreground" />
             <CardTitle className="text-base font-semibold">Tasks</CardTitle>
         </div>
-        <Button variant="ghost" size="icon" className="h-8 w-8">
+        <Button variant="outline" size="sm" className="h-8">
             <Plus className="h-4 w-4" />
+            Add
         </Button>
       </CardHeader>
       <CardContent className="space-y-4 pt-4">

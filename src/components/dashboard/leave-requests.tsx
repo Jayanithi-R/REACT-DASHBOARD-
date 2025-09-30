@@ -66,7 +66,7 @@ export function LeaveRequests({ leaveRequests }: LeaveRequestsProps) {
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
             <Input placeholder="Search..." className="pl-9 h-8 rounded-md bg-secondary" />
           </div>
-          <Button variant="link" size="sm" className="text-primary pr-0 sm:pr-4">See All</Button>
+          <Button variant="link" size="sm" className="text-primary pr-0 sm:pr-4 h-auto p-0">See All</Button>
         </div>
       </CardHeader>
       <CardContent>
