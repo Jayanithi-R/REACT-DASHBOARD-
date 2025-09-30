@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Users2 } from 'lucide-react';
+import { ChevronRight, Users2 } from 'lucide-react';
 
 type AttendanceReportProps = {
   attendance: Attendance;
@@ -27,7 +27,10 @@ export function AttendanceReport({ attendance }: AttendanceReportProps) {
             <Users2 className="h-5 w-5 text-muted-foreground" />
             <CardTitle className="text-base font-semibold">Attendance Report</CardTitle>
         </div>
-        <Button variant="link" size="sm" className="text-primary h-auto p-0">See All</Button>
+        <Button variant="outline" size="sm" className="h-8 rounded-full">
+          See All
+          <ChevronRight className="h-4 w-4" />
+        </Button>
       </CardHeader>
       <CardContent className="space-y-4">
         <div>

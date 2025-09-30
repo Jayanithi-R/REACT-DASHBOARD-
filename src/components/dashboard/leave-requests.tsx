@@ -14,7 +14,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { MoreHorizontal, Search, Users2 } from 'lucide-react';
+import { MoreHorizontal, Search, Users2, ChevronRight } from 'lucide-react';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -66,7 +66,10 @@ export function LeaveRequests({ leaveRequests }: LeaveRequestsProps) {
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
             <Input placeholder="Search..." className="pl-9 h-8 rounded-md bg-secondary" />
           </div>
-          <Button variant="link" size="sm" className="text-primary pr-0 sm:pr-4 h-auto p-0">See All</Button>
+          <Button variant="outline" size="sm" className="h-8 rounded-full">
+            See All
+            <ChevronRight className="h-4 w-4" />
+          </Button>
         </div>
       </CardHeader>
       <CardContent>
