@@ -1,3 +1,4 @@
+
 import { SidebarProvider, Sidebar, SidebarInset, SidebarTrigger } from '@/components/ui/sidebar';
 import { AppSidebar } from '@/components/sidebar';
 import { DashboardHeader } from '@/components/dashboard/header';
@@ -36,10 +37,10 @@ export default function Home() {
                   <Tasks tasks={tasks} />
                 </div>
                 <LeaveRequests leaveRequests={leaveRequests} />
-                <SchedulePanel schedule={schedule} />
               </div>
               <div className="lg:col-span-1 flex flex-col gap-6">
                 <InternshipCard />
+                <SchedulePanel schedule={schedule} />
               </div>
             </div>
           </main>
