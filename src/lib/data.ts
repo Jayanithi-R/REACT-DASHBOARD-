@@ -35,57 +35,71 @@ export const employees: Employee[] = [
 export const schedule: ScheduleItem[] = [
   { 
     id: 'm0', 
-    title: 'Meeting Mitra 2025', 
+    title: 'Daily Standup', 
     type: 'Meeting', 
-    time: '9:00 - 9:45 AM', 
-    date: getRelativeDate(0), 
+    time: '9:00 - 9:30 AM', 
+    date: getRelativeDate(1), // Tuesday
     description: 'Daily sync up for the project team.',
     avatars: [
       { src: getImageUrl('emp1'), alt: 'Anjali Sharma', fallback: 'AS' },
       { src: getImageUrl('emp2'), alt: 'Raj Patel', fallback: 'RP' },
     ],
+    team: 'Engineering',
   },
   { 
     id: 'm1', 
-    title: 'Meeting Product', 
+    title: 'Product Strategy Meeting', 
     type: 'Meeting', 
     time: '9:00 - 9:45 AM', 
-    date: getRelativeDate(0), 
+    date: getRelativeDate(0), // Monday
     attendees: ['Anjali', 'Raj', 'Amit'], 
-    description: 'Daily sync up for the project team.',
+    description: 'Weekly product strategy sync.',
     avatars: [
-      { src: getImageUrl('emp1'), alt: 'Anjali Sharma', fallback: 'AS' },
-      { src: getImageUrl('emp2'), alt: 'Raj Patel', fallback: 'RP' },
+      { src: getImageUrl('emp10'), alt: 'Nora Kreiger', fallback: 'NK' },
       { src: getImageUrl('emp4'), alt: 'Amit Kumar', fallback: 'AK' },
       { src: getImageUrl('emp3'), alt: 'Priya Singh', fallback: 'PS' },
-      { src: getImageUrl('emp5'), alt: 'Sunita Devi', fallback: 'SD' },
+      { src: getImageUrl('emp13'), alt: 'Bobby Gibson', fallback: 'BG' },
+      { src: getImageUrl('emp15'), alt: 'Russell Bartell', fallback: 'RB' },
     ],
     location: 'On Zoom',
     team: 'Product Team',
   },
   { 
     id: 'm2', 
-    title: 'Meeting Ops', 
+    title: 'Design Review', 
     type: 'Meeting', 
-    time: '10:00 - 11:00 AM', 
-    date: getRelativeDate(0), 
+    time: '11:00 - 12:00 PM', 
+    date: getRelativeDate(0), // Monday
     attendees: ['Anjali', 'Priya', 'Amit'], 
     description: 'Discussing the new UI components.',
     avatars: [
-      { src: getImageUrl('emp6'), alt: 'Vikram Rathore', fallback: 'VR' },
-      { src: getImageUrl('emp7'), alt: 'Kavita Iyer', fallback: 'KI' },
-      { src: getImageUrl('emp8'), alt: 'Arjun Mehta', fallback: 'AM' },
-      { src: getImageUrl('emp5'), alt: 'Sunita Devi', fallback: 'SD' },
+      { src: getImageUrl('emp3'), alt: 'Priya Singh', fallback: 'PS' },
+      { src: getImageUrl('emp11'), alt: 'Amber Wolf', fallback: 'AW' },
     ],
-    location: 'On Slack',
-    team: 'Operations Team',
+    location: 'Figma',
+    team: 'Design Team',
+  },
+    { 
+    id: 'm3', 
+    title: 'Backend Architecture', 
+    type: 'Meeting', 
+    time: '2:00 - 3:30 PM', 
+    date: getRelativeDate(2), // Wednesday
+    attendees: ['Raj', 'Vikram'], 
+    description: 'Session on new microservices.',
+    avatars: [
+      { src: getImageUrl('emp2'), alt: 'Raj Patel', fallback: 'RP' },
+      { src: getImageUrl('emp6'), alt: 'Vikram Rathore', fallback: 'VR' },
+    ],
+    location: 'Conference Room 2',
+    team: 'Backend',
   },
   {
     id: 'e1',
-    title: 'Town Hall',
+    title: 'Company Town Hall',
     type: 'Event',
-    time: '1:00 PM - 2:00 PM',
-    date: getRelativeDate(0),
+    time: '4:00 PM - 5:00 PM',
+    date: getRelativeDate(0), // Monday
     description: 'All-hands meeting with the CEO.',
     avatars: [
       { src: getImageUrl('emp1'), alt: 'Anjali Sharma', fallback: 'AS' },
@@ -100,10 +114,10 @@ export const schedule: ScheduleItem[] = [
   },
   {
     id: 'e2',
-    title: 'Project Kickoff',
+    title: 'Project Phoenix Kickoff',
     type: 'Event',
-    time: '3:00 PM - 4:00 PM',
-    date: getRelativeDate(1),
+    time: '10:00 AM - 11:00 AM',
+    date: getRelativeDate(3), // Thursday
     description: 'Kickoff meeting for the new project "Phoenix".',
      avatars: [
       { src: getImageUrl('emp1'), alt: 'Anjali Sharma', fallback: 'AS' },
@@ -112,6 +126,22 @@ export const schedule: ScheduleItem[] = [
     ],
     location: 'Conference Room 3',
     team: 'Project Phoenix',
+  },
+    {
+    id: 'e3',
+    title: 'Team Lunch',
+    type: 'Event',
+    time: '1:00 PM - 2:00 PM',
+    date: getRelativeDate(4), // Friday
+    description: 'Weekly team lunch.',
+     avatars: [
+      { src: getImageUrl('emp1'), alt: 'Anjali Sharma', fallback: 'AS' },
+      { src: getImageUrl('emp2'), alt: 'Raj Patel', fallback: 'RP' },
+      { src: getImageUrl('emp4'), alt: 'Amit Kumar', fallback: 'AK' },
+      { src: getImageUrl('emp6'), alt: 'Vikram Rathore', fallback: 'VR' },
+    ],
+    location: 'Local Restaurant',
+    team: 'Engineering',
   },
 ];
 
@@ -140,3 +170,4 @@ export const leaveRequests: LeaveRequest[] = [
     { id: 'lr5', employee: { name: 'Margarita Wilderman', role: 'Product Web Officer', avatar: getImageUrl('emp17')}, leaveType: 'Annual Leave', dateRange: 'June 04 - June 28', status: 'Approved' },
     { id: 'lr6', employee: { name: 'Kim Mosciski', role: 'Future Marketing Strategist', avatar: getImageUrl('emp18') }, leaveType: 'Annual Leave', dateRange: 'June 04 - June 28', status: 'Approved' },
 ];
+
