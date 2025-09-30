@@ -123,23 +123,21 @@ export function SchedulePanel({ schedule: initialSchedule }: SchedulePanelProps)
                  <Card key={item.id} className="p-0 rounded-lg">
                     <Accordion type="single" collapsible>
                         <AccordionItem value={`item-${item.id}`} className="border-none">
-                            <AccordionTrigger className="p-4 text-sm font-semibold hover:no-underline rounded-lg data-[state=open]:bg-slate-50">
-                               <div className="flex items-center gap-3 text-left">
-                                  <div className="w-10 h-10 bg-primary/10 text-primary rounded-full flex items-center justify-center">
-                                    <CalendarIcon className="h-5 w-5" />
-                                  </div>
-                                  <div className="flex flex-col items-start">
-                                    <span className="font-semibold">{item.title}</span>
-                                    <span className="text-xs text-muted-foreground">{item.time}</span>
+                            <AccordionTrigger className="p-3 text-sm font-semibold hover:no-underline rounded-lg data-[state=open]:bg-slate-50">
+                               <div className="flex items-center justify-between w-full">
+                                  <div className="flex items-center gap-3 text-left">
+                                      <div className="w-10 h-10 bg-primary/10 text-primary rounded-md flex items-center justify-center">
+                                        <CalendarIcon className="h-5 w-5" />
+                                      </div>
+                                      <div className="flex flex-col items-start">
+                                        <span className="font-semibold">{item.title}</span>
+                                        <span className="text-xs text-muted-foreground flex items-center gap-1"><Clock className="h-3 w-3"/>{item.time}</span>
+                                      </div>
                                   </div>
                                </div>
                             </AccordionTrigger>
                             <AccordionContent className="px-4 pb-4">
-                                <div className="space-y-3">
-                                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                                        <Clock className="h-4 w-4" />
-                                        <span>{item.time}</span>
-                                    </div>
+                                <div className="space-y-3 pt-2">
                                     <div className="flex items-center justify-between">
                                         <div className="flex -space-x-2 overflow-hidden">
                                             {item.avatars?.slice(0, 3).map((avatar, i) => (
