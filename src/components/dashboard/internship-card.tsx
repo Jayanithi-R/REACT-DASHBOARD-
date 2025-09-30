@@ -2,7 +2,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Button } from "../ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../ui/card";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
-import { Briefcase, Users } from "lucide-react";
+import { Briefcase, Users, ChevronRight } from "lucide-react";
 
 export function InternshipCard() {
     const avatars = [
@@ -18,7 +18,10 @@ export function InternshipCard() {
                     <Briefcase className="h-5 w-5 text-muted-foreground" />
                     <CardTitle className="text-base font-semibold">Internship</CardTitle>
                 </div>
-                <Button variant="link" size="sm" className="text-primary">Details</Button>
+                <Button variant="outline" size="sm" className="h-8 rounded-full">
+                    Details
+                    <ChevronRight className="h-4 w-4" />
+                </Button>
             </CardHeader>
             <CardContent className="space-y-4">
                 <div>
