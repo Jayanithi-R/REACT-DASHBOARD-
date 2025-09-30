@@ -100,7 +100,7 @@ export function AppSidebar() {
             <SidebarMenuItem>
               <SidebarMenuButton className="justify-between">
                  <div className="flex items-center gap-2">
-                    <Dot className="text-green-500" /> New Hire Onboarding
+                    <Dot className="text-green-500 w-5 h-5" /> New Hire Onboarding
                  </div>
                  <Badge variant="secondary" className="h-5">1</Badge>
               </SidebarMenuButton>
@@ -108,7 +108,7 @@ export function AppSidebar() {
             <SidebarMenuItem>
               <SidebarMenuButton className="justify-between">
                 <div className="flex items-center gap-2">
-                    <Dot className="text-red-500" /> Leave Requests
+                    <Dot className="text-red-500 w-5 h-5" /> Leave Requests
                  </div>
                  <Badge variant="secondary" className="h-5">2</Badge>
               </SidebarMenuButton>
@@ -116,7 +116,7 @@ export function AppSidebar() {
             <SidebarMenuItem>
               <SidebarMenuButton className="justify-between">
                 <div className="flex items-center gap-2">
-                    <Dot className="text-yellow-500" /> Performance Reviews
+                    <Dot className="text-yellow-500 w-5 h-5" /> Performance Reviews
                  </div>
                  <Badge variant="secondary" className="h-5">3</Badge>
               </SidebarMenuButton>
