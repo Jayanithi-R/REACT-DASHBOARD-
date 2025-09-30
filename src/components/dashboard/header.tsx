@@ -16,7 +16,7 @@ export function DashboardHeader() {
                 <AvatarFallback>J</AvatarFallback>
             </Avatar>
             <div>
-                <h1 className="text-xl font-semibold">Welcome back, Juwita 👋</h1>
+                <h1 className="text-lg sm:text-xl font-semibold">Welcome back, Juwita 👋</h1>
                 <p className="text-sm text-muted-foreground">HRsync Dashboard</p>
             </div>
         </div>
@@ -49,7 +49,7 @@ export function DashboardHeader() {
               <span className="relative inline-flex rounded-full h-2 w-2 bg-destructive"></span>
             </span>
           </div>
-          <Button variant="outline" className="hidden md:flex h-9">
+          <Button variant="outline" className="hidden lg:flex h-9">
             <Calendar className="h-4 w-4 mr-2"/>
             Schedule
           </Button>

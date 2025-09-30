@@ -78,7 +78,8 @@ export function LeaveRequests({ leaveRequests }: LeaveRequestsProps) {
             <TableHeader>
               <TableRow>
                 <TableHead className="text-xs">Employee</TableHead>
-                <TableHead className="text-xs hidden md:table-cell">Leave Type & Date</TableHead>
+                <TableHead className="text-xs hidden lg:table-cell">Leave Type</TableHead>
+                <TableHead className="text-xs hidden md:table-cell">Date Range</TableHead>
                 <TableHead className="text-xs">Status</TableHead>
                 <TableHead className="text-right"></TableHead>
               </TableRow>
@@ -96,16 +97,18 @@ export function LeaveRequests({ leaveRequests }: LeaveRequestsProps) {
                       </Avatar>
                       <div>
                         <p className="text-sm font-medium">{request.employee.name}</p>
-                        <div className="text-xs text-muted-foreground md:hidden">
+                        <div className="text-xs text-muted-foreground lg:hidden">
                             <p>{request.leaveType}</p>
-                            <p>{request.dateRange}</p>
+                            <p className="md:hidden">{request.dateRange}</p>
                         </div>
                       </div>
                     </div>
                   </TableCell>
-                  <TableCell className="py-2 hidden md:table-cell">
+                  <TableCell className="py-2 hidden lg:table-cell">
                       <p className="text-sm font-medium">{request.leaveType}</p>
-                      <p className="text-xs text-muted-foreground">{request.dateRange}</p>
+                  </TableCell>
+                   <TableCell className="py-2 hidden md:table-cell">
+                      <p className="text-sm text-muted-foreground">{request.dateRange}</p>
                   </TableCell>
                   <TableCell className="py-2">
                     <Badge variant="outline" className={`capitalize flex items-center gap-1.5 font-normal ${getStatusClasses(request.status)}`}>
