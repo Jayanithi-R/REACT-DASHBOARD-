@@ -40,7 +40,8 @@ export function AttendanceReport({ attendance }: AttendanceReportProps) {
             <div className="space-y-3">
                 {attendance.absent.map((employee, index) => (
                   <React.Fragment key={employee.id}>
-                    <div className="flex items-center justify-between">
+                    {index > 0 && <Separator />}
+                    <div className="flex items-center justify-between pt-3">
                         <div className="flex items-center gap-3">
                         <Avatar className="h-9 w-9">
                             <AvatarImage src={employee.avatar} alt={employee.name} />
@@ -53,7 +54,6 @@ export function AttendanceReport({ attendance }: AttendanceReportProps) {
                         </div>
                         <Badge variant={getBadgeVariant(employee.status)} className="font-normal">{employee.status}</Badge>
                     </div>
-                    {index < attendance.absent.length - 1 && <Separator />}
                   </React.Fragment>
                 ))}
             </div>
@@ -64,7 +64,8 @@ export function AttendanceReport({ attendance }: AttendanceReportProps) {
             <div className="space-y-3">
                 {attendance.present.map((employee, index) => (
                   <React.Fragment key={employee.id}>
-                    <div className="flex items-center justify-between">
+                     {index > 0 && <Separator />}
+                    <div className="flex items-center justify-between pt-3">
                         <div className="flex items-center gap-3">
                         <Avatar className="h-9 w-9">
                             <AvatarImage src={employee.avatar} alt={employee.name} />
@@ -77,7 +78,6 @@ export function AttendanceReport({ attendance }: AttendanceReportProps) {
                         </div>
                         <Badge variant="secondary" className="text-green-600 bg-green-100 font-mono text-sm">{employee.time}</Badge>
                     </div>
-                    {index < attendance.present.length - 1 && <Separator />}
                   </React.Fragment>
                 ))}
             </div>
