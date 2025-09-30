@@ -10,7 +10,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 import { Calendar as CalendarIcon, ChevronLeft, ChevronRight, Clock, Filter, Search } from 'lucide-react';
 import { Badge } from '../ui/badge';
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
-import { format, addDays, subDays, startOfWeek, getDate, getMonth, getYear, isSameDay } from 'date-fns';
+import { format, addDays, subDays, startOfWeek, isSameDay } from 'date-fns';
 
 type SchedulePanelProps = {
   schedule: ScheduleItem[];
@@ -23,11 +23,15 @@ const WeekCalendar = ({ selectedDate, onSelectDate }: { selectedDate: Date, onSe
     const week = Array.from({ length: 5 }).map((_, i) => addDays(start, i));
 
     const handlePrevWeek = () => {
-        setCurrentDate(subDays(currentDate, 7));
+        const newDate = subDays(currentDate, 7);
+        setCurrentDate(newDate);
+        // onSelectDate(startOfWeek(newDate, { weekStartsOn: 1 }));
     }
 
     const handleNextWeek = () => {
-        setCurrentDate(addDays(currentDate, 7));
+        const newDate = addDays(currentDate, 7);
+        setCurrentDate(newDate);
+        // onSelectDate(startOfWeek(newDate, { weekStartsOn: 1 }));
     }
     
     return (
@@ -43,11 +47,11 @@ const WeekCalendar = ({ selectedDate, onSelectDate }: { selectedDate: Date, onSe
                     </Button>
                 </div>
             </div>
-            <div className="flex justify-between px-2 pb-2">
-                 <Button variant="ghost" size="icon" className="h-7 w-7">
+            <div className="flex items-center justify-between px-2 pb-2">
+                 <Button variant="ghost" size="icon" className="h-9 w-9">
                     <ChevronLeft className="h-4 w-4" />
                 </Button>
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-1">
                     {week.map((day) => (
                         <div key={day.toString()} 
                              onClick={() => onSelectDate(day)}
@@ -62,7 +66,7 @@ const WeekCalendar = ({ selectedDate, onSelectDate }: { selectedDate: Date, onSe
                         </div>
                     ))}
                 </div>
-                <Button variant="ghost" size="icon" className="h-7 w-7">
+                <Button variant="ghost" size="icon" className="h-9 w-9">
                     <ChevronRight className="h-4 w-4" />
                 </Button>
             </div>
@@ -71,12 +75,11 @@ const WeekCalendar = ({ selectedDate, onSelectDate }: { selectedDate: Date, onSe
 }
 
 export function SchedulePanel({ schedule: initialSchedule }: SchedulePanelProps) {
-  const [selectedDate, setSelectedDate] = useState<Date | undefined>(new Date('2025-10-13'));
+  const [selectedDate, setSelectedDate] = useState<Date>(new Date('2025-10-13'));
   const [schedule, setSchedule] = useState(initialSchedule);
   const [view, setView] = useState('meetings');
 
   const filteredItems = useMemo(() => {
-    if (!selectedDate) return [];
     const dateString = selectedDate.toISOString().split('T')[0];
     const itemsForDate = schedule.filter((item) => item.date === dateString);
     if (view === 'meetings') {
@@ -100,7 +103,7 @@ export function SchedulePanel({ schedule: initialSchedule }: SchedulePanelProps)
         </div>
       </CardHeader>
       <CardContent className="space-y-4">
-        <WeekCalendar selectedDate={selectedDate || new Date()} onSelectDate={setSelectedDate} />
+        <WeekCalendar selectedDate={selectedDate} onSelectDate={setSelectedDate} />
 
         <div className="relative">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
@@ -124,7 +127,7 @@ export function SchedulePanel({ schedule: initialSchedule }: SchedulePanelProps)
             {filteredItems.map((item) => (
                 <AccordionItem key={item.id} value={`item-${item.id}`} className="border-none">
                      <Card className="p-0">
-                        <AccordionTrigger className="p-4 text-sm font-semibold hover:no-underline">
+                        <AccordionTrigger className="p-4 text-sm font-semibold hover:no-underline data-[state=open]:bg-slate-50">
                            {item.title}
                         </AccordionTrigger>
                         <AccordionContent className="px-4 pb-4">
@@ -155,7 +158,7 @@ export function SchedulePanel({ schedule: initialSchedule }: SchedulePanelProps)
         {filteredItems.length === 0 && (
             <div className="flex flex-col items-center justify-center text-center p-8 border-dashed border-2 rounded-lg mt-4 bg-card">
                 <CalendarIcon className="w-10 h-10 text-muted-foreground mb-4" />
-                <p className="text-sm text-muted-foreground">No {view} for this day.</p>
+                <p className="text-sm text-muted-foreground">No {view === 'meetings' ? 'Meetings' : 'Events'} for this day.</p>
             </div>
         )}
       </CardContent>
