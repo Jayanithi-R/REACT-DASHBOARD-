@@ -2,19 +2,73 @@
 
 import type { ScheduleItem } from '@/lib/types';
 import { useState, useMemo } from 'react';
-import { Calendar } from '@/components/ui/calendar';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '../ui/accordion';
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
-import { Calendar as CalendarIcon, Clock, Filter, Search } from 'lucide-react';
+import { Calendar as CalendarIcon, ChevronLeft, ChevronRight, Clock, Filter, Search } from 'lucide-react';
 import { Badge } from '../ui/badge';
-import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group"
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
+import { format, addDays, subDays, startOfWeek, getDate, getMonth, getYear, isSameDay } from 'date-fns';
 
 type SchedulePanelProps = {
   schedule: ScheduleItem[];
 };
+
+const WeekCalendar = ({ selectedDate, onSelectDate }: { selectedDate: Date, onSelectDate: (date: Date) => void }) => {
+    const [currentDate, setCurrentDate] = useState(selectedDate);
+
+    const start = startOfWeek(currentDate, { weekStartsOn: 1 });
+    const week = Array.from({ length: 5 }).map((_, i) => addDays(start, i));
+
+    const handlePrevWeek = () => {
+        setCurrentDate(subDays(currentDate, 7));
+    }
+
+    const handleNextWeek = () => {
+        setCurrentDate(addDays(currentDate, 7));
+    }
+    
+    return (
+        <div className="rounded-md border">
+            <div className="flex items-center justify-between p-2">
+                <h3 className="text-sm font-semibold">{format(currentDate, 'MMMM yyyy')}</h3>
+                <div className="flex items-center gap-1">
+                    <Button variant="ghost" size="icon" className="h-7 w-7" onClick={handlePrevWeek}>
+                        <ChevronLeft className="h-4 w-4" />
+                    </Button>
+                    <Button variant="ghost" size="icon" className="h-7 w-7" onClick={handleNextWeek}>
+                        <ChevronRight className="h-4 w-4" />
+                    </Button>
+                </div>
+            </div>
+            <div className="flex justify-between px-2 pb-2">
+                 <Button variant="ghost" size="icon" className="h-7 w-7">
+                    <ChevronLeft className="h-4 w-4" />
+                </Button>
+                <div className="flex items-center gap-2">
+                    {week.map((day) => (
+                        <div key={day.toString()} 
+                             onClick={() => onSelectDate(day)}
+                             className={`flex flex-col items-center justify-center w-12 h-14 rounded-lg cursor-pointer transition-colors ${
+                                isSameDay(day, selectedDate)
+                                    ? 'bg-primary text-primary-foreground'
+                                    : 'hover:bg-accent'
+                             }`}
+                        >
+                            <p className="text-xs">{format(day, 'EEE')}</p>
+                            <p className="font-bold text-lg">{format(day, 'd')}</p>
+                        </div>
+                    ))}
+                </div>
+                <Button variant="ghost" size="icon" className="h-7 w-7">
+                    <ChevronRight className="h-4 w-4" />
+                </Button>
+            </div>
+        </div>
+    )
+}
 
 export function SchedulePanel({ schedule: initialSchedule }: SchedulePanelProps) {
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(new Date('2025-10-13'));
@@ -38,17 +92,16 @@ export function SchedulePanel({ schedule: initialSchedule }: SchedulePanelProps)
     <Card>
       <CardHeader>
         <div className="flex items-center justify-between">
-            <CardTitle className="text-base font-semibold">Schedule</CardTitle>
+            <div className="flex items-center gap-2">
+                <CalendarIcon className="h-5 w-5 text-muted-foreground" />
+                <CardTitle className="text-base font-semibold">Schedule</CardTitle>
+            </div>
             <Button variant="link" size="sm" className="text-primary">See All</Button>
         </div>
       </CardHeader>
       <CardContent className="space-y-4">
-        <Calendar
-            mode="single"
-            selected={selectedDate}
-            onSelect={setSelectedDate}
-            className="rounded-md border p-0"
-        />
+        <WeekCalendar selectedDate={selectedDate || new Date()} onSelectDate={setSelectedDate} />
+
         <div className="relative">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
             <Input placeholder="Search..." className="pl-9 h-8 rounded-md bg-secondary" />
@@ -57,10 +110,12 @@ export function SchedulePanel({ schedule: initialSchedule }: SchedulePanelProps)
             </Button>
         </div>
         <ToggleGroup type="single" value={view} onValueChange={(value) => value && setView(value)} className="w-full">
-          <ToggleGroupItem value="meetings" aria-label="Meetings" className="w-full data-[state=on]:bg-primary/10 data-[state=on]:text-primary">
+          <ToggleGroupItem value="meetings" aria-label="Meetings" className="w-full data-[state=on]:bg-primary/10 data-[state=on]:text-primary flex items-center gap-2">
+            <CalendarIcon className="h-4 w-4" />
             Meetings
           </ToggleGroupItem>
-          <ToggleGroupItem value="events" aria-label="Events" className="w-full data-[state=on]:bg-primary/10 data-[state=on]:text-primary">
+          <ToggleGroupItem value="events" aria-label="Events" className="w-full data-[state=on]:bg-primary/10 data-[state=on]:text-primary flex items-center gap-2">
+             <CalendarIcon className="h-4 w-4" />
             Events
           </ToggleGroupItem>
         </ToggleGroup>
