@@ -7,7 +7,7 @@ import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '../ui/accordion';
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
-import { Calendar as CalendarIcon, ChevronLeft, ChevronRight, Clock, Filter, Search, ArrowRight } from 'lucide-react';
+import { Calendar as CalendarIcon, ChevronLeft, ChevronRight, Clock, Filter, Search, ArrowRight, Briefcase, Ticket } from 'lucide-react';
 import { Badge } from '../ui/badge';
 import { format, addDays, subDays, startOfWeek, isSameDay } from 'date-fns';
 import { ToggleGroup, ToggleGroupItem } from '../ui/toggle-group';
@@ -79,7 +79,7 @@ const ScheduleList = ({ title, items }: { title: string, items: ScheduleItem[] }
     return (
         <div className="space-y-3">
             {items.map((item) => (
-                <Card key={item.id} className="p-0 rounded-lg bg-secondary/30">
+                <Card key={item.id} className="p-0 rounded-lg bg-card">
                     <Accordion type="single" collapsible>
                         <AccordionItem value={`item-${item.id}`} className="border-none">
                             <AccordionTrigger className="p-3 text-sm font-semibold hover:no-underline rounded-lg data-[state=open]:bg-slate-50">
@@ -161,8 +161,14 @@ export function SchedulePanel({ schedule: initialSchedule }: SchedulePanelProps)
         </div>
 
         <ToggleGroup type="single" value={activeTab} onValueChange={(value) => setActiveTab(value as 'meetings' | 'events')} className="w-full">
-            <ToggleGroupItem value="meetings" className="w-full" aria-label="Toggle meetings">Meetings</ToggleGroupItem>
-            <ToggleGroupItem value="events" className="w-full" aria-label="Toggle events">Events</ToggleGroupItem>
+            <ToggleGroupItem value="meetings" className="w-full flex items-center gap-2" aria-label="Toggle meetings">
+              <Briefcase className="h-4 w-4" />
+              Meetings
+            </ToggleGroupItem>
+            <ToggleGroupItem value="events" className="w-full flex items-center gap-2" aria-label="Toggle events">
+              <Ticket className="h-4 w-4" />
+              Events
+            </ToggleGroupItem>
         </ToggleGroup>
         
         <div className="w-full space-y-4">
