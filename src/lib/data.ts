@@ -34,6 +34,18 @@ export const employees: Employee[] = [
 
 export const schedule: ScheduleItem[] = [
   { 
+    id: 'm0', 
+    title: 'Meeting Mitra 2025', 
+    type: 'Meeting', 
+    time: '9:00 - 9:45 AM', 
+    date: getRelativeDate(0), 
+    description: 'Daily sync up for the project team.',
+    avatars: [
+      { src: getImageUrl('emp1'), alt: 'Anjali Sharma', fallback: 'AS' },
+      { src: getImageUrl('emp2'), alt: 'Raj Patel', fallback: 'RP' },
+    ],
+  },
+  { 
     id: 'm1', 
     title: 'Meeting Product', 
     type: 'Meeting', 
@@ -105,9 +117,9 @@ export const schedule: ScheduleItem[] = [
 
 export const attendance: Attendance = {
   absent: [
-    { id: '9', name: 'Gordon Paucek', role: 'Finance', avatar: getImageUrl('emp9'), status: 'Sick' },
-    { id: '10', name: 'Nora Kreiger', role: 'Product Manager', avatar: getImageUrl('emp10'), status: 'WFH' },
-    { id: '11', name: 'Amber Wolf', role: 'UI/UX Designer', avatar: getImageUrl('emp11'), status: 'Absent' },
+    { id: '9', name: 'Gordon Paucek', role: 'Finance', avatar: getImageUrl('emp9'), status: 'Absent' },
+    { id: '10', name: 'Nora Kreiger', role: 'Product Manager', avatar: getImageUrl('emp10'), status: 'Sick' },
+    { id: '11', name: 'Amber Wolf', role: 'UI/UX Designer', avatar: getImageUrl('emp11'), status: 'WFH' },
   ],
   present: [
     { id: '12', name: 'Alonzo Sauer', role: 'SQA', avatar: getImageUrl('emp12'), time: '08.22' },
@@ -115,9 +127,9 @@ export const attendance: Attendance = {
 };
 
 export const tasks: Task[] = [
-    { id: 't1', title: 'Update Payroll Records', description: 'Verify salary adjustments.', status: 'Pending', tag: 'Payroll', date: 'Today' },
-    { id: 't2', title: 'Interview with Sarah', description: 'Candidate for Marketing position.', status: 'Completed', tag: 'Recruitment', date: 'Today' },
-    { id: 't3', title: 'Review Leave Requests', description: 'Check pending leave requests.', status: 'Pending', tag: 'Urgent', date: 'Yesterday' },
+    { id: 't1', title: 'Update Payroll Records', description: 'Verify salary adjustments and overtime', status: 'Pending', tag: 'Payroll', date: 'Today' },
+    { id: 't2', title: 'Interview with Sarah Lee', description: 'Conduct candidate interview for Marketin...', status: 'Completed', tag: 'Recruitment', date: 'Today' },
+    { id: 't3', title: 'Review Leave Applications', description: 'Check pending leave requests and approv...', status: 'Pending', tag: 'Important', date: 'Yesterday' },
 ];
 
 export const leaveRequests: LeaveRequest[] = [
@@ -125,4 +137,6 @@ export const leaveRequests: LeaveRequest[] = [
     { id: 'lr2', employee: { name: 'Yvonne Hartmann', role: 'SQA', avatar: getImageUrl('emp14') }, leaveType: 'Sick Leave', dateRange: 'Aug 02 - Aug 18', status: 'Pending' },
     { id: 'lr3', employee: { name: 'Russell Bartell', role: 'Product Manager', avatar: getImageUrl('emp15') }, leaveType: 'Annual Leave', dateRange: 'June 24 - July 03', status: 'Approved' },
     { id: 'lr4', employee: { name: 'Pearl Franecki', role: 'Frontend Developer', avatar: getImageUrl('emp16') }, leaveType: 'Annual Leave', dateRange: 'June 04 - June 28', status: 'Approved' },
+    { id: 'lr5', employee: { name: 'Margarita Wilderman', role: 'Product Web Officer', avatar: getImageUrl('emp17')}, leaveType: 'Annual Leave', dateRange: 'June 04 - June 28', status: 'Approved' },
+    { id: 'lr6', employee: { name: 'Kim Mosciski', role: 'Future Marketing Strategist', avatar: getImageUrl('emp18') }, leaveType: 'Annual Leave', dateRange: 'June 04 - June 28', status: 'Approved' },
 ];

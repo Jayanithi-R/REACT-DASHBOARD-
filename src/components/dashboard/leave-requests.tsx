@@ -14,7 +14,13 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { MoreHorizontal, Search } from 'lucide-react';
+import { MoreHorizontal, Search, Users2 } from 'lucide-react';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 
 type LeaveRequestsProps = {
   leaveRequests: LeaveRequest[];
@@ -35,61 +41,83 @@ export function LeaveRequests({ leaveRequests }: LeaveRequestsProps) {
     }
   };
 
+  const getStatusClasses = (status: string) => {
+    switch (status) {
+      case 'Pending':
+        return 'bg-orange-100 text-orange-600';
+      case 'Approved':
+        return 'bg-green-100 text-green-600';
+      case 'Rejected':
+        return 'bg-red-100 text-red-600';
+      default:
+        return 'bg-gray-100 text-gray-600';
+    }
+  }
+
   return (
     <Card>
-      <CardHeader className="flex-row items-center justify-between">
-        <div className="flex items-center gap-4">
-          <CardTitle className="text-lg">Leave Requests</CardTitle>
-          <div className="relative">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-            <Input placeholder="Search..." className="pl-10 h-9" />
-          </div>
+      <CardHeader className="flex-row items-center justify-between pb-2">
+         <div className='flex items-center gap-2'>
+            <Users2 className="h-5 w-5 text-muted-foreground" />
+            <CardTitle className="text-base font-semibold">Leave Requests</CardTitle>
         </div>
-        <Button variant="ghost" size="sm">See All</Button>
+        <div className="flex items-center gap-2">
+          <div className="relative w-40">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+            <Input placeholder="Search..." className="pl-9 h-8 rounded-md bg-secondary" />
+          </div>
+          <Button variant="link" size="sm" className="text-primary">See All</Button>
+        </div>
       </CardHeader>
       <CardContent>
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead>Employee</TableHead>
-              <TableHead>Leave Type</TableHead>
-              <TableHead>Date</TableHead>
-              <TableHead>Status</TableHead>
+              <TableHead className="text-xs">Employee</TableHead>
+              <TableHead className="text-xs">Leave Type & Date</TableHead>
+              <TableHead className="text-xs">Status</TableHead>
               <TableHead className="text-right"></TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {leaveRequests.map((request) => (
               <TableRow key={request.id}>
-                <TableCell>
-                  <div className="flex items-center gap-4">
-                    <Avatar className="h-10 w-10">
+                <TableCell className="py-2">
+                  <div className="flex items-center gap-3">
+                    <Avatar className="h-9 w-9">
                       <AvatarImage src={request.employee.avatar} alt={request.employee.name} />
                       <AvatarFallback>
                         {request.employee.name.split(' ').map(n => n[0]).join('')}
                       </AvatarFallback>
                     </Avatar>
                     <div>
-                      <p className="font-medium">{request.employee.name}</p>
+                      <p className="text-sm font-medium">{request.employee.name}</p>
                     </div>
                   </div>
                 </TableCell>
-                <TableCell>
-                  <p className="font-medium">{request.leaveType}</p>
+                <TableCell className="py-2">
+                    <p className="text-sm font-medium">{request.leaveType}</p>
+                    <p className="text-xs text-muted-foreground">{request.dateRange}</p>
                 </TableCell>
-                <TableCell>
-                  <p className="text-sm text-muted-foreground">{request.dateRange}</p>
-                </TableCell>
-                <TableCell>
-                  <Badge variant={getStatusVariant(request.status)} className="capitalize flex items-center gap-1.5">
+                <TableCell className="py-2">
+                  <Badge className={`capitalize flex items-center gap-1.5 font-normal ${getStatusClasses(request.status)}`}>
                     <span className={`h-2 w-2 rounded-full ${request.status === 'Approved' ? 'bg-green-500' : 'bg-orange-500'}`}></span>
                     {request.status}
                   </Badge>
                 </TableCell>
-                <TableCell className="text-right">
-                  <Button variant="ghost" size="icon">
-                    <MoreHorizontal className="h-4 w-4" />
-                  </Button>
+                <TableCell className="text-right py-2">
+                    <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                            <Button variant="ghost" size="icon" className="h-8 w-8">
+                                <MoreHorizontal className="h-4 w-4" />
+                            </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent align="end">
+                            <DropdownMenuItem>View Details</DropdownMenuItem>
+                            <DropdownMenuItem>Approve</DropdownMenuItem>
+                            <DropdownMenuItem>Reject</DropdownMenuItem>
+                        </DropdownMenuContent>
+                    </DropdownMenu>
                 </TableCell>
               </TableRow>
             ))}

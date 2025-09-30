@@ -4,13 +4,14 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import { Users2 } from 'lucide-react';
 
 type AttendanceReportProps = {
   attendance: Attendance;
 };
 
 export function AttendanceReport({ attendance }: AttendanceReportProps) {
-    const getBadgeVariant = (status: string) => {
+    const getBadgeVariant = (status: string): "destructive" | "warning" | "info" | "secondary" => {
         switch (status) {
             case 'Absent': return 'destructive';
             case 'Sick': return 'warning';
@@ -21,48 +22,53 @@ export function AttendanceReport({ attendance }: AttendanceReportProps) {
 
   return (
     <Card>
-      <CardHeader className="flex flex-row items-center justify-between">
-        <CardTitle className="text-lg">Attendance</CardTitle>
-        <Button variant="ghost" size="sm">See All</Button>
+      <CardHeader className="flex flex-row items-center justify-between pb-2">
+        <div className='flex items-center gap-2'>
+            <Users2 className="h-5 w-5 text-muted-foreground" />
+            <CardTitle className="text-base font-semibold">Attendance Report</CardTitle>
+        </div>
+        <Button variant="link" size="sm" className="text-primary">See All</Button>
       </CardHeader>
-      <CardContent className="space-y-6">
+      <CardContent className="space-y-4">
         <div>
-          <div className="space-y-4">
-            {attendance.absent.map((employee) => (
-              <div key={employee.id} className="flex items-center justify-between">
-                <div className="flex items-center gap-4">
-                  <Avatar className="h-10 w-10">
-                    <AvatarImage src={employee.avatar} alt={employee.name} />
-                    <AvatarFallback>{employee.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
-                  </Avatar>
-                  <div>
-                    <p className="font-medium">{employee.name}</p>
-                    <p className="text-sm text-muted-foreground">{employee.role}</p>
-                  </div>
+            <p className="text-xs text-muted-foreground mb-2">Absent</p>
+            <div className="space-y-3">
+                {attendance.absent.map((employee) => (
+                <div key={employee.id} className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                    <Avatar className="h-9 w-9">
+                        <AvatarImage src={employee.avatar} alt={employee.name} />
+                        <AvatarFallback>{employee.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
+                    </Avatar>
+                    <div>
+                        <p className="text-sm font-medium">{employee.name}</p>
+                        <p className="text-xs text-muted-foreground">{employee.role}</p>
+                    </div>
+                    </div>
+                    <Badge variant={getBadgeVariant(employee.status)} className="font-normal">{employee.status}</Badge>
                 </div>
-                <Badge variant={getBadgeVariant(employee.status)}>{employee.status}</Badge>
-              </div>
-            ))}
-          </div>
+                ))}
+            </div>
         </div>
         <div>
-          <div className="space-y-4">
-            {attendance.present.map((employee) => (
-              <div key={employee.id} className="flex items-center justify-between">
-                <div className="flex items-center gap-4">
-                  <Avatar className="h-10 w-10">
-                    <AvatarImage src={employee.avatar} alt={employee.name} />
-                    <AvatarFallback>{employee.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
-                  </Avatar>
-                  <div>
-                    <p className="font-medium">{employee.name}</p>
-                    <p className="text-sm text-muted-foreground">{employee.role}</p>
-                  </div>
+            <p className="text-xs text-muted-foreground mb-2">Present</p>
+            <div className="space-y-3">
+                {attendance.present.map((employee) => (
+                <div key={employee.id} className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                    <Avatar className="h-9 w-9">
+                        <AvatarImage src={employee.avatar} alt={employee.name} />
+                        <AvatarFallback>{employee.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
+                    </Avatar>
+                    <div>
+                        <p className="text-sm font-medium">{employee.name}</p>
+                        <p className="text-xs text-muted-foreground">{employee.role}</p>
+                    </div>
+                    </div>
+                    <Badge variant="secondary" className="text-green-600 bg-green-100 font-mono text-sm">{employee.time}</Badge>
                 </div>
-                <Badge variant="secondary" className="bg-green-100 text-green-800">Present</Badge>
-              </div>
-            ))}
-          </div>
+                ))}
+            </div>
         </div>
       </CardContent>
     </Card>

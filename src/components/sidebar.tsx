@@ -12,7 +12,7 @@ import {
   SidebarSeparator,
 } from "@/components/ui/sidebar";
 import {
-  LayoutDashboard,
+  LayoutGrid,
   Calendar,
   Users,
   Briefcase,
@@ -23,49 +23,46 @@ import {
   LogOut,
   Bell,
   BarChart,
+  GitBranch,
+  Dot,
 } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Badge } from "./ui/badge";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
+import { Button } from "./ui/button";
 
 export function AppSidebar() {
   const userAvatar = PlaceHolderImages.find((img) => img.id === "user-avatar");
 
   return (
     <>
-      <SidebarHeader>
-        <div className="flex items-center gap-2">
-            <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-primary text-primary-foreground font-bold text-xl">
-                H
+      <SidebarHeader className="p-4">
+        <div className="flex items-center gap-3">
+            <div className="flex items-center justify-center w-10 h-10 rounded-full bg-primary text-primary-foreground font-bold text-xl">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="h-6 w-6">
+                <path d="M12.378 1.602a.75.75 0 00-.756 0L3.366 6.166A.75.75 0 003 6.821v10.358c0 .32.18.601.458.715l8.256 3.44c.252.105.548.105.8 0l8.256-3.44a.75.75 0 00.458-.715V6.822a.75.75 0 00-.366-.655L12.378 1.602zM12 15.195a.75.75 0 00.732-.563l1.241-4.344a.75.75 0 10-1.464-.418l-.83 2.905-.83-2.905a.75.75 0 00-1.464.418l1.24 4.344A.75.75 0 0012 15.195z" />
+              </svg>
             </div>
           <div className="flex flex-col">
-            <h2 className="text-lg font-semibold">HRsync</h2>
+            <h2 className="text-base font-semibold">HRsync</h2>
+            <p className="text-xs text-muted-foreground">HR Management</p>
           </div>
         </div>
       </SidebarHeader>
-      <SidebarContent className="p-2">
+      <SidebarContent className="p-4">
         <SidebarGroup>
-          <SidebarGroupLabel>MAIN</SidebarGroupLabel>
+          <SidebarGroupLabel className="px-0">MAIN</SidebarGroupLabel>
           <SidebarMenu>
             <SidebarMenuItem>
-              <SidebarMenuButton isActive>
-                <LayoutDashboard />
-                Dashboard
+              <SidebarMenuButton isActive className="justify-between">
+                <div className="flex items-center gap-2">
+                  <LayoutGrid />
+                  Dashboard
+                </div>
+                <ChevronRight className="h-4 w-4" />
               </SidebarMenuButton>
             </SidebarMenuItem>
             <SidebarMenuItem>
-              <SidebarMenuButton>
-                <Users />
-                Employees
-              </SidebarMenuButton>
-            </SidebarMenuItem>
-            <SidebarMenuItem>
-              <SidebarMenuButton>
-                <Briefcase />
-                Recruitment
-              </SidebarMenuButton>
-            </SidebarMenuItem>
-             <SidebarMenuItem>
               <SidebarMenuButton>
                 <Calendar />
                 Schedule
@@ -73,31 +70,75 @@ export function AppSidebar() {
             </SidebarMenuItem>
             <SidebarMenuItem>
               <SidebarMenuButton>
+                <Users />
+                Attendance
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+            <SidebarMenuItem>
+              <SidebarMenuButton>
+                <Briefcase />
+                Departments
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+             <SidebarMenuItem>
+              <SidebarMenuButton>
+                <GitBranch />
+                Integrations
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+            <SidebarMenuItem>
+              <SidebarMenuButton>
                 <BarChart />
-                Report
+                Reports
               </SidebarMenuButton>
             </SidebarMenuItem>
           </SidebarMenu>
         </SidebarGroup>
         <SidebarGroup>
-          <SidebarGroupLabel>OTHERS</SidebarGroupLabel>
+          <SidebarGroupLabel className="px-0">SHORTCUTS</SidebarGroupLabel>
           <SidebarMenu>
             <SidebarMenuItem>
-              <SidebarMenuButton>
-                 <HelpCircle />
-                Support
+              <SidebarMenuButton className="justify-between">
+                 <div className="flex items-center gap-2">
+                    <Dot className="text-green-500" /> New Hire Onboarding
+                 </div>
+                 <Badge variant="secondary" className="h-5">1</Badge>
               </SidebarMenuButton>
             </SidebarMenuItem>
+            <SidebarMenuItem>
+              <SidebarMenuButton className="justify-between">
+                <div className="flex items-center gap-2">
+                    <Dot className="text-red-500" /> Leave Requests
+                 </div>
+                 <Badge variant="secondary" className="h-5">2</Badge>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+            <SidebarMenuItem>
+              <SidebarMenuButton className="justify-between">
+                <div className="flex items-center gap-2">
+                    <Dot className="text-yellow-500" /> Performance Reviews
+                 </div>
+                 <Badge variant="secondary" className="h-5">3</Badge>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+          </SidebarMenu>
+        </SidebarGroup>
+      </SidebarContent>
+      <SidebarFooter className="p-4">
+         <SidebarMenu>
             <SidebarMenuItem>
               <SidebarMenuButton>
                 <Settings />
                 Settings
               </SidebarMenuButton>
             </SidebarMenuItem>
+            <SidebarMenuItem>
+              <SidebarMenuButton>
+                 <HelpCircle />
+                Help Center
+              </SidebarMenuButton>
+            </SidebarMenuItem>
           </SidebarMenu>
-        </SidebarGroup>
-      </SidebarContent>
-      <SidebarFooter className="p-2">
         <SidebarSeparator />
         <div className="flex items-center justify-between p-2">
           <div className="flex items-center gap-2">
@@ -106,11 +147,13 @@ export function AppSidebar() {
               <AvatarFallback>J</AvatarFallback>
             </Avatar>
             <div>
-              <p className="font-semibold">Juwita</p>
+              <p className="font-semibold text-sm">Juwita</p>
               <p className="text-xs text-muted-foreground">juvv@hr-mikom.com</p>
             </div>
           </div>
-          <LogOut className="h-4 w-4 text-muted-foreground" />
+          <Button variant="ghost" size="icon" className="h-8 w-8">
+            <ChevronRight className="h-4 w-4 text-muted-foreground" />
+          </Button>
         </div>
       </SidebarFooter>
     </>

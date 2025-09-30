@@ -5,48 +5,36 @@ import { AttendanceReport } from '@/components/dashboard/attendance-report';
 import { Tasks } from '@/components/dashboard/tasks';
 import { SchedulePanel } from '@/components/dashboard/schedule-panel';
 import { LeaveRequests } from '@/components/dashboard/leave-requests';
-import { StatsCard } from '@/components/dashboard/stats-card';
-import { attendance, leaveRequests, schedule, tasks, employees } from '@/lib/data';
-import { BarChart, Briefcase, Calendar, Check, TrendingUp, Users } from 'lucide-react';
+import { attendance, leaveRequests, schedule, tasks } from '@/lib/data';
+import { InternshipCard } from '@/components/dashboard/internship-card';
+
 
 export default function Home() {
-  const onLeave = employees.filter((e) => e.status === 'On Leave').length;
-  const totalEmployees = employees.length;
-  const activeInterns = 8;
-  const totalOnLeave = employees.filter(e => e.status === 'On Leave').length;
-  const newHires = 4;
-
-
   return (
     <SidebarProvider>
-      <Sidebar collapsible="icon" className="bg-card">
+      <Sidebar>
         <AppSidebar />
       </Sidebar>
-      <SidebarInset className="bg-background">
+      <SidebarInset>
         <div className="flex flex-col min-h-screen">
-          <header className="sticky top-0 z-10 flex items-center justify-between h-16 px-4 border-b bg-background sm:px-8">
+          <header className="sticky top-0 z-10 flex items-center h-20 px-4 border-b bg-background sm:px-8">
             <div className="flex items-center gap-2">
               <SidebarTrigger className="md:hidden" />
               <DashboardHeader />
             </div>
           </header>
           <main className="flex-1 p-4 sm:p-6 lg:p-8">
-            <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
-              <div className="lg:col-span-3 space-y-6">
-                 <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-                  <StatsCard title="Total Employees" value={totalEmployees} icon={Users} trend="12%" />
-                  <StatsCard title="On Leave" value={totalOnLeave} icon={Calendar} trend="3%" trendDown />
-                  <StatsCard title="Active Intern" value={activeInterns} icon={Briefcase} trend="8%" />
-                  <StatsCard title="New Hired" value={newHires} icon={TrendingUp} trend="10%" />
-                </div>
-                <div className="grid md:grid-cols-2 gap-6">
-                    <AttendanceReport attendance={attendance} />
-                    <Tasks tasks={tasks} />
-                </div>
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+              <div className="lg:col-span-1 flex flex-col gap-6">
+                <AttendanceReport attendance={attendance} />
                 <LeaveRequests leaveRequests={leaveRequests} />
               </div>
               <div className="lg:col-span-1">
+                <Tasks tasks={tasks} />
+              </div>
+              <div className="lg:col-span-1 flex flex-col gap-6">
                 <SchedulePanel schedule={schedule} />
+                <InternshipCard />
               </div>
             </div>
           </main>

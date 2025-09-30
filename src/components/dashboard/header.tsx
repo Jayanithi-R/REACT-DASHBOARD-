@@ -10,11 +10,17 @@ export function DashboardHeader() {
 
   return (
     <div className="flex items-center justify-between w-full">
-        <div>
-            <h1 className="text-2xl font-bold">Hello, Juwita!</h1>
-            <p className="text-muted-foreground">Welcome back and check your dashboard</p>
+        <div className="flex items-center gap-4">
+             <Avatar className="h-12 w-12">
+                <AvatarImage src={userAvatar?.imageUrl} alt="Juwita" data-ai-hint={userAvatar?.imageHint} />
+                <AvatarFallback>J</AvatarFallback>
+            </Avatar>
+            <div>
+                <h1 className="text-xl font-semibold">Juwita</h1>
+                <p className="text-sm text-muted-foreground">Welcome back to HRsync 👋</p>
+            </div>
         </div>
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-2">
         <Dialog>
           <DialogTrigger asChild>
             <Button variant="ghost" size="icon">
@@ -26,7 +32,7 @@ export function DashboardHeader() {
               <DialogTitle>Search</DialogTitle>
               <DialogDescription>
                 Search for employees, departments, and more.
-              </DialogDescription>
+              </Dialog-Description>
             </DialogHeader>
             <div className="relative">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
@@ -37,10 +43,13 @@ export function DashboardHeader() {
         <Button variant="ghost" size="icon">
             <Bell className="h-5 w-5" />
         </Button>
-        <Avatar className="h-10 w-10">
-          <AvatarImage src={userAvatar?.imageUrl} alt="Juwita" data-ai-hint={userAvatar?.imageHint} />
-          <AvatarFallback>J</AvatarFallback>
-        </Avatar>
+        <Button variant="ghost" className="hidden md:flex">
+          <Calendar className="h-4 w-4 mr-2"/>
+          Schedule
+        </Button>
+        <Button>
+          + Create Request
+        </Button>
       </div>
     </div>
   );
