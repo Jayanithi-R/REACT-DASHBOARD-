@@ -136,7 +136,7 @@ export function SchedulePanel({ schedule: initialSchedule }: SchedulePanelProps)
   }, [schedule, selectedDate]);
 
   return (
-    <Card>
+    <Card className="h-full">
       <CardHeader>
         <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
