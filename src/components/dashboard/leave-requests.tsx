@@ -111,7 +111,7 @@ export function LeaveRequests({ leaveRequests }: LeaveRequestsProps) {
                       <p className="text-sm text-muted-foreground">{request.dateRange}</p>
                   </TableCell>
                   <TableCell className="py-2">
-                    <Badge variant="outline" className={`capitalize flex items-center gap-1.5 font-normal ${getStatusClasses(request.status)}`}>
+                    <Badge variant="outline" className={`capitalize flex items-center gap-1.5 font-normal border-0 ${getStatusClasses(request.status)}`}>
                       <span className={`h-2 w-2 rounded-full ${getStatusDotClasses(request.status)}`}></span>
                       {request.status}
                     </Badge>

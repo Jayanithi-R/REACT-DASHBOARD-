@@ -7,6 +7,7 @@ import { Badge } from '@/components/ui/badge';
 import { Calendar, CheckSquare, MoreHorizontal, Plus } from 'lucide-react';
 import { Checkbox } from '../ui/checkbox';
 import { Separator } from '../ui/separator';
+import React from 'react';
 
 type TasksProps = {
   tasks: Task[];
@@ -16,6 +17,7 @@ export function Tasks({ tasks }: TasksProps) {
   const getTagColor = (tag: string) => {
     switch(tag.toLowerCase()) {
         case 'payroll': return 'text-orange-600 bg-orange-100 border-transparent';
+        case 'pending': return 'text-orange-600 bg-orange-100 border-transparent';
         case 'recruitment': return 'text-blue-600 bg-blue-100 border-transparent';
         case 'important': return 'text-red-600 bg-red-100 border-transparent';
         default: return 'bg-gray-100 text-gray-800';
@@ -35,11 +37,10 @@ export function Tasks({ tasks }: TasksProps) {
       </CardHeader>
       <CardContent className="space-y-0 pt-4 px-0">
         {tasks.map((task, index) => (
-          <div key={task.id}>
+          <React.Fragment key={task.id}>
             <div  className="flex items-start gap-3 p-4">
-              <Checkbox id={`task-${task.id}`} className="mt-1" checked={task.status === 'Completed'} />
-              <div className="flex-1">
-                  <label htmlFor={`task-${task.id}`} className="font-medium text-sm">{task.title}</label>
+              <div className="flex-1 space-y-2">
+                  <p className="font-medium text-sm">{task.title}</p>
                   <p className="text-xs text-muted-foreground">{task.description}</p>
                    <div className="flex items-center justify-between mt-2">
                       <div>
@@ -51,12 +52,9 @@ export function Tasks({ tasks }: TasksProps) {
                       </div>
                   </div>
               </div>
-               <Button variant="ghost" size="icon" className="w-8 h-8 -mr-2">
-                <MoreHorizontal className="h-4 w-4" />
-              </Button>
             </div>
             {index < tasks.length - 1 && <Separator />}
-          </div>
+          </React.Fragment>
         ))}
       </CardContent>
     </Card>

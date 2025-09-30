@@ -86,7 +86,7 @@ export const schedule: ScheduleItem[] = [
     team: 'Company-wide',
   },
   { 
-    id: 'm0', 
+    id: 'm0',
     title: 'Daily Standup', 
     type: 'Meeting', 
     time: '9:00 - 9:30 AM', 
@@ -229,7 +229,7 @@ export const attendance: Attendance = {
 };
 
 export const tasks: Task[] = [
-    { id: 't1', title: 'Update Payroll Records', description: 'Verify salary adjustments and overtime', status: 'Pending', tag: 'Payroll', date: 'Today' },
+    { id: 't1', title: 'Update Payroll Records', description: 'Verify salary adjustments and overtime', status: 'Pending', tag: 'Pending', date: 'Today' },
     { id: 't2', title: 'Interview with Sarah Lee', description: 'Conduct candidate interview for Marketin...', status: 'Completed', tag: 'Recruitment', date: 'Today' },
     { id: 't3', title: 'Review Leave Applications', description: 'Check pending leave requests and approv...', status: 'Pending', tag: 'Important', date: 'Yesterday' },
 ];
