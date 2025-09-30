@@ -10,6 +10,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 import { Calendar as CalendarIcon, ChevronLeft, ChevronRight, Clock, Filter, Search, ArrowRight } from 'lucide-react';
 import { Badge } from '../ui/badge';
 import { format, addDays, subDays, startOfWeek, isSameDay } from 'date-fns';
+import { ToggleGroup, ToggleGroupItem } from '../ui/toggle-group';
 
 type SchedulePanelProps = {
   schedule: ScheduleItem[];
@@ -34,11 +35,11 @@ const WeekCalendar = ({ selectedDate, onSelectDate }: { selectedDate: Date, onSe
     return (
         <div className="rounded-xl border">
             <div className="flex items-center justify-between p-3">
+                <Button variant="ghost" size="icon" className="h-7 w-7" onClick={handlePrevWeek}>
+                    <ChevronLeft className="h-4 w-4" />
+                </Button>
                 <h3 className="text-sm font-semibold">{format(currentDate, 'MMMM yyyy')}</h3>
                 <div className="flex items-center gap-1">
-                    <Button variant="ghost" size="icon" className="h-7 w-7" onClick={handlePrevWeek}>
-                        <ChevronLeft className="h-4 w-4" />
-                    </Button>
                     <Button variant="ghost" size="icon" className="h-7 w-7" onClick={handleNextWeek}>
                         <ChevronRight className="h-4 w-4" />
                     </Button>
@@ -77,7 +78,6 @@ const ScheduleList = ({ title, items }: { title: string, items: ScheduleItem[] }
 
     return (
         <div className="space-y-3">
-            <h3 className="text-sm font-semibold text-muted-foreground">{title}</h3>
             {items.map((item) => (
                 <Card key={item.id} className="p-0 rounded-lg bg-secondary/30">
                     <Accordion type="single" collapsible>
@@ -123,6 +123,8 @@ const ScheduleList = ({ title, items }: { title: string, items: ScheduleItem[] }
 export function SchedulePanel({ schedule: initialSchedule }: SchedulePanelProps) {
   const [selectedDate, setSelectedDate] = useState<Date>(new Date('2025-10-13'));
   const [schedule, setSchedule] = useState(initialSchedule);
+  const [activeTab, setActiveTab] = useState<'meetings' | 'events'>('meetings');
+
 
   const { meetings, events } = useMemo(() => {
     const dateString = selectedDate.toISOString().split('T')[0];
@@ -157,10 +159,15 @@ export function SchedulePanel({ schedule: initialSchedule }: SchedulePanelProps)
                 <Filter className="h-4 w-4" />
             </Button>
         </div>
+
+        <ToggleGroup type="single" value={activeTab} onValueChange={(value) => setActiveTab(value as 'meetings' | 'events')} className="w-full">
+            <ToggleGroupItem value="meetings" className="w-full" aria-label="Toggle meetings">Meetings</ToggleGroupItem>
+            <ToggleGroupItem value="events" className="w-full" aria-label="Toggle events">Events</ToggleGroupItem>
+        </ToggleGroup>
         
         <div className="w-full space-y-4">
-            <ScheduleList title="Meetings" items={meetings} />
-            <ScheduleList title="Events" items={events} />
+           {activeTab === 'meetings' && <ScheduleList title="Meetings" items={meetings} />}
+           {activeTab === 'events' && <ScheduleList title="Events" items={events} />}
         </div>
         
       </CardContent>
