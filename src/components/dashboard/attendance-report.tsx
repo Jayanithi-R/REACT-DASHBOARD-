@@ -28,7 +28,8 @@ export function AttendanceReport({ attendance }: AttendanceReportProps) {
             <Users2 className="h-5 w-5 text-muted-foreground" />
             <CardTitle className="text-base font-semibold">Attendance Report</CardTitle>
         </div>
-        <Button variant="outline" size="icon" className="h-8 w-8 rounded-full">
+        <Button variant="outline" size="sm" className="h-8 rounded-full">
+            See All
           <ChevronRight className="h-4 w-4" />
         </Button>
       </CardHeader>
