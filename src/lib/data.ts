@@ -1,3 +1,4 @@
+
 import type { Employee, ScheduleItem, Attendance, Task, LeaveRequest } from './types';
 import { PlaceHolderImages } from './placeholder-images';
 
@@ -38,7 +39,7 @@ export const schedule: ScheduleItem[] = [
     title: 'Product Strategy Meeting', 
     type: 'Meeting', 
     time: '9:00 - 9:45 AM', 
-    date: getRelativeDate(0), // Monday
+    date: getRelativeDate(0), // Monday, Oct 13
     attendees: ['Anjali', 'Raj', 'Amit'], 
     description: 'Weekly product strategy sync.',
     avatars: [
@@ -56,7 +57,7 @@ export const schedule: ScheduleItem[] = [
     title: 'Design Review', 
     type: 'Meeting', 
     time: '11:00 - 12:00 PM', 
-    date: getRelativeDate(0), // Monday
+    date: getRelativeDate(0), // Monday, Oct 13
     attendees: ['Anjali', 'Priya', 'Amit'], 
     description: 'Discussing the new UI components.',
     avatars: [
@@ -71,7 +72,7 @@ export const schedule: ScheduleItem[] = [
     title: 'Company Town Hall',
     type: 'Event',
     time: '4:00 PM - 5:00 PM',
-    date: getRelativeDate(0), // Monday
+    date: getRelativeDate(0), // Monday, Oct 13
     description: 'All-hands meeting with the CEO.',
     avatars: [
       { src: getImageUrl('emp1'), alt: 'Anjali Sharma', fallback: 'AS' },
@@ -89,7 +90,7 @@ export const schedule: ScheduleItem[] = [
     title: 'Daily Standup', 
     type: 'Meeting', 
     time: '9:00 - 9:30 AM', 
-    date: getRelativeDate(1), // Tuesday
+    date: getRelativeDate(1), // Tuesday, Oct 14
     description: 'Daily sync up for the project team.',
     avatars: [
       { src: getImageUrl('emp1'), alt: 'Anjali Sharma', fallback: 'AS' },
@@ -97,12 +98,26 @@ export const schedule: ScheduleItem[] = [
     ],
     team: 'Engineering',
   },
+  {
+    id: 'e-tues',
+    title: 'Tech Talk Tuesday',
+    type: 'Event',
+    time: '3:00 PM - 4:00 PM',
+    date: getRelativeDate(1), // Tuesday, Oct 14
+    description: 'A talk on the future of AI in HR.',
+    avatars: [
+        { src: getImageUrl('emp7'), alt: 'Kavita Iyer', fallback: 'KI' },
+        { src: getImageUrl('emp8'), alt: 'Arjun Mehta', fallback: 'AM' },
+    ],
+    team: 'Tech',
+    location: 'Virtual'
+  },
     { 
     id: 'm3', 
     title: 'Backend Architecture', 
     type: 'Meeting', 
     time: '2:00 - 3:30 PM', 
-    date: getRelativeDate(2), // Wednesday
+    date: getRelativeDate(2), // Wednesday, Oct 15
     attendees: ['Raj', 'Vikram'], 
     description: 'Session on new microservices.',
     avatars: [
@@ -117,7 +132,7 @@ export const schedule: ScheduleItem[] = [
     title: 'Sprint Planning',
     type: 'Meeting',
     time: '10:00 AM - 11:30 AM',
-    date: getRelativeDate(2), // Wednesday
+    date: getRelativeDate(2), // Wednesday, Oct 15
     description: 'Planning for the next sprint.',
     avatars: [
         { src: getImageUrl('emp4'), alt: 'Amit Kumar', fallback: 'AK' },
@@ -133,7 +148,7 @@ export const schedule: ScheduleItem[] = [
     title: 'Project Phoenix Kickoff',
     type: 'Event',
     time: '10:00 AM - 11:00 AM',
-    date: getRelativeDate(3), // Thursday
+    date: getRelativeDate(3), // Thursday, Oct 16
     description: 'Kickoff meeting for the new project "Phoenix".',
      avatars: [
       { src: getImageUrl('emp1'), alt: 'Anjali Sharma', fallback: 'AS' },
@@ -143,12 +158,25 @@ export const schedule: ScheduleItem[] = [
     location: 'Conference Room 3',
     team: 'Project Phoenix',
   },
+   { 
+    id: 'm-thurs', 
+    title: '1-on-1: Anjali & Amit', 
+    type: 'Meeting', 
+    time: '1:30 PM - 2:00 PM', 
+    date: getRelativeDate(3), // Thursday, Oct 16
+    description: 'Weekly 1-on-1 meeting.',
+    avatars: [
+      { src: getImageUrl('emp1'), alt: 'Anjali Sharma', fallback: 'AS' },
+      { src: getImageUrl('emp4'), alt: 'Amit Kumar', fallback: 'AK' },
+    ],
+    team: 'Management',
+  },
     {
     id: 'e3',
     title: 'Team Lunch',
     type: 'Event',
     time: '1:00 PM - 2:00 PM',
-    date: getRelativeDate(4), // Friday
+    date: getRelativeDate(4), // Friday, Oct 17
     description: 'Weekly team lunch.',
      avatars: [
       { src: getImageUrl('emp1'), alt: 'Anjali Sharma', fallback: 'AS' },
@@ -164,7 +192,7 @@ export const schedule: ScheduleItem[] = [
     title: 'Yoga Session',
     type: 'Event',
     time: '8:00 AM - 9:00 AM',
-    date: getRelativeDate(4), // Friday
+    date: getRelativeDate(4), // Friday, Oct 17
     description: 'Morning yoga session for wellness.',
     avatars: [
         { src: getImageUrl('emp7'), alt: 'Kavita Iyer', fallback: 'KI' },
@@ -178,7 +206,7 @@ export const schedule: ScheduleItem[] = [
     title: 'Marketing Sync', 
     type: 'Meeting', 
     time: '11:00 AM - 12:00 PM', 
-    date: getRelativeDate(4), // Friday
+    date: getRelativeDate(4), // Friday, Oct 17
     description: 'Weekly marketing team sync-up.',
     avatars: [
       { src: getImageUrl('emp18'), alt: 'Kim Mosciski', fallback: 'KM' },
@@ -214,5 +242,3 @@ export const leaveRequests: LeaveRequest[] = [
     { id: 'lr5', employee: { name: 'Margarita Wilderman', role: 'Product Web Officer', avatar: getImageUrl('emp17')}, leaveType: 'Annual Leave', dateRange: 'June 04 - June 28', status: 'Approved' },
     { id: 'lr6', employee: { name: 'Kim Mosciski', role: 'Future Marketing Strategist', avatar: getImageUrl('emp18') }, leaveType: 'Annual Leave', dateRange: 'June 04 - June 28', status: 'Approved' },
 ];
-
-
