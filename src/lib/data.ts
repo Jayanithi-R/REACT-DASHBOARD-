@@ -68,6 +68,39 @@ export const schedule: ScheduleItem[] = [
     location: 'On Slack',
     team: 'Operations Team',
   },
+  {
+    id: 'e1',
+    title: 'Town Hall',
+    type: 'Event',
+    time: '1:00 PM - 2:00 PM',
+    date: getRelativeDate(0),
+    description: 'All-hands meeting with the CEO.',
+    avatars: [
+      { src: getImageUrl('emp1'), alt: 'Anjali Sharma', fallback: 'AS' },
+      { src: getImageUrl('emp2'), alt: 'Raj Patel', fallback: 'RP' },
+      { src: getImageUrl('emp3'), alt: 'Priya Singh', fallback: 'PS' },
+      { src: getImageUrl('emp4'), alt: 'Amit Kumar', fallback: 'AK' },
+      { src: getImageUrl('emp5'), alt: 'Sunita Devi', fallback: 'SD' },
+      { src: getImageUrl('emp6'), alt: 'Vikram Rathore', fallback: 'VR' },
+    ],
+    location: 'Auditorium',
+    team: 'Company-wide',
+  },
+  {
+    id: 'e2',
+    title: 'Project Kickoff',
+    type: 'Event',
+    time: '3:00 PM - 4:00 PM',
+    date: getRelativeDate(1),
+    description: 'Kickoff meeting for the new project "Phoenix".',
+     avatars: [
+      { src: getImageUrl('emp1'), alt: 'Anjali Sharma', fallback: 'AS' },
+      { src: getImageUrl('emp2'), alt: 'Raj Patel', fallback: 'RP' },
+      { src: getImageUrl('emp4'), alt: 'Amit Kumar', fallback: 'AK' },
+    ],
+    location: 'Conference Room 3',
+    team: 'Project Phoenix',
+  },
 ];
 
 export const attendance: Attendance = {

@@ -60,10 +60,7 @@ export function SchedulePanel({ schedule }: SchedulePanelProps) {
             <ScheduleAccordion items={filteredMeetings} emptyMessage="No meetings scheduled for this day." />
         </TabsContent>
         <TabsContent value="events" className="mt-4">
-            <div className="flex flex-col items-center justify-center text-center p-8 border-dashed border-2 rounded-lg mt-4 bg-card">
-                <CalendarIcon className="w-10 h-10 text-muted-foreground mb-4" />
-                <p className="text-sm text-muted-foreground">No events scheduled for this day.</p>
-            </div>
+            <ScheduleAccordion items={filteredEvents} emptyMessage="No events scheduled for this day." />
         </TabsContent>
       </Tabs>
       <InternshipCard />
