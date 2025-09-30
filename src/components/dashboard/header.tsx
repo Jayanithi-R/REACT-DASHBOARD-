@@ -1,37 +1,34 @@
-import { Search } from 'lucide-react';
-import { Input } from '@/components/ui/input';
+import { Bell, Calendar, Search } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 
-type DashboardHeaderProps = {
-  searchQuery: string;
-  setSearchQuery: (query: string) => void;
-};
-
-export function DashboardHeader({ searchQuery, setSearchQuery }: DashboardHeaderProps) {
+export function DashboardHeader() {
   const userAvatar = PlaceHolderImages.find(img => img.id === 'user-avatar');
 
   return (
-    <header className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-8 gap-4">
-      <h1 className="text-3xl font-bold tracking-tight text-foreground">
-        HRSync
-      </h1>
-      <div className="flex items-center gap-4 w-full sm:w-auto">
-        <div className="relative w-full sm:w-64">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-          <Input
-            type="search"
-            placeholder="Search employees..."
-            className="pl-10 bg-card"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-          />
+    <div className="flex items-center justify-between w-full">
+        <div>
+            <h1 className="text-2xl font-bold">Juwita</h1>
+            <p className="text-muted-foreground">Welcome back to HRsync 👋</p>
         </div>
-        <Avatar>
-          <AvatarImage src={userAvatar?.imageUrl} alt="User" data-ai-hint={userAvatar?.imageHint} />
-          <AvatarFallback>U</AvatarFallback>
+      <div className="flex items-center gap-4">
+        <Button variant="ghost" size="icon">
+            <Search className="h-5 w-5" />
+        </Button>
+        <Button variant="ghost" size="icon">
+            <Bell className="h-5 w-5" />
+        </Button>
+        <Button variant="outline">
+            <Calendar className="mr-2 h-4 w-4" />
+            Schedule
+        </Button>
+        <Button>+ Create Request</Button>
+        <Avatar className="h-10 w-10">
+          <AvatarImage src={userAvatar?.imageUrl} alt="Juwita" data-ai-hint={userAvatar?.imageHint} />
+          <AvatarFallback>J</AvatarFallback>
         </Avatar>
       </div>
-    </header>
+    </div>
   );
 }
