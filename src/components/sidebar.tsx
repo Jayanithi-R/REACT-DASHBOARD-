@@ -51,7 +51,7 @@ export function AppSidebar() {
       </SidebarHeader>
       <SidebarContent className="p-4">
         <SidebarGroup>
-          <SidebarGroupLabel className="px-0">MAIN</SidebarGroupLabel>
+          <SidebarGroupLabel className="px-2">MAIN</SidebarGroupLabel>
           <SidebarMenu>
             <SidebarMenuItem>
               <SidebarMenuButton isActive className="justify-between">
@@ -95,7 +95,7 @@ export function AppSidebar() {
           </SidebarMenu>
         </SidebarGroup>
         <SidebarGroup>
-          <SidebarGroupLabel className="px-0">SHORTCUTS</SidebarGroupLabel>
+          <SidebarGroupLabel className="px-2">SHORTCUTS</SidebarGroupLabel>
           <SidebarMenu>
             <SidebarMenuItem>
               <SidebarMenuButton className="justify-between">
