@@ -33,20 +33,7 @@ export const employees: Employee[] = [
 ];
 
 export const schedule: ScheduleItem[] = [
-  { 
-    id: 'm0', 
-    title: 'Daily Standup', 
-    type: 'Meeting', 
-    time: '9:00 - 9:30 AM', 
-    date: getRelativeDate(1), // Tuesday
-    description: 'Daily sync up for the project team.',
-    avatars: [
-      { src: getImageUrl('emp1'), alt: 'Anjali Sharma', fallback: 'AS' },
-      { src: getImageUrl('emp2'), alt: 'Raj Patel', fallback: 'RP' },
-    ],
-    team: 'Engineering',
-  },
-  { 
+    { 
     id: 'm1', 
     title: 'Product Strategy Meeting', 
     type: 'Meeting', 
@@ -79,21 +66,6 @@ export const schedule: ScheduleItem[] = [
     location: 'Figma',
     team: 'Design Team',
   },
-    { 
-    id: 'm3', 
-    title: 'Backend Architecture', 
-    type: 'Meeting', 
-    time: '2:00 - 3:30 PM', 
-    date: getRelativeDate(2), // Wednesday
-    attendees: ['Raj', 'Vikram'], 
-    description: 'Session on new microservices.',
-    avatars: [
-      { src: getImageUrl('emp2'), alt: 'Raj Patel', fallback: 'RP' },
-      { src: getImageUrl('emp6'), alt: 'Vikram Rathore', fallback: 'VR' },
-    ],
-    location: 'Conference Room 2',
-    team: 'Backend',
-  },
   {
     id: 'e1',
     title: 'Company Town Hall',
@@ -111,6 +83,50 @@ export const schedule: ScheduleItem[] = [
     ],
     location: 'Auditorium',
     team: 'Company-wide',
+  },
+  { 
+    id: 'm0', 
+    title: 'Daily Standup', 
+    type: 'Meeting', 
+    time: '9:00 - 9:30 AM', 
+    date: getRelativeDate(1), // Tuesday
+    description: 'Daily sync up for the project team.',
+    avatars: [
+      { src: getImageUrl('emp1'), alt: 'Anjali Sharma', fallback: 'AS' },
+      { src: getImageUrl('emp2'), alt: 'Raj Patel', fallback: 'RP' },
+    ],
+    team: 'Engineering',
+  },
+    { 
+    id: 'm3', 
+    title: 'Backend Architecture', 
+    type: 'Meeting', 
+    time: '2:00 - 3:30 PM', 
+    date: getRelativeDate(2), // Wednesday
+    attendees: ['Raj', 'Vikram'], 
+    description: 'Session on new microservices.',
+    avatars: [
+      { src: getImageUrl('emp2'), alt: 'Raj Patel', fallback: 'RP' },
+      { src: getImageUrl('emp6'), alt: 'Vikram Rathore', fallback: 'VR' },
+    ],
+    location: 'Conference Room 2',
+    team: 'Backend',
+  },
+  { 
+    id: 'm4',
+    title: 'Sprint Planning',
+    type: 'Meeting',
+    time: '10:00 AM - 11:30 AM',
+    date: getRelativeDate(2), // Wednesday
+    description: 'Planning for the next sprint.',
+    avatars: [
+        { src: getImageUrl('emp4'), alt: 'Amit Kumar', fallback: 'AK' },
+        { src: getImageUrl('emp1'), alt: 'Anjali Sharma', fallback: 'AS' },
+        { src: getImageUrl('emp2'), alt: 'Raj Patel', fallback: 'RP' },
+        { src: getImageUrl('emp3'), alt: 'Priya Singh', fallback: 'PS' },
+    ],
+    team: 'Agile Team',
+    location: 'Conference Room 1'
   },
   {
     id: 'e2',
@@ -143,6 +159,34 @@ export const schedule: ScheduleItem[] = [
     location: 'Local Restaurant',
     team: 'Engineering',
   },
+  {
+    id: 'e4',
+    title: 'Yoga Session',
+    type: 'Event',
+    time: '8:00 AM - 9:00 AM',
+    date: getRelativeDate(4), // Friday
+    description: 'Morning yoga session for wellness.',
+    avatars: [
+        { src: getImageUrl('emp7'), alt: 'Kavita Iyer', fallback: 'KI' },
+        { src: getImageUrl('emp5'), alt: 'Sunita Devi', fallback: 'SD' },
+    ],
+    team: 'Wellness',
+    location: 'Recreation Room'
+  },
+   { 
+    id: 'm5', 
+    title: 'Marketing Sync', 
+    type: 'Meeting', 
+    time: '11:00 AM - 12:00 PM', 
+    date: getRelativeDate(4), // Friday
+    description: 'Weekly marketing team sync-up.',
+    avatars: [
+      { src: getImageUrl('emp18'), alt: 'Kim Mosciski', fallback: 'KM' },
+      { src: getImageUrl('emp17'), alt: 'Margarita Wilderman', fallback: 'MW' },
+    ],
+    location: 'Marketing Floor',
+    team: 'Marketing',
+  },
 ];
 
 export const attendance: Attendance = {
@@ -170,4 +214,5 @@ export const leaveRequests: LeaveRequest[] = [
     { id: 'lr5', employee: { name: 'Margarita Wilderman', role: 'Product Web Officer', avatar: getImageUrl('emp17')}, leaveType: 'Annual Leave', dateRange: 'June 04 - June 28', status: 'Approved' },
     { id: 'lr6', employee: { name: 'Kim Mosciski', role: 'Future Marketing Strategist', avatar: getImageUrl('emp18') }, leaveType: 'Annual Leave', dateRange: 'June 04 - June 28', status: 'Approved' },
 ];
+
 
