@@ -7,9 +7,8 @@ import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '../ui/accordion';
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
-import { Calendar as CalendarIcon, ChevronLeft, ChevronRight, Clock, Filter, Search } from 'lucide-react';
+import { Calendar as CalendarIcon, ChevronLeft, ChevronRight, Clock, Filter, Search, ArrowRight } from 'lucide-react';
 import { Badge } from '../ui/badge';
-import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { format, addDays, subDays, startOfWeek, isSameDay } from 'date-fns';
 
 type SchedulePanelProps = {
@@ -66,61 +65,21 @@ const WeekCalendar = ({ selectedDate, onSelectDate }: { selectedDate: Date, onSe
     )
 }
 
-export function SchedulePanel({ schedule: initialSchedule }: SchedulePanelProps) {
-  const [selectedDate, setSelectedDate] = useState<Date>(new Date('2025-10-13'));
-  const [schedule, setSchedule] = useState(initialSchedule);
-  const [view, setView] = useState('meetings');
-
-  const filteredItems = useMemo(() => {
-    const dateString = selectedDate.toISOString().split('T')[0];
-    const itemsForDate = schedule.filter((item) => item.date === dateString);
-    if (view === 'meetings') {
-        return itemsForDate.filter(item => item.type === 'Meeting');
-    }
-    if (view === 'events') {
-        return itemsForDate.filter(item => item.type === 'Event');
-    }
-    return itemsForDate;
-  }, [schedule, selectedDate, view]);
-
-  return (
-    <Card>
-      <CardHeader>
-        <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-                <CalendarIcon className="h-5 w-5 text-muted-foreground" />
-                <CardTitle className="text-base font-semibold">Schedule</CardTitle>
+const ScheduleList = ({ title, items }: { title: string, items: ScheduleItem[] }) => {
+    if (items.length === 0) {
+        return (
+             <div className="flex flex-col items-center justify-center text-center p-8 border-dashed border-2 rounded-lg mt-4 bg-card">
+                <CalendarIcon className="w-10 h-10 text-muted-foreground mb-4" />
+                <p className="text-sm text-muted-foreground">No {title} for this day.</p>
             </div>
-            <Button variant="outline" size="sm" className="h-8 rounded-full">
-              See All
-              <ChevronRight className="h-4 w-4" />
-            </Button>
-        </div>
-      </CardHeader>
-      <CardContent className="space-y-4">
-        <WeekCalendar selectedDate={selectedDate} onSelectDate={setSelectedDate} />
+        )
+    }
 
-        <div className="relative">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-            <Input placeholder="Search..." className="pl-9 h-9 rounded-lg bg-secondary" />
-             <Button variant="ghost" size="icon" className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7">
-                <Filter className="h-4 w-4" />
-            </Button>
-        </div>
-        <ToggleGroup type="single" value={view} onValueChange={(value) => value && setView(value)} className="w-full grid grid-cols-2 gap-2">
-          <ToggleGroupItem value="meetings" aria-label="Meetings" className="w-full data-[state=on]:bg-primary data-[state=on]:text-primary-foreground flex items-center gap-2 rounded-md h-9">
-            <CalendarIcon className="h-4 w-4" />
-            Meetings
-          </ToggleGroupItem>
-          <ToggleGroupItem value="events" aria-label="Events" className="w-full data-[state=on]:bg-primary data-[state=on]:text-primary-foreground flex items-center gap-2 rounded-md h-9">
-             <CalendarIcon className="h-4 w-4" />
-            Events
-          </ToggleGroupItem>
-        </ToggleGroup>
-
-        <div className="w-full space-y-2">
-            {filteredItems.map((item) => (
-                 <Card key={item.id} className="p-0 rounded-lg">
+    return (
+        <div className="space-y-3">
+            <h3 className="text-sm font-semibold text-muted-foreground">{title}</h3>
+            {items.map((item) => (
+                <Card key={item.id} className="p-0 rounded-lg bg-secondary/30">
                     <Accordion type="single" collapsible>
                         <AccordionItem value={`item-${item.id}`} className="border-none">
                             <AccordionTrigger className="p-3 text-sm font-semibold hover:no-underline rounded-lg data-[state=open]:bg-slate-50">
@@ -158,12 +117,52 @@ export function SchedulePanel({ schedule: initialSchedule }: SchedulePanelProps)
                 </Card>
             ))}
         </div>
-        {filteredItems.length === 0 && (
-            <div className="flex flex-col items-center justify-center text-center p-8 border-dashed border-2 rounded-lg mt-4 bg-card">
-                <CalendarIcon className="w-10 h-10 text-muted-foreground mb-4" />
-                <p className="text-sm text-muted-foreground">No {view === 'meetings' ? 'Meetings' : 'Events'} for this day.</p>
+    )
+}
+
+export function SchedulePanel({ schedule: initialSchedule }: SchedulePanelProps) {
+  const [selectedDate, setSelectedDate] = useState<Date>(new Date('2025-10-13'));
+  const [schedule, setSchedule] = useState(initialSchedule);
+
+  const { meetings, events } = useMemo(() => {
+    const dateString = selectedDate.toISOString().split('T')[0];
+    const itemsForDate = schedule.filter((item) => item.date === dateString);
+    return {
+        meetings: itemsForDate.filter(item => item.type === 'Meeting'),
+        events: itemsForDate.filter(item => item.type === 'Event')
+    };
+  }, [schedule, selectedDate]);
+
+  return (
+    <Card>
+      <CardHeader>
+        <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+                <CalendarIcon className="h-5 w-5 text-muted-foreground" />
+                <CardTitle className="text-base font-semibold">Schedule</CardTitle>
             </div>
-        )}
+            <Button variant="ghost" size="sm" className="h-8 rounded-full flex items-center gap-1">
+              See All
+              <ArrowRight className="h-4 w-4" />
+            </Button>
+        </div>
+      </CardHeader>
+      <CardContent className="space-y-4">
+        <WeekCalendar selectedDate={selectedDate} onSelectDate={setSelectedDate} />
+
+        <div className="relative">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+            <Input placeholder="Search..." className="pl-9 h-9 rounded-lg bg-secondary" />
+             <Button variant="ghost" size="icon" className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7">
+                <Filter className="h-4 w-4" />
+            </Button>
+        </div>
+        
+        <div className="w-full space-y-4">
+            <ScheduleList title="Meetings" items={meetings} />
+            <ScheduleList title="Events" items={events} />
+        </div>
+        
       </CardContent>
     </Card>
   );
