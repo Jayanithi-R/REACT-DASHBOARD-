@@ -9,17 +9,17 @@ export function DashboardHeader() {
   const userAvatar = PlaceHolderImages.find(img => img.id === 'user-avatar');
 
   return (
-    <div className="flex items-center justify-between w-full">
-        <div className="flex items-center gap-4">
-             <Avatar className="h-12 w-12">
-                <AvatarImage src={userAvatar?.imageUrl} alt="Juwita" data-ai-hint={userAvatar?.imageHint} />
-                <AvatarFallback>J</AvatarFallback>
-            </Avatar>
-            <div>
-                <h1 className="text-xl font-semibold">Juwita</h1>
-                <p className="text-sm text-muted-foreground">Welcome back to HRsync 👋</p>
-            </div>
-        </div>
+    <>
+      <div className="flex items-center gap-4">
+           <Avatar className="h-12 w-12">
+              <AvatarImage src={userAvatar?.imageUrl} alt="Juwita" data-ai-hint={userAvatar?.imageHint} />
+              <AvatarFallback>J</AvatarFallback>
+          </Avatar>
+          <div>
+              <h1 className="text-xl font-semibold">Juwita</h1>
+              <p className="text-sm text-muted-foreground">Welcome back to HRsync 👋</p>
+          </div>
+      </div>
       <div className="flex items-center gap-2">
         <Dialog>
           <DialogTrigger asChild>
@@ -32,7 +32,7 @@ export function DashboardHeader() {
               <DialogTitle>Search</DialogTitle>
               <DialogDescription>
                 Search for employees, departments, and more.
-              </Dialog-Description>
+              </DialogDescription>
             </DialogHeader>
             <div className="relative">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
@@ -51,6 +51,6 @@ export function DashboardHeader() {
           + Create Request
         </Button>
       </div>
-    </div>
+    </>
   );
 }
