@@ -55,7 +55,7 @@ export function DashboardHeader() {
           </Button>
           <Button className="h-9">
             <Plus className="h-4 w-4 sm:mr-2" />
-            <span className="hidden sm:inline">Add Request</span>
+            <span className="hidden sm:inline">Create Request</span>
           </Button>
         </div>
     </div>
