@@ -40,10 +40,8 @@ export default function Home() {
               </div>
               <div className="flex flex-col gap-6">
                 <SchedulePanel schedule={schedule} />
-              </div>
-            </div>
-             <div className="mt-6">
                 <InternshipCard />
+              </div>
             </div>
           </main>
         </div>
