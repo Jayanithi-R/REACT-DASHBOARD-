@@ -7,10 +7,9 @@ import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '../ui/accordion';
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
-import { Calendar as CalendarIcon, ChevronLeft, ChevronRight, Clock, Filter, Search, ArrowRight, Briefcase, Ticket } from 'lucide-react';
+import { Calendar as CalendarIcon, ChevronLeft, ChevronRight, Clock, Filter, Search, ArrowRight } from 'lucide-react';
 import { Badge } from '../ui/badge';
 import { format, addDays, subDays, startOfWeek, isSameDay } from 'date-fns';
-import { ToggleGroup, ToggleGroupItem } from '../ui/toggle-group';
 
 type SchedulePanelProps = {
   schedule: ScheduleItem[];
@@ -71,7 +70,7 @@ const ScheduleList = ({ title, items }: { title: string, items: ScheduleItem[] }
         return (
              <div className="flex flex-col items-center justify-center text-center p-8 border-dashed border-2 rounded-lg mt-4 bg-card">
                 <CalendarIcon className="w-10 h-10 text-muted-foreground mb-4" />
-                <p className="text-sm text-muted-foreground">No {title} for this day.</p>
+                <p className="text-sm text-muted-foreground">No {title.toLowerCase()} for this day.</p>
             </div>
         )
     }
@@ -103,7 +102,7 @@ const ScheduleList = ({ title, items }: { title: string, items: ScheduleItem[] }
                                             ))}
                                             {item.avatars && item.avatars.length > 3 && <Avatar className="inline-block h-8 w-8 rounded-full ring-2 ring-background bg-muted text-muted-foreground text-xs items-center justify-center flex">+{item.avatars.length - 3}</Avatar>}
                                         </div>
-                                        <Badge variant="outline" className="font-normal text-primary border-primary/20 bg-primary/10">{item.team}</Badge>
+                                        {item.team && <Badge variant="outline" className="font-normal text-primary border-primary/20 bg-primary/10">{item.team}</Badge>}
                                     </div>
                                 </div>
                             </AccordionContent>
@@ -118,8 +117,6 @@ const ScheduleList = ({ title, items }: { title: string, items: ScheduleItem[] }
 export function SchedulePanel({ schedule: initialSchedule }: SchedulePanelProps) {
   const [selectedDate, setSelectedDate] = useState<Date>(new Date('2025-10-13'));
   const [schedule, setSchedule] = useState(initialSchedule);
-  const [activeTab, setActiveTab] = useState<'meetings' | 'events'>('meetings');
-
 
   const { meetings, events } = useMemo(() => {
     const dateString = selectedDate.toISOString().split('T')[0];
@@ -155,20 +152,15 @@ export function SchedulePanel({ schedule: initialSchedule }: SchedulePanelProps)
             </Button>
         </div>
 
-        <ToggleGroup type="single" value={activeTab} onValueChange={(value) => setActiveTab(value as 'meetings' | 'events')} className="w-full">
-            <ToggleGroupItem value="meetings" className="w-full flex items-center gap-2" aria-label="Toggle meetings">
-              <Briefcase className="h-4 w-4" />
-              Meetings
-            </ToggleGroupItem>
-            <ToggleGroupItem value="events" className="w-full flex items-center gap-2" aria-label="Toggle events">
-              <Ticket className="h-4 w-4" />
-              Events
-            </ToggleGroupItem>
-        </ToggleGroup>
-        
         <div className="w-full space-y-4">
-           {activeTab === 'meetings' && <ScheduleList title="Meetings" items={meetings} />}
-           {activeTab === 'events' && <ScheduleList title="Events" items={events} />}
+          <div>
+            <h3 className="text-sm font-semibold mb-2">Upcoming Meetings</h3>
+            <ScheduleList title="Meetings" items={meetings} />
+          </div>
+          <div>
+            <h3 className="text-sm font-semibold mb-2">Upcoming Events</h3>
+            <ScheduleList title="Events" items={events} />
+          </div>
         </div>
         
       </CardContent>
