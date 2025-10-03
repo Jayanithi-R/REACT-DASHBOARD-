@@ -1,3 +1,4 @@
+
 import { Bell, Calendar, Search, Plus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -16,8 +17,8 @@ export function DashboardHeader() {
                 <AvatarFallback>J</AvatarFallback>
             </Avatar>
             <div>
-                <h1 className="text-lg sm:text-xl font-semibold">HRsync Dashboard</h1>
-                <p className="text-sm text-muted-foreground">Welcome back, Juwita 👋</p>
+                <h1 className="text-xl sm:text-2xl font-semibold">Welcome back, Juwita 👋</h1>
+                <p className="text-sm text-muted-foreground">HRsync Dashboard</p>
             </div>
         </div>
         <div className="flex items-center gap-1 sm:gap-2">
