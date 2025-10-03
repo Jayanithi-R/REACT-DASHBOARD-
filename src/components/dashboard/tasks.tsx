@@ -4,8 +4,9 @@ import type { Task } from '@/lib/types';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Calendar, CheckSquare, Plus } from 'lucide-react';
+import { Calendar, Check, CheckSquare, Plus } from 'lucide-react';
 import React from 'react';
+import { Checkbox } from '../ui/checkbox';
 
 type TasksProps = {
   tasks: Task[];
@@ -35,6 +36,9 @@ export function Tasks({ tasks }: TasksProps) {
       <CardContent className="space-y-0 pt-4">
         {tasks.map((task, index) => (
           <div key={task.id} className={`flex items-start gap-3 py-4 ${index < tasks.length - 1 ? 'border-b' : ''}`}>
+            <div className="h-5 w-5 rounded-full border-2 border-primary flex items-center justify-center flex-shrink-0 mt-1">
+                <Check className="h-3 w-3 text-primary" />
+            </div>
             <div className="flex-1 space-y-2">
                 <p className="font-medium text-sm">{task.title}</p>
                  <div className="flex items-center justify-between mt-2">
