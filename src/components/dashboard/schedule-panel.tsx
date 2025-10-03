@@ -10,8 +10,6 @@ import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 import { Calendar as CalendarIcon, ChevronLeft, ChevronRight, Clock, Filter, Search, ArrowRight } from 'lucide-react';
 import { Badge } from '../ui/badge';
 import { format, addDays, subDays, startOfWeek, isSameDay } from 'date-fns';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-
 
 type SchedulePanelProps = {
   schedule: ScheduleItem[];
@@ -154,18 +152,16 @@ export function SchedulePanel({ schedule: initialSchedule }: SchedulePanelProps)
             </Button>
         </div>
 
-        <Tabs defaultValue="meetings" className="w-full">
-          <TabsList className="grid w-full grid-cols-2">
-            <TabsTrigger value="meetings">Upcoming Meetings</TabsTrigger>
-            <TabsTrigger value="events">Upcoming Events</TabsTrigger>
-          </TabsList>
-          <TabsContent value="meetings">
-            <ScheduleList title="Meetings" items={meetings} />
-          </TabsContent>
-          <TabsContent value="events">
-            <ScheduleList title="Events" items={events} />
-          </TabsContent>
-        </Tabs>
+        <div className="space-y-6">
+            <div>
+                <h3 className="text-sm font-semibold mb-3">Upcoming Meetings</h3>
+                <ScheduleList title="Meetings" items={meetings} />
+            </div>
+            <div>
+                <h3 className="text-sm font-semibold mb-3">Upcoming Events</h3>
+                <ScheduleList title="Events" items={events} />
+            </div>
+        </div>
         
       </CardContent>
     </Card>
