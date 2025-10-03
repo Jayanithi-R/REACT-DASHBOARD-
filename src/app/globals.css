@@ -83,14 +83,11 @@
 }
 
 body {
-  background: linear-gradient(180deg, #E0F7FA 0%, #B2EBF2 100%);
+  background: hsl(var(--background));
 }
 .app-container {
     background: #FFFFFF;
-    border-radius: 2rem;
-    margin: 1rem;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
     display: flex;
-    height: calc(100vh - 2rem);
+    height: 100vh;
     overflow: hidden;
 }
