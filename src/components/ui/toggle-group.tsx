@@ -14,6 +14,8 @@ const toggleVariants = cva(
         default: "bg-transparent",
         outline:
           "border border-input bg-transparent hover:bg-accent hover:text-accent-foreground",
+        schedule:
+          "bg-secondary text-secondary-foreground border-none shadow-none data-[state=on]:bg-background data-[state=on]:text-foreground data-[state=on]:shadow-sm",
       },
       size: {
         default: "h-10 px-3",
@@ -42,7 +44,9 @@ const ToggleGroup = React.forwardRef<
 >(({ className, variant, size, children, ...props }, ref) => (
   <ToggleGroupPrimitive.Root
     ref={ref}
-    className={cn("flex items-center justify-center gap-1", className)}
+    className={cn("flex items-center justify-center gap-1", 
+      variant === "schedule" && "rounded-lg bg-secondary p-1",
+    className)}
     {...props}
   >
     <ToggleGroupContext.Provider value={{ variant, size }}>

@@ -7,9 +7,10 @@ import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '../ui/accordion';
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
-import { Calendar as CalendarIcon, ChevronLeft, ChevronRight, Clock, Filter, Search, ArrowRight } from 'lucide-react';
+import { Calendar as CalendarIcon, ChevronLeft, ChevronRight, Clock, Filter, Search, ArrowRight, Briefcase, Video } from 'lucide-react';
 import { Badge } from '../ui/badge';
 import { format, addDays, subDays, startOfWeek, isSameDay } from 'date-fns';
+import { ToggleGroup, ToggleGroupItem } from '../ui/toggle-group';
 
 type SchedulePanelProps = {
   schedule: ScheduleItem[];
@@ -81,7 +82,7 @@ const ScheduleList = ({ title, items }: { title: string, items: ScheduleItem[] }
                 <Card key={item.id} className="p-0 rounded-lg bg-card shadow-none border-0">
                     <Accordion type="single" collapsible className="bg-slate-50 rounded-lg">
                         <AccordionItem value={`item-${item.id}`} className="border-none">
-                            <AccordionTrigger className="p-3 text-sm font-semibold hover:no-underline rounded-lg">
+                            <AccordionTrigger className="p-3 text-sm font-semibold hover:no-underline rounded-lg" defaultChecked={item.id === 'm1' || item.id === 'm2'}>
                                <div className="flex items-center justify-between w-full">
                                   <div className="flex flex-col items-start text-left">
                                     <span className="font-semibold">{item.title}</span>
@@ -117,6 +118,7 @@ const ScheduleList = ({ title, items }: { title: string, items: ScheduleItem[] }
 export function SchedulePanel({ schedule: initialSchedule }: SchedulePanelProps) {
   const [selectedDate, setSelectedDate] = useState<Date>(new Date('2025-10-13'));
   const [schedule, setSchedule] = useState(initialSchedule);
+  const [activeTab, setActiveTab] = useState('meetings');
 
   const { meetings, events } = useMemo(() => {
     const dateString = selectedDate.toISOString().split('T')[0];
@@ -152,15 +154,20 @@ export function SchedulePanel({ schedule: initialSchedule }: SchedulePanelProps)
             </Button>
         </div>
 
+        <ToggleGroup type="single" value={activeTab} onValueChange={(value) => value && setActiveTab(value)} className="w-full" variant="schedule">
+            <ToggleGroupItem value="meetings" className="w-full gap-2">
+                <Briefcase className="h-4 w-4" />
+                Meetings
+            </ToggleGroupItem>
+            <ToggleGroupItem value="events" className="w-full gap-2">
+                <Video className="h-4 w-4" />
+                Events
+            </ToggleGroupItem>
+        </ToggleGroup>
+
         <div className="space-y-6">
-            <div>
-                <h3 className="text-sm font-semibold mb-3">Upcoming Meetings</h3>
-                <ScheduleList title="Meetings" items={meetings} />
-            </div>
-            <div>
-                <h3 className="text-sm font-semibold mb-3">Upcoming Events</h3>
-                <ScheduleList title="Events" items={events} />
-            </div>
+            {activeTab === 'meetings' && <ScheduleList title="Meetings" items={meetings} />}
+            {activeTab === 'events' && <ScheduleList title="Events" items={events} />}
         </div>
         
       </CardContent>
