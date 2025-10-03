@@ -55,7 +55,7 @@ export function LeaveRequests({ leaveRequests }: LeaveRequestsProps) {
   }
 
   return (
-    <Card>
+    <Card className="h-full">
       <CardHeader className="flex-col sm:flex-row items-start sm:items-center justify-between pb-2 gap-2">
          <div className='flex items-center gap-2'>
             <Users2 className="h-5 w-5 text-muted-foreground" />

@@ -21,24 +21,22 @@ export default function Home() {
             <DashboardHeader />
           </header>
           <main className="flex-1 p-4 sm:p-6 lg:p-8 overflow-y-auto">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {/* Group 1: Attendance and Tasks */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 lg:col-span-1 gap-6">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
+              {/* Column 1 */}
+              <div className="grid grid-cols-1 gap-6">
                 <AttendanceReport attendance={attendance} />
                 <Tasks tasks={tasks} />
               </div>
 
-              {/* Group 2: Leave Requests */}
-              <div className="md:col-span-1 lg:col-span-1">
+              {/* Column 2 */}
+              <div className="h-full">
                 <LeaveRequests leaveRequests={leaveRequests} />
               </div>
 
-              {/* Group 3: Schedule and Internship */}
-              <div className="grid grid-cols-1 gap-6 md:col-span-2 lg:col-span-1">
-                 <div className="md:col-span-2 lg:col-span-1 grid grid-cols-1 gap-6">
-                    <SchedulePanel schedule={schedule} />
-                    <InternshipCard />
-                 </div>
+              {/* Column 3 */}
+              <div className="grid grid-cols-1 gap-6">
+                 <SchedulePanel schedule={schedule} />
+                 <InternshipCard />
               </div>
             </div>
           </main>
