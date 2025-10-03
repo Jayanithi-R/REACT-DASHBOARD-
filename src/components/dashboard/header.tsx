@@ -26,7 +26,7 @@ export function DashboardHeader() {
         <div className="flex items-center gap-1 sm:gap-2">
           <Dialog>
             <DialogTrigger asChild>
-              <Button variant="ghost" size="icon" className="h-9 w-9">
+              <Button variant="ghost" size="icon" className="h-9 w-9 hidden sm:flex">
                   <Search className="h-5 w-5" />
               </Button>
             </DialogTrigger>
@@ -52,7 +52,7 @@ export function DashboardHeader() {
               <span className="relative inline-flex rounded-full h-2 w-2 bg-destructive"></span>
             </span>
           </div>
-          <Button variant="outline" className="hidden lg:flex h-9">
+          <Button variant="outline" className="hidden md:flex h-9">
             <Calendar className="h-4 w-4 mr-2"/>
             Schedule
           </Button>
