@@ -5,6 +5,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Input } from '../ui/input';
+import { SidebarTrigger } from '../ui/sidebar';
 
 export function DashboardHeader() {
   const userAvatar = PlaceHolderImages.find(img => img.id === 'user-avatar');
@@ -12,19 +13,20 @@ export function DashboardHeader() {
   return (
     <div className="flex items-center justify-between w-full">
         <div className="flex items-center gap-4">
+             <SidebarTrigger className="md:hidden" />
              <Avatar className="h-12 w-12 hidden sm:flex">
                 <AvatarImage src={userAvatar?.imageUrl} alt="Juwita" data-ai-hint={userAvatar?.imageHint} />
                 <AvatarFallback>J</AvatarFallback>
             </Avatar>
             <div>
-                <h1 className="text-xl sm:text-2xl font-semibold">HRsync Dashboard</h1>
-                <p className="text-sm text-muted-foreground">Welcome back, Juwita 👋</p>
+                <h1 className="text-xl sm:text-2xl font-semibold">Juwita</h1>
+                <p className="text-sm text-muted-foreground">Welcome back to HRsync 👋</p>
             </div>
         </div>
         <div className="flex items-center gap-1 sm:gap-2">
           <Dialog>
             <DialogTrigger asChild>
-              <Button variant="ghost" size="icon" className="h-9 w-9 hidden sm:inline-flex">
+              <Button variant="ghost" size="icon" className="h-9 w-9">
                   <Search className="h-5 w-5" />
               </Button>
             </DialogTrigger>

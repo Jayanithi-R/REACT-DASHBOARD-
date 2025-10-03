@@ -38,7 +38,7 @@ export function AppSidebar() {
     <>
       <SidebarHeader className="p-4">
         <div className="flex items-center gap-3">
-            <div className="flex items-center justify-center w-10 h-10 rounded-full bg-primary text-primary-foreground font-bold text-xl">
+            <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-primary text-primary-foreground font-bold text-xl">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="h-6 w-6">
                 <path d="M12.378 1.602a.75.75 0 00-.756 0L3.366 6.166A.75.75 0 003 6.821v10.358c0 .32.18.601.458.715l8.256 3.44c.252.105.548.105.8 0l8.256-3.44a.75.75 0 00.458-.715V6.822a.75.75 0 00-.366-.655L12.378 1.602zM12 15.195a.75.75 0 00.732-.563l1.241-4.344a.75.75 0 10-1.464-.418l-.83 2.905-.83-2.905a.75.75 0 00-1.464.418l1.24 4.344A.75.75 0 0012 15.195z" />
               </svg>

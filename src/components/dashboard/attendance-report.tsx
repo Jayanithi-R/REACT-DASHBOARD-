@@ -5,7 +5,6 @@ import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { ChevronRight, Users2 } from 'lucide-react';
-import { Separator } from '../ui/separator';
 import React from 'react';
 
 type AttendanceReportProps = {
@@ -22,6 +21,16 @@ export function AttendanceReport({ attendance }: AttendanceReportProps) {
         }
     }
 
+    const getBadgeClasses = (status: string) => {
+      switch (status) {
+          case 'Absent': return 'bg-gray-200 text-gray-800';
+          case 'Sick': return 'bg-orange-200 text-orange-800';
+          case 'WFH': return 'bg-blue-200 text-blue-800';
+          default: return 'bg-gray-100 text-gray-800';
+      }
+    }
+
+
   return (
     <Card>
       <CardHeader className="flex flex-row items-center justify-between pb-2">
@@ -29,56 +38,49 @@ export function AttendanceReport({ attendance }: AttendanceReportProps) {
             <Users2 className="h-5 w-5 text-muted-foreground" />
             <CardTitle className="text-base font-semibold">Attendance Report</CardTitle>
         </div>
-        <Button variant="outline" size="sm" className="h-8 rounded-full">
+        <Button variant="link" size="sm" className="h-8 rounded-full">
             See All
           <ChevronRight className="h-4 w-4" />
         </Button>
       </CardHeader>
-      <CardContent className="space-y-4 px-0">
-        <div className='px-4'>
+      <CardContent className="space-y-4">
+        <div>
             <p className="text-xs text-muted-foreground mb-2">Absent</p>
             <div className="space-y-3">
-                {attendance.absent.map((employee, index) => (
-                  <React.Fragment key={employee.id}>
-                    {index > 0 && <Separator />}
-                    <div className="flex items-center justify-between pt-3">
-                        <div className="flex items-center gap-3">
-                        <Avatar className="h-9 w-9">
-                            <AvatarImage src={employee.avatar} alt={employee.name} />
-                            <AvatarFallback>{employee.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
-                        </Avatar>
-                        <div>
-                            <p className="text-sm font-medium">{employee.name}</p>
-                            <p className="text-xs text-muted-foreground">{employee.role}</p>
-                        </div>
-                        </div>
-                        <Badge variant={getBadgeVariant(employee.status)} className="font-normal">{employee.status}</Badge>
-                    </div>
-                  </React.Fragment>
+                {attendance.absent.map((employee) => (
+                  <div key={employee.id} className="flex items-center justify-between">
+                      <div className="flex items-center gap-3">
+                      <Avatar className="h-9 w-9">
+                          <AvatarImage src={employee.avatar} alt={employee.name} />
+                          <AvatarFallback>{employee.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
+                      </Avatar>
+                      <div>
+                          <p className="text-sm font-medium">{employee.name}</p>
+                          <p className="text-xs text-muted-foreground">{employee.role}</p>
+                      </div>
+                      </div>
+                      <Badge variant="outline" className={`font-semibold border-none text-xs rounded-md ${getBadgeClasses(employee.status)}`}>{employee.status}</Badge>
+                  </div>
                 ))}
             </div>
         </div>
-        <Separator />
-        <div className='px-4'>
+        <div>
             <p className="text-xs text-muted-foreground mb-2">Present</p>
             <div className="space-y-3">
-                {attendance.present.map((employee, index) => (
-                  <React.Fragment key={employee.id}>
-                     {index > 0 && <Separator />}
-                    <div className="flex items-center justify-between pt-3">
-                        <div className="flex items-center gap-3">
-                        <Avatar className="h-9 w-9">
-                            <AvatarImage src={employee.avatar} alt={employee.name} />
-                            <AvatarFallback>{employee.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
-                        </Avatar>
-                        <div>
-                            <p className="text-sm font-medium">{employee.name}</p>
-                            <p className="text-xs text-muted-foreground">{employee.role}</p>
-                        </div>
-                        </div>
-                        <Badge variant="secondary" className="text-green-600 bg-green-100 font-mono text-sm">{employee.time}</Badge>
-                    </div>
-                  </React.Fragment>
+                {attendance.present.map((employee) => (
+                  <div key={employee.id} className="flex items-center justify-between">
+                      <div className="flex items-center gap-3">
+                      <Avatar className="h-9 w-9">
+                          <AvatarImage src={employee.avatar} alt={employee.name} />
+                          <AvatarFallback>{employee.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
+                      </Avatar>
+                      <div>
+                          <p className="text-sm font-medium">{employee.name}</p>
+                          <p className="text-xs text-muted-foreground">{employee.role}</p>
+                      </div>
+                      </div>
+                      <Badge variant="secondary" className="text-green-600 bg-green-100 font-mono text-sm">{employee.time}</Badge>
+                  </div>
                 ))}
             </div>
         </div>

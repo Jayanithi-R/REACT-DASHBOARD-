@@ -35,11 +35,11 @@ const WeekCalendar = ({ selectedDate, onSelectDate }: { selectedDate: Date, onSe
     return (
         <div className="rounded-xl border">
             <div className="flex items-center justify-between p-3">
-                <Button variant="ghost" size="icon" className="h-7 w-7" onClick={handlePrevWeek}>
-                    <ChevronLeft className="h-4 w-4" />
-                </Button>
-                <h3 className="text-sm font-semibold">{format(currentDate, 'MMMM yyyy')}</h3>
+                 <h3 className="text-sm font-semibold">{format(currentDate, 'MMMM yyyy')}</h3>
                 <div className="flex items-center gap-1">
+                    <Button variant="ghost" size="icon" className="h-7 w-7" onClick={handlePrevWeek}>
+                        <ChevronLeft className="h-4 w-4" />
+                    </Button>
                     <Button variant="ghost" size="icon" className="h-7 w-7" onClick={handleNextWeek}>
                         <ChevronRight className="h-4 w-4" />
                     </Button>
@@ -79,24 +79,20 @@ const ScheduleList = ({ title, items }: { title: string, items: ScheduleItem[] }
     return (
         <div className="space-y-3">
             {items.map((item) => (
-                <Card key={item.id} className="p-0 rounded-lg bg-card">
-                    <Accordion type="single" collapsible>
+                <Card key={item.id} className="p-0 rounded-lg bg-card shadow-none border-0">
+                    <Accordion type="single" collapsible className="bg-slate-50 rounded-lg">
                         <AccordionItem value={`item-${item.id}`} className="border-none">
-                            <AccordionTrigger className="p-3 text-sm font-semibold hover:no-underline rounded-lg data-[state=open]:bg-slate-50">
+                            <AccordionTrigger className="p-3 text-sm font-semibold hover:no-underline rounded-lg">
                                <div className="flex items-center justify-between w-full">
-                                  <div className="flex items-center gap-3 text-left">
-                                      <div className="w-10 h-10 bg-primary/10 text-primary rounded-md flex items-center justify-center">
-                                        <CalendarIcon className="h-5 w-5" />
-                                      </div>
-                                      <div className="flex flex-col items-start">
-                                        <span className="font-semibold">{item.title}</span>
-                                        <span className="text-xs text-muted-foreground flex items-center gap-1"><Clock className="h-3 w-3"/>{item.time}</span>
-                                      </div>
+                                  <div className="flex flex-col items-start text-left">
+                                    <span className="font-semibold">{item.title}</span>
+                                    <span className="text-xs text-muted-foreground flex items-center gap-1"><Clock className="h-3 w-3"/>{item.time}</span>
                                   </div>
                                </div>
                             </AccordionTrigger>
-                            <AccordionContent className="px-4 pb-4">
+                            <AccordionContent className="px-4 pb-4 bg-white rounded-b-lg">
                                 <div className="space-y-3 pt-2">
+                                    {item.location && <p className="text-sm text-muted-foreground">{item.location}</p>}
                                     <div className="flex items-center justify-between">
                                         <div className="flex -space-x-2 overflow-hidden">
                                             {item.avatars?.slice(0, 3).map((avatar, i) => (
@@ -109,7 +105,6 @@ const ScheduleList = ({ title, items }: { title: string, items: ScheduleItem[] }
                                         </div>
                                         <Badge variant="outline" className="font-normal text-primary border-primary/20 bg-primary/10">{item.team}</Badge>
                                     </div>
-                                    {item.location && <p className="text-sm text-muted-foreground">{item.location}</p>}
                                 </div>
                             </AccordionContent>
                         </AccordionItem>
@@ -143,7 +138,7 @@ export function SchedulePanel({ schedule: initialSchedule }: SchedulePanelProps)
                 <CalendarIcon className="h-5 w-5 text-muted-foreground" />
                 <CardTitle className="text-base font-semibold">Schedule</CardTitle>
             </div>
-            <Button variant="ghost" size="sm" className="h-8 rounded-full flex items-center gap-1">
+            <Button variant="link" size="sm" className="h-8 rounded-full flex items-center gap-1">
               See All
               <ArrowRight className="h-4 w-4" />
             </Button>

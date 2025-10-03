@@ -62,11 +62,11 @@ export function LeaveRequests({ leaveRequests }: LeaveRequestsProps) {
             <CardTitle className="text-base font-semibold">Leave Requests</CardTitle>
         </div>
         <div className="flex items-center gap-2 w-full sm:w-auto">
-          <div className="relative w-full sm:w-40">
+          <div className="relative w-full sm:w-auto">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-            <Input placeholder="Search..." className="pl-9 h-8 rounded-md bg-secondary" />
+            <Input placeholder="Search..." className="pl-9 h-8 rounded-md bg-secondary sm:w-40" />
           </div>
-          <Button variant="outline" size="sm" className="h-8 rounded-full">
+          <Button variant="link" size="sm" className="h-8 rounded-full">
             See All
             <ChevronRight className="h-4 w-4" />
           </Button>
@@ -79,7 +79,7 @@ export function LeaveRequests({ leaveRequests }: LeaveRequestsProps) {
               <TableRow>
                 <TableHead className="text-xs">Employee</TableHead>
                 <TableHead className="text-xs hidden lg:table-cell">Leave Type</TableHead>
-                <TableHead className="text-xs hidden md:table-cell">Date Range</TableHead>
+                <TableHead className="text-xs hidden md:table-cell">Date</TableHead>
                 <TableHead className="text-xs">Status</TableHead>
                 <TableHead className="text-right"></TableHead>
               </TableRow>
@@ -97,10 +97,7 @@ export function LeaveRequests({ leaveRequests }: LeaveRequestsProps) {
                       </Avatar>
                       <div>
                         <p className="text-sm font-medium">{request.employee.name}</p>
-                        <div className="text-xs text-muted-foreground lg:hidden">
-                            <p>{request.leaveType}</p>
-                            <p className="md:hidden">{request.dateRange}</p>
-                        </div>
+                        <p className="text-xs text-muted-foreground">{request.employee.role}</p>
                       </div>
                     </div>
                   </TableCell>

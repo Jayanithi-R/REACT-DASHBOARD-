@@ -36,7 +36,7 @@ export const employees: Employee[] = [
 export const schedule: ScheduleItem[] = [
     { 
     id: 'm1', 
-    title: 'Product Strategy Meeting', 
+    title: 'Meeting Product', 
     type: 'Meeting', 
     time: '9:00 - 9:45 AM', 
     date: getRelativeDate(0), // Monday, Oct 13
@@ -54,9 +54,9 @@ export const schedule: ScheduleItem[] = [
   },
   { 
     id: 'm2', 
-    title: 'Design Review', 
+    title: 'Meeting Ops', 
     type: 'Meeting', 
-    time: '11:00 - 12:00 PM', 
+    time: '10:00 - 11:00 AM', 
     date: getRelativeDate(0), // Monday, Oct 13
     attendees: ['Anjali', 'Priya', 'Amit'], 
     description: 'Discussing the new UI components.',
@@ -64,12 +64,12 @@ export const schedule: ScheduleItem[] = [
       { src: getImageUrl('emp3'), alt: 'Priya Singh', fallback: 'PS' },
       { src: getImageUrl('emp11'), alt: 'Amber Wolf', fallback: 'AW' },
     ],
-    location: 'Figma',
-    team: 'Design Team',
+    location: 'On Slack',
+    team: 'Operations Team',
   },
   {
     id: 'e1',
-    title: 'Company Town Hall',
+    title: 'Meeting Mitra 2025',
     type: 'Event',
     time: '4:00 PM - 5:00 PM',
     date: getRelativeDate(0), // Monday, Oct 13
@@ -229,7 +229,7 @@ export const attendance: Attendance = {
 };
 
 export const tasks: Task[] = [
-    { id: 't1', title: 'Update Payroll Records', description: 'Verify salary adjustments and overtime', status: 'Pending', tag: 'Pending', date: 'Today' },
+    { id: 't1', title: 'Update Payroll Records', description: 'Verify salary adjustments and overtime lo...', status: 'Pending', tag: 'Pending', date: 'Today' },
     { id: 't2', title: 'Interview with Sarah Lee', description: 'Conduct candidate interview for Marketin...', status: 'Completed', tag: 'Recruitment', date: 'Today' },
     { id: 't3', title: 'Review Leave Applications', description: 'Check pending leave requests and approv...', status: 'Pending', tag: 'Important', date: 'Yesterday' },
 ];
