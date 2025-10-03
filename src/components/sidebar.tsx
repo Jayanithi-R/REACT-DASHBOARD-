@@ -54,12 +54,9 @@ export function AppSidebar() {
           <SidebarGroupLabel className="px-2">MAIN</SidebarGroupLabel>
           <SidebarMenu>
             <SidebarMenuItem>
-              <SidebarMenuButton isActive className="justify-between">
-                <div className="flex items-center gap-2">
-                  <LayoutGrid />
-                  Dashboard
-                </div>
-                <ChevronRight className="h-4 w-4" />
+              <SidebarMenuButton isActive>
+                <LayoutGrid />
+                Dashboard
               </SidebarMenuButton>
             </SidebarMenuItem>
             <SidebarMenuItem>
