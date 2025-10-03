@@ -43,12 +43,12 @@ export function AttendanceReport({ attendance }: AttendanceReportProps) {
           <ChevronRight className="h-4 w-4" />
         </Button>
       </CardHeader>
-      <CardContent className="space-y-4">
+      <CardContent className="space-y-2 pt-4">
         <div>
             <p className="text-xs text-muted-foreground mb-2">Absent</p>
-            <div className="space-y-3">
-                {attendance.absent.map((employee) => (
-                  <div key={employee.id} className="flex items-center justify-between">
+            <div>
+                {attendance.absent.map((employee, index) => (
+                  <div key={employee.id} className={`flex items-center justify-between py-3 ${index < attendance.absent.length - 1 ? 'border-b' : ''}`}>
                       <div className="flex items-center gap-3">
                       <Avatar className="h-9 w-9">
                           <AvatarImage src={employee.avatar} alt={employee.name} />
@@ -65,10 +65,10 @@ export function AttendanceReport({ attendance }: AttendanceReportProps) {
             </div>
         </div>
         <div>
-            <p className="text-xs text-muted-foreground mb-2">Present</p>
-            <div className="space-y-3">
-                {attendance.present.map((employee) => (
-                  <div key={employee.id} className="flex items-center justify-between">
+            <p className="text-xs text-muted-foreground mt-4 mb-2">Present</p>
+            <div>
+                {attendance.present.map((employee, index) => (
+                  <div key={employee.id} className={`flex items-center justify-between py-3 ${index < attendance.present.length - 1 ? 'border-b' : ''}`}>
                       <div className="flex items-center gap-3">
                       <Avatar className="h-9 w-9">
                           <AvatarImage src={employee.avatar} alt={employee.name} />
