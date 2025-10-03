@@ -21,9 +21,9 @@ export default function Home() {
             <DashboardHeader />
           </header>
           <main className="flex-1 p-6 overflow-y-auto bg-gray-50">
-            <div className="grid grid-cols-1 lg:grid-cols-[1.5fr,1fr] gap-5 max-w-[1600px] mx-auto">
-              <div className="space-y-5">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <div className="grid grid-cols-1 lg:grid-cols-[2fr,1fr] gap-6 max-w-[1600px] mx-auto">
+              <div className="space-y-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <AttendanceReport attendance={attendance} />
                   <Tasks tasks={tasks} />
                 </div>
@@ -31,7 +31,7 @@ export default function Home() {
                   <LeaveRequests leaveRequests={leaveRequests} />
                 </div>
               </div>
-              <div className="space-y-5">
+              <div className="space-y-6">
                 <SchedulePanel schedule={schedule} />
                 <InternshipCard />
               </div>
