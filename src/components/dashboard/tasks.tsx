@@ -35,7 +35,7 @@ export function Tasks({ tasks }: TasksProps) {
       <CardContent className="space-y-0 pt-4">
         {tasks.map((task, index) => (
           <div key={task.id} className={`flex items-start gap-3 py-4 ${index < tasks.length - 1 ? 'border-b' : ''}`}>
-            <div className="mt-1 flex h-4 w-4 items-center justify-center rounded-full border border-primary">
+            <div className="mt-1 flex h-4 w-4 items-center justify-center rounded-full border border-muted-foreground">
             </div>
             <div className="flex-1 space-y-2">
                 <p className="font-medium text-sm">{task.title}</p>
