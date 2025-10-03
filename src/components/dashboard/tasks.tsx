@@ -6,7 +6,6 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Calendar, CheckSquare, Plus } from 'lucide-react';
 import React from 'react';
-import { Checkbox } from '../ui/checkbox';
 
 type TasksProps = {
   tasks: Task[];
@@ -36,7 +35,8 @@ export function Tasks({ tasks }: TasksProps) {
       <CardContent className="space-y-0 pt-4">
         {tasks.map((task, index) => (
           <div key={task.id} className={`flex items-start gap-3 py-4 ${index < tasks.length - 1 ? 'border-b' : ''}`}>
-            <Checkbox id={`task-${task.id}`} defaultChecked className="mt-1" />
+            <div className="mt-1 flex h-4 w-4 items-center justify-center rounded-full border border-primary">
+            </div>
             <div className="flex-1 space-y-2">
                 <p className="font-medium text-sm">{task.title}</p>
                  <div className="flex items-center justify-between mt-2">
