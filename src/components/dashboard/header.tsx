@@ -17,8 +17,8 @@ export function DashboardHeader() {
                 <AvatarFallback>J</AvatarFallback>
             </Avatar>
             <div>
-                <h1 className="text-xl sm:text-2xl font-semibold">Welcome back, Juwita 👋</h1>
-                <p className="text-sm text-muted-foreground">HRsync Dashboard</p>
+                <h1 className="text-xl sm:text-2xl font-semibold">HRsync Dashboard</h1>
+                <p className="text-sm text-muted-foreground">Welcome back, Juwita 👋</p>
             </div>
         </div>
         <div className="flex items-center gap-1 sm:gap-2">
