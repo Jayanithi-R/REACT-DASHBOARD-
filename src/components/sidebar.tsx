@@ -372,7 +372,7 @@ export function AppSidebar() {
     return (
       <>
         <SidebarHeader>
-          <Link href='/' legacyBehavior>
+          <Link href='/'>
             <div className='flex items-center gap-2'>
               <Avatar className={cn(state === 'collapsed' && 'w-8 h-8')}>
                 <AvatarImage src='https://github.com/shadcn.png' alt='@shadcn' />
@@ -389,7 +389,7 @@ export function AppSidebar() {
                 <SidebarGroupLabel>MAIN</SidebarGroupLabel>
                 {mainNav.map((item) => (
                     <SidebarMenuItem key={item.name}>
-                        <Link href={item.href} legacyBehavior>
+                        <Link href={item.href}>
                             <SidebarMenuButton isActive={pathname === item.href}>
                                 <item.icon className='h-5 w-5' />
                                 {state === 'expanded' && <><span>{item.name}</span> {item.name === 'Dashboard' && <ChevronRight className='ml-auto h-4 w-4'/>} </>}
@@ -403,7 +403,7 @@ export function AppSidebar() {
                 <SidebarGroupLabel>SHORTCUTS</SidebarGroupLabel>
                 {shortcuts.map((item) => (
                     <SidebarMenuItem key={item.name}>
-                       <Link href={item.href} legacyBehavior>
+                       <Link href={item.href}>
                             <SidebarMenuButton isActive={pathname.startsWith(item.href)}>
                                 <item.icon className={cn('h-5 w-5', item.color)} />
                                 {state === 'expanded' && <span className="flex-1">{item.name}</span>}
@@ -416,7 +416,7 @@ export function AppSidebar() {
              <SidebarMenu className='mt-4'>
                 {helpNav.map((item) => (
                     <SidebarMenuItem key={item.name}>
-                       <Link href={item.href} legacyBehavior>
+                       <Link href={item.href}>
                             <SidebarMenuButton isActive={pathname.startsWith(item.href)}>
                                 <item.icon className='h-5 w-5' />
                                 {state === 'expanded' && <span>{item.name}</span>}

@@ -1,54 +1,49 @@
-"use client";
+'use client';
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Calendar, Plus } from "lucide-react";
 
-import type { Task } from '@/lib/types';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { Calendar, CheckSquare, Plus } from 'lucide-react';
-import React from 'react';
+const tasks = [
+    { id: 1, title: 'Update Payroll Records', description: 'Verify salary adjustments and overtime lo...', status: 'Pending', tag: 'Recruitment', date: 'Today' },
+    { id: 2, title: 'Interview with Sarah Lee', description: 'Conduct candidate interview for Marketin...', status: 'Recruitment', tag: 'Recruitment', date: 'Today' },
+    { id: 3, title: 'Review Leave Applications', description: 'Check pending leave requests and approv...', status: 'Important', tag: 'Recruitment', date: 'Yesterday' },
+];
 
-type TasksProps = {
-  tasks: Task[];
+const getStatusBadgeClasses = (status: string) => {
+    switch (status) {
+        case 'Pending':
+            return 'bg-yellow-100 text-yellow-800';
+        case 'Recruitment':
+            return 'bg-blue-100 text-blue-800';
+        case 'Important':
+            return 'bg-red-100 text-red-800';
+        default:
+            return 'bg-gray-100 text-gray-800';
+    }
 };
 
-export function Tasks({ tasks }: TasksProps) {
-  const getTagColor = (tag: string) => {
-    switch(tag.toLowerCase()) {
-        case 'pending': return 'text-orange-800 bg-orange-100 border-transparent';
-        case 'recruitment': return 'text-blue-800 bg-blue-100 border-transparent';
-        case 'important': return 'text-red-800 bg-red-100 border-transparent';
-        default: return 'bg-gray-100 text-gray-800';
-    }
-  }
+export function Tasks() {
   return (
     <Card>
-      <CardHeader className="flex flex-row items-center justify-between pb-2">
-        <div className='flex items-center gap-2'>
-            <CheckSquare className="h-5 w-5 text-muted-foreground" />
-            <CardTitle className="text-base font-semibold">Tasks</CardTitle>
-        </div>
-        <Button variant="ghost" size="sm" className="h-8 rounded-full">
-            <Plus className="h-4 w-4" />
-            Add
-        </Button>
+      <CardHeader className="flex flex-row items-center justify-between">
+        <CardTitle>Tasks</CardTitle>
+        <Button variant="outline" size="sm"><Plus className="h-4 w-4 mr-2" /> Add</Button>
       </CardHeader>
-      <CardContent className="space-y-0 pt-4">
-        {tasks.map((task, index) => (
-          <div key={task.id} className={`flex items-start gap-3 py-4 ${index < tasks.length - 1 ? 'border-b' : ''}`}>
-            <div className="mt-1 flex h-4 w-4 items-center justify-center rounded-full border border-muted-foreground">
-            </div>
-            <div className="flex-1 space-y-2">
-                <p className="font-medium text-sm">{task.title}</p>
-                 <div className="flex items-center justify-between mt-2">
+      <CardContent className="space-y-4">
+        {tasks.map((task) => (
+            <div key={task.id} className="p-3 rounded-lg border bg-background">
+                <h3 className="font-semibold text-sm mb-1">{task.title}</h3>
+                <p className="text-xs text-muted-foreground mb-2">{task.description}</p>
+                <div className="flex items-center justify-between">
                     <div>
-                         <Badge variant="outline" className={`font-semibold border-none text-xs rounded-md ${getTagColor(task.tag)}`}>{task.tag}</Badge>
+                        <Badge variant="outline" className={`font-semibold border-none text-xs rounded-md ${getStatusBadgeClasses(task.status)}`}>{task.status}</Badge>
                     </div>
-                    <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                    <div className="flex items-center gap-1 text-xs text-muted-foreground">
                         <Calendar className="h-3 w-3" />
                         <span>{task.date}</span>
                     </div>
                 </div>
-            </div>
           </div>
         ))}
       </CardContent>

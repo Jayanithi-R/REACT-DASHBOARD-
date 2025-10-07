@@ -1,6 +1,5 @@
 'use client';
 import { Header } from '@/components/dashboard/header';
-import { SchedulePageContent } from '@/components/schedule/page-content';
 
 export default function Page() {
   return (
@@ -9,7 +8,7 @@ export default function Page() {
         <Header />
       </header>
       <main className="flex-1 p-4 sm:p-6 overflow-y-auto bg-gray-50">
-        <SchedulePageContent />
+        <h1 className="text-2xl font-bold">New Hire Onboarding</h1>
       </main>
     </div>
   );

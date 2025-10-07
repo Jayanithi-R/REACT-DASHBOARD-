@@ -1,0 +1,62 @@
+{
+    "2025-10-13": {
+        "meetings": [
+            {
+                "id": 1,
+                "title": "Meeting Product",
+                "time": "9:00 - 9:45 AM",
+                "location": "On Zoom",
+                "team": "Product Team",
+                "attendees": [
+                    "https://i.pravatar.cc/150?img=1",
+                    "https://i.pravatar.cc/150?img=2"
+                ]
+            },
+            {
+                "id": 2,
+                "title": "Meeting Ops",
+                "time": "10:00 - 11:00 AM",
+                "location": "On Slack",
+                "team": "Operations Team",
+                "attendees": [
+                    "https://i.pravatar.cc/150?img=3",
+                    "https://i.pravatar.cc/150?img=4"
+                ]
+            }
+        ],
+        "events": []
+    },
+    "2025-10-14": {
+        "meetings": [
+            {
+                "id": 3,
+                "title": "Marketing Sync",
+                "time": "2:00 - 3:00 PM",
+                "location": "On Google Meet",
+                "team": "Marketing Team",
+                "attendees": [
+                    "https://i.pravatar.cc/150?img=5",
+                    "https://i.pravatar.cc/150?img=6",
+                    "https://i.pravatar.cc/150?img=7"
+                ]
+            }
+        ],
+        "events": [
+            {
+                "id": 1,
+                "title": "Company All-Hands",
+                "time": "4:00 - 5:00 PM"
+            }
+        ]
+    },
+    "2025-10-15": {
+        "meetings": [],
+        "events": [
+            {
+                "id": 2,
+                "title": "Design Showcase",
+                "time": "11:00 - 12:00 PM"
+            }
+        ]
+    }
+}

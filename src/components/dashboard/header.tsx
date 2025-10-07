@@ -1,14 +1,19 @@
+'use client';
 import { Button } from "@/components/ui/button";
 import { Bell, Search } from "lucide-react";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
+import { SidebarTrigger } from "@/components/sidebar";
 
 export function Header() {
     return (
-        <header className="flex flex-col sm:flex-row items-start sm:items-center justify-between p-4 bg-white shadow-sm gap-4">
-            <div>
-                <h1 className="text-xl md:text-2xl font-bold">Welcome back, Juwita 👋</h1>
-                <p className="text-sm text-muted-foreground">Here's what's happening with your team today.</p>
+        <header className="flex items-center justify-between p-4 bg-white shadow-sm">
+            <div className="flex items-center gap-2">
+                <SidebarTrigger />
+                <div>
+                    <h1 className="text-xl md:text-2xl font-bold">Welcome back, Juwita 👋</h1>
+                    <p className="hidden sm:block text-sm text-muted-foreground">Here's what's happening with your team today.</p>
+                </div>
             </div>
             <div className="flex items-center space-x-2">
                 <Dialog>
