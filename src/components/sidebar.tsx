@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import {
   SidebarHeader,
@@ -30,9 +30,12 @@ import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Badge } from "./ui/badge";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
 import { Button } from "./ui/button";
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 export function AppSidebar() {
   const userAvatar = PlaceHolderImages.find((img) => img.id === "user-avatar");
+  const pathname = usePathname();
 
   return (
     <>
@@ -54,28 +57,36 @@ export function AppSidebar() {
           <SidebarGroupLabel className="px-2">MAIN</SidebarGroupLabel>
           <SidebarMenu>
             <SidebarMenuItem>
-              <SidebarMenuButton isActive>
-                <LayoutGrid />
-                Dashboard
-              </SidebarMenuButton>
+                <Link href="/">
+                    <SidebarMenuButton isActive={pathname === '/'}>
+                        <LayoutGrid />
+                        Dashboard
+                    </SidebarMenuButton>
+                </Link>
             </SidebarMenuItem>
             <SidebarMenuItem>
-              <SidebarMenuButton>
-                <Calendar />
-                Schedule
-              </SidebarMenuButton>
+                <Link href="/schedule">
+                    <SidebarMenuButton isActive={pathname === '/schedule'}>
+                        <Calendar />
+                        Schedule
+                    </SidebarMenuButton>
+                </Link>
             </SidebarMenuItem>
             <SidebarMenuItem>
-              <SidebarMenuButton>
-                <Users />
-                Attendance
-              </SidebarMenuButton>
+              <Link href="/attendance">
+                <SidebarMenuButton isActive={pathname === '/attendance'}>
+                  <Users />
+                  Attendance
+                </SidebarMenuButton>
+              </Link>
             </SidebarMenuItem>
             <SidebarMenuItem>
-              <SidebarMenuButton>
-                <Briefcase />
-                Departments
-              </SidebarMenuButton>
+                <Link href="/backlog">
+                    <SidebarMenuButton isActive={pathname === '/backlog'}>
+                        <Briefcase />
+                        Backlog
+                    </SidebarMenuButton>
+                </Link>
             </SidebarMenuItem>
              <SidebarMenuItem>
               <SidebarMenuButton>

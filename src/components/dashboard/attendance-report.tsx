@@ -1,3 +1,4 @@
+ 
 "use client";
 import type { Attendance } from '@/lib/types';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -6,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { ChevronRight, Users2 } from 'lucide-react';
 import React from 'react';
+import Link from 'next/link';
 
 type AttendanceReportProps = {
   attendance: Attendance;
@@ -38,10 +40,12 @@ export function AttendanceReport({ attendance }: AttendanceReportProps) {
             <Users2 className="h-5 w-5 text-muted-foreground" />
             <CardTitle className="text-base font-semibold">Attendance Report</CardTitle>
         </div>
-        <Button variant="link" size="sm" className="h-8 rounded-full">
-            See All
-          <ChevronRight className="h-4 w-4" />
-        </Button>
+        <Link href="/attendance">
+          <Button variant="link" size="sm" className="h-8 rounded-full">
+              See All
+            <ChevronRight className="h-4 w-4" />
+          </Button>
+        </Link>
       </CardHeader>
       <CardContent className="space-y-2 pt-4">
         <div>
