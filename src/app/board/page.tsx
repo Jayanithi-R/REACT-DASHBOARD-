@@ -1,7 +1,6 @@
 'use client';
-import { SidebarProvider, Sidebar, SidebarInset } from '@/components/ui/sidebar';
-import { AppSidebar } from '@/components/sidebar';
-import { DashboardHeader } from '@/components/dashboard/header';
+import { AppSidebar, Sidebar, SidebarProvider, SidebarInset } from '@/components/sidebar';
+import { Header } from '@/components/dashboard/header';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { ReloadIcon } from '@radix-ui/react-icons';
@@ -15,7 +14,7 @@ export default function Board() {
       <SidebarInset>
         <div className="flex flex-col min-h-screen">
           <header className="sticky top-0 z-10 flex items-center h-20 px-4 sm:px-8">
-            <DashboardHeader />
+            <Header />
           </header>
           <main className="flex-1 p-6 overflow-y-auto bg-gray-50">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -25,7 +24,7 @@ export default function Board() {
                   <ReloadIcon className="w-16 h-16 text-blue-500 mb-4" />
                   <h3 className="font-semibold mb-2">Get started in the backlog</h3>
                   <p className="text-gray-500 text-sm mb-4">Plan and start a sprint to see work here.</p>
-                  <Link href="/backlog" passHref>
+                  <Link href="/backlog" passHref legacyBehavior>
                     <Button variant="outline">Go to Backlog</Button>
                   </Link>
                 </div>

@@ -1,145 +1,193 @@
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { Button } from '@/components/ui/button';
+import { Menu } from 'lucide-react';
 
-const employee = {
-    name: 'Maria Smith',
-    position: 'Software Developer',
-    employeeId: 'IM06587UT',
-    joiningDate: '12 January 2015',
-    department: 'Account',
-    avatar: '/avatars/01.png',
+type AttendanceStatus = 'Present' | 'On Leave';
+type LeaveType = 'Annual Leave' | 'Sick Leave';
+type LeaveStatus = 'Approved' | 'Pending' | 'Rejected';
+
+interface Employee {
+  id: string;
+  name: string;
+  avatar: string;
+  status: AttendanceStatus;
+}
+
+interface LeaveRequest {
+  id: string;
+  employeeId: string;
+  leaveType: LeaveType;
+  from: string;
+  to: string;
+  status: LeaveStatus;
+}
+
+const employees: Employee[] = [
+  { id: 'IM06587UT', name: 'Maria Smith', avatar: '/avatars/01.png', status: 'Present' },
+  { id: 'IM06587UV', name: 'John Doe', avatar: '/avatars/02.png', status: 'On Leave' },
+  { id: 'IM06587UW', name: 'Jane Doe', avatar: '/avatars/03.png', status: 'Present' },
+  { id: 'IM06587UX', name: 'Peter Jones', avatar: '/avatars/04.png', status: 'On Leave' },
+  { id: 'IM06587UY', name: 'User 1', avatar: '/avatars/05.png', status: 'Present' },
+];
+
+let leaveRequests: LeaveRequest[] = [
+  { id: 'lr1', employeeId: 'IM06587UV', leaveType: 'Annual Leave', from: '2024-07-29', to: '2024-07-30', status: 'Approved' },
+  { id: 'lr2', employeeId: 'IM06587UX', leaveType: 'Sick Leave', from: '2024-07-29', to: '2024-07-29', status: 'Pending' },
+  { id: 'lr3', employeeId: 'IM06587UT', leaveType: 'Annual Leave', from: '2024-08-05', to: '2024-08-10', status: 'Rejected' },
+];
+
+const getStatusBadgeClass = (status: AttendanceStatus | LeaveStatus) => {
+  switch (status) {
+    case 'Present': return 'bg-green-500 text-white';
+    case 'On Leave': return 'bg-yellow-500 text-white';
+    case 'Approved': return 'bg-green-500 text-white';
+    case 'Pending': return 'bg-yellow-500 text-white';
+    case 'Rejected': return 'bg-red-500 text-white';
+    default: return 'bg-gray-500 text-white';
+  }
 };
 
-const attendanceRecords = [
-    { date: '22 OCT, 2020', checkIn: '05:51 am', checkOut: '12:01 pm', status: 'Present' },
-    { date: '1 FEB, 2020', checkIn: '01:08 pm', checkOut: '05:49 pm', status: 'Present' },
-    { date: '8 SEP, 2020', checkIn: '05:36 pm', checkOut: '11:23 pm', status: 'Leave' },
-    { date: '21 SEP, 2020', checkIn: '11:49 pm', checkOut: '07:40 am', status: 'Present' },
-    { date: '17 OCT, 2020', checkIn: '02:02 am', checkOut: '11:49 pm', status: 'Leave' },
-    { date: '24 MAY, 2020', checkIn: '02:34 am', checkOut: '10:41 pm', status: 'Present' },
-];
+const updateLeaveStatus = (leaveId: string, newStatus: LeaveStatus) => {
+  const request = leaveRequests.find(r => r.id === leaveId);
+  if (request) {
+    request.status = newStatus;
+    console.log(`Leave request ${leaveId} status updated to ${newStatus}`);
+    if (newStatus === 'Approved') {
+      console.log(`Updating dashboard for employee ${request.employeeId}. Status: Absent`);
+    }
+  }
+};
 
 export function AttendancePage() {
   return (
-    <div className="space-y-6">
-      <h1 className="text-2xl font-bold">Attendance</h1>
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-4">
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
-            <CardTitle className="text-sm font-medium">Employee</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="flex items-center space-x-4">
-              <Avatar>
-                <AvatarImage src={employee.avatar} />
-                <AvatarFallback>{employee.name.charAt(0)}</AvatarFallback>
-              </Avatar>
-              <div>
-                <p className="font-bold">{employee.name}</p>
-                <p className="text-sm text-gray-500">{employee.position}</p>
-              </div>
+    <div className="space-y-4 p-2 sm:p-4 md:p-6">
+        <div className="flex justify-between items-center">
+            <h1 className="text-xl sm:text-2xl font-bold">Attendance</h1>
+            <div className="block sm:hidden">
+                <Button variant="ghost" size="icon">
+                    <Menu className="h-6 w-6" />
+                </Button>
             </div>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
-            <CardTitle className="text-sm font-medium">Employee ID</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-2xl font-bold">{employee.employeeId}</p>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
-            <CardTitle className="text-sm font-medium">Joining Date</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-2xl font-bold">{employee.joiningDate}</p>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
-            <CardTitle className="text-sm font-medium">Department</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-2xl font-bold">{employee.department}</p>
-          </CardContent>
-        </Card>
-      </div>
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-4">
-        <Card>
-          <CardHeader>
-            <CardTitle>Average Working Hour</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-2xl font-bold">08:00</p>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader>
-            <CardTitle>Average In Time</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-2xl font-bold">10:30 AM</p>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader>
-            <CardTitle>Average Out Time</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-2xl font-bold">07:30 PM</p>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader>
-            <CardTitle>Average Break Time</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-2xl font-bold">01:00</p>
-          </CardContent>
-        </Card>
-      </div>
-      <Card>
-        <CardHeader>
-          <CardTitle>Attendance</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Date</TableHead>
-                <TableHead>Check In</TableHead>
-                <TableHead>Check Out</TableHead>
-                <TableHead>Status</TableHead>
-                <TableHead>Action</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {attendanceRecords.map((record) => (
-                <TableRow key={record.date}>
-                  <TableCell>{record.date}</TableCell>
-                  <TableCell>{record.checkIn}</TableCell>
-                  <TableCell>{record.checkOut}</TableCell>
-                  <TableCell>
-                    <Badge
-                      className={record.status === 'Present' ? 'bg-green-500 text-white' : 'bg-red-500 text-white'}
-                    >
-                      {record.status}
-                    </Badge>
-                  </TableCell>
-                  <TableCell>
-                    <Button variant="outline" size="sm">Edit</Button>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </CardContent>
-      </Card>
+        </div>
+      <Tabs defaultValue="all">
+        <TabsList className="block sm:inline-block whitespace-nowrap overflow-x-auto">
+          <TabsTrigger value="all">All Employees</TabsTrigger>
+          <TabsTrigger value="leave-requests">Leave Requests</TabsTrigger>
+        </TabsList>
+        <TabsContent value="all">
+          <EmployeeTable employees={employees} />
+        </TabsContent>
+        <TabsContent value="leave-requests">
+          <LeaveRequestTable leaveRequests={leaveRequests} />
+        </TabsContent>
+      </Tabs>
     </div>
   );
+}
+
+function EmployeeTable({ employees }: { employees: Employee[] }) {
+  return (
+    <Card>
+      <CardContent className="overflow-x-auto">
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead>Employee</TableHead>
+              <TableHead className="hidden sm:table-cell">Employee ID</TableHead>
+              <TableHead>Status</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {employees.map((employee) => (
+              <TableRow key={employee.id}>
+                <TableCell>
+                  <div className="flex items-center space-x-2">
+                    <Avatar>
+                      <AvatarImage src={employee.avatar} />
+                      <AvatarFallback>{employee.name.charAt(0)}</AvatarFallback>
+                    </Avatar>
+                    <span className="font-medium">{employee.name}</span>
+                  </div>
+                </TableCell>
+                <TableCell className="hidden sm:table-cell">{employee.id}</TableCell>
+                <TableCell>
+                  <Badge className={getStatusBadgeClass(employee.status)}>
+                    {employee.status}
+                  </Badge>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </CardContent>
+    </Card>
+  );
+}
+
+function LeaveRequestTable({ leaveRequests }: { leaveRequests: LeaveRequest[] }) {
+    const getEmployee = (employeeId: string) => employees.find(e => e.id === employeeId);
+
+    return (
+        <Card>
+            <CardContent className="overflow-x-auto">
+                <Table>
+                    <TableHeader>
+                        <TableRow>
+                            <TableHead>Employee</TableHead>
+                            <TableHead className="hidden sm:table-cell">Leave Type</TableHead>
+                            <TableHead className="hidden md:table-cell">From</TableHead>
+                            <TableHead className="hidden md:table-cell">To</TableHead>
+                            <TableHead>Status</TableHead>
+                            <TableHead>Action</TableHead>
+                        </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                        {leaveRequests.map((request) => {
+                            const employee = getEmployee(request.employeeId);
+                            return (
+                                <TableRow key={request.id}>
+                                    <TableCell>
+                                        {employee && (
+                                            <div className="flex items-center space-x-2">
+                                                <Avatar>
+                                                    <AvatarImage src={employee.avatar} />
+                                                    <AvatarFallback>{employee.name.charAt(0)}</AvatarFallback>
+                                                </Avatar>
+                                                <span className="font-medium">{employee.name}</span>
+                                            </div>
+                                        )}
+                                    </TableCell>
+                                    <TableCell className="hidden sm:table-cell">{request.leaveType}</TableCell>
+                                    <TableCell className="hidden md:table-cell">{request.from}</TableCell>
+                                    <TableCell className="hidden md:table-cell">{request.to}</TableCell>
+                                    <TableCell>
+                                        <Badge className={getStatusBadgeClass(request.status)}>
+                                            {request.status}
+                                        </Badge>
+                                    </TableCell>
+                                    <TableCell>
+                                        <DropdownMenu>
+                                            <DropdownMenuTrigger asChild>
+                                                <Button variant="outline" size="sm">Edit</Button>
+                                            </DropdownMenuTrigger>
+                                            <DropdownMenuContent>
+                                                <DropdownMenuItem onClick={() => updateLeaveStatus(request.id, 'Approved')}>Approved</DropdownMenuItem>
+                                                <DropdownMenuItem onClick={() => updateLeaveStatus(request.id, 'Pending')}>Pending</DropdownMenuItem>
+                                                <DropdownMenuItem onClick={() => updateLeaveStatus(request.id, 'Rejected')}>Rejected</DropdownMenuItem>
+                                            </DropdownMenuContent>
+                                        </DropdownMenu>
+                                    </TableCell>
+                                </TableRow>
+                            );
+                        })}
+                    </TableBody>
+                </Table>
+            </CardContent>
+        </Card>
+    );
 }

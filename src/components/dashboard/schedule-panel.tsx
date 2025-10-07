@@ -131,49 +131,49 @@ export function SchedulePanel({ schedule: initialSchedule }: SchedulePanelProps)
   }, [schedule, selectedDate]);
 
   return (
-    <Card className="h-full">
-      <CardHeader>
-        <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-                <CalendarIcon className="h-5 w-5 text-muted-foreground" />
-                <CardTitle className="text-base font-semibold">Schedule</CardTitle>
+      <Card className="h-full">
+          <CardHeader>
+            <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                    <CalendarIcon className="h-5 w-5 text-muted-foreground" />
+                    <CardTitle className="text-base font-semibold">Schedule</CardTitle>
+                </div>
+                <Link href="/schedule" legacyBehavior>
+                  <Button variant="link" size="sm" className="h-8 rounded-full flex items-center gap-1">
+                    See All
+                    <ArrowRight className="h-4 w-4" />
+                  </Button>
+                </Link>
             </div>
-            <Link href="/schedule">
-              <Button variant="link" size="sm" className="h-8 rounded-full flex items-center gap-1">
-                See All
-                <ArrowRight className="h-4 w-4" />
-              </Button>
-            </Link>
-        </div>
-      </CardHeader>
-      <CardContent className="space-y-4">
-        <WeekCalendar selectedDate={selectedDate} onSelectDate={setSelectedDate} />
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <WeekCalendar selectedDate={selectedDate} onSelectDate={setSelectedDate} />
 
-        <div className="relative">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-            <Input placeholder="Search..." className="pl-9 h-9 rounded-lg bg-secondary" />
-             <Button variant="ghost" size="icon" className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7">
-                <Filter className="h-4 w-4" />
-            </Button>
-        </div>
+            <div className="relative">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                <Input placeholder="Search..." className="pl-9 h-9 rounded-lg bg-secondary" />
+                 <Button variant="ghost" size="icon" className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7">
+                    <Filter className="h-4 w-4" />
+                </Button>
+            </div>
 
-        <ToggleGroup type="single" value={activeTab} onValueChange={(value) => value && setActiveTab(value)} className="w-full" variant="schedule">
-            <ToggleGroupItem value="meetings" className="w-full gap-2">
-                <Briefcase className="h-4 w-4" />
-                Meetings
-            </ToggleGroupItem>
-            <ToggleGroupItem value="events" className="w-full gap-2">
-                <Video className="h-4 w-4" />
-                Events
-            </ToggleGroupItem>
-        </ToggleGroup>
+            <ToggleGroup type="single" value={activeTab} onValueChange={(value) => value && setActiveTab(value)} className="w-full" variant="schedule">
+                <ToggleGroupItem value="meetings" className="w-full gap-2">
+                    <Briefcase className="h-4 w-4" />
+                    Meetings
+                </ToggleGroupItem>
+                <ToggleGroupItem value="events" className="w-full gap-2">
+                    <Video className="h-4 w-4" />
+                    Events
+                </ToggleGroupItem>
+            </ToggleGroup>
 
-        <div className="space-y-6">
-            {activeTab === 'meetings' && <ScheduleList title="Meetings" items={meetings} />}
-            {activeTab === 'events' && <ScheduleList title="Events" items={events} />}
-        </div>
-        
-      </CardContent>
-    </Card>
+            <div className="space-y-6">
+                {activeTab === 'meetings' && <ScheduleList title="Meetings" items={meetings} />}
+                {activeTab === 'events' && <ScheduleList title="Events" items={events} />}
+            </div>
+            
+          </CardContent>
+      </Card>
   );
 }

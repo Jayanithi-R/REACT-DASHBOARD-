@@ -1,20 +1,24 @@
-import { SidebarProvider } from '@/components/ui/sidebar';
-import { AppSidebar } from '@/components/sidebar';
-import { DashboardHeader } from '@/components/dashboard/header';
+'use client';
+import { AppSidebar, Sidebar, SidebarProvider, SidebarInset } from "@/components/sidebar";
+import { Header } from '@/components/dashboard/header';
 import { BacklogPage } from '@/components/backlog/backlog-page';
 
 export default function Page() {
   return (
     <SidebarProvider>
-      <div className="flex h-screen bg-gray-50">
+      <Sidebar>
         <AppSidebar />
-        <div className="flex flex-col flex-1 overflow-y-auto">
-          <DashboardHeader />
-          <main className="p-4 md:p-6">
+      </Sidebar>
+      <SidebarInset>
+        <div className="flex flex-col flex-1">
+          <header className="sticky top-0 z-10 w-full">
+            <Header />
+          </header>
+          <main className="flex-1 p-4 sm:p-6 overflow-y-auto bg-gray-50">
             <BacklogPage />
           </main>
         </div>
-      </div>
+      </SidebarInset>
     </SidebarProvider>
   );
 }
