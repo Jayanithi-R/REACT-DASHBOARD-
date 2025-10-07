@@ -2,6 +2,7 @@
 
 import type { ScheduleItem } from '@/lib/types';
 import { useState, useMemo } from 'react';
+import Link from 'next/link';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
@@ -137,10 +138,12 @@ export function SchedulePanel({ schedule: initialSchedule }: SchedulePanelProps)
                 <CalendarIcon className="h-5 w-5 text-muted-foreground" />
                 <CardTitle className="text-base font-semibold">Schedule</CardTitle>
             </div>
-            <Button variant="link" size="sm" className="h-8 rounded-full flex items-center gap-1">
-              See All
-              <ArrowRight className="h-4 w-4" />
-            </Button>
+            <Link href="/schedule">
+              <Button variant="link" size="sm" className="h-8 rounded-full flex items-center gap-1">
+                See All
+                <ArrowRight className="h-4 w-4" />
+              </Button>
+            </Link>
         </div>
       </CardHeader>
       <CardContent className="space-y-4">
