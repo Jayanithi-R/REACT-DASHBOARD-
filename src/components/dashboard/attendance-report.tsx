@@ -1,4 +1,5 @@
 'use client';
+import Link from "next/link";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -33,7 +34,9 @@ export function AttendanceReport() {
     <Card>
       <CardHeader className="flex flex-row items-center justify-between">
         <CardTitle>Attendance Report</CardTitle>
-        <Button variant="link" size="sm">See All</Button>
+        <Link href="/attendance">
+          <Button variant="link" size="sm">See All</Button>
+        </Link>
       </CardHeader>
       <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>

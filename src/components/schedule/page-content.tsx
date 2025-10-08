@@ -7,16 +7,20 @@ import { Input } from "@/components/ui/input";
 import { CheckCircle, Edit, PlusCircle, Calendar, MoreHorizontal, Plus, Search, ChevronDown, ChevronRight, User } from "lucide-react";
 import Link from "next/link";
 import { ReloadIcon } from "@radix-ui/react-icons";
+import { CreateDialog } from "./create-dialog";
 
 export function SchedulePageContent() {
   return (
     <div className="flex flex-col gap-4 p-4 md:p-6 h-full overflow-y-auto">
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-bold">Schedule</h1>
-        <Button variant="outline">
-          <FilterIcon className="mr-2 h-4 w-4" />
-          Filter
-        </Button>
+        <div className="flex items-center space-x-2">
+          <Button variant="outline">
+            <FilterIcon className="mr-2 h-4 w-4" />
+            Filter
+          </Button>
+          <CreateDialog />
+        </div>
       </div>
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         <Card>
@@ -181,7 +185,7 @@ export function SchedulePageContent() {
               <ReloadIcon className="w-16 h-16 text-blue-500 mb-4" />
               <h3 className="font-semibold mb-2">Get started in the backlog</h3>
               <p className="text-gray-500 text-sm mb-4">Plan and start a sprint to see work here.</p>
-              <Link href="/backlog" passHref legacyBehavior>
+              <Link href="/backlog">
                 <Button variant="outline">Go to Backlog</Button>
               </Link>
             </div>
