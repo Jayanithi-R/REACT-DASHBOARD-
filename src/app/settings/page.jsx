@@ -1,0 +1,14 @@
+import { Header } from '@/components/dashboard/header';
+
+export default function SettingsPage() {
+  return (
+    <div className="flex flex-col min-h-screen">
+      <header className="sticky top-0 z-10 w-full">
+        <Header />
+      </header>
+      <main className="flex-1 p-4 sm:p-6 overflow-y-auto bg-gray-50">
+        <h1 className="text-2xl font-bold">Settings</h1>
+      </main>
+    </div>
+  );
+}
