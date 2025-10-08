@@ -1,15 +1,20 @@
+'use client';
+import { Sidebar } from '@/components/sidebar';
 import { Header } from '@/components/dashboard/header';
 import { AttendancePageComponent } from '@/components/attendance/attendance-page';
 
 export default function AttendancePage() {
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex min-h-screen">
+      <Sidebar />
+      <div className="flex-1 flex flex-col">
         <header className="sticky top-0 z-10 w-full">
-            <Header />
+          <Header />
         </header>
         <main className="flex-1 p-4 sm:p-6 overflow-y-auto bg-gray-50">
-            <AttendancePageComponent />
+          <AttendancePageComponent />
         </main>
+      </div>
     </div>
   );
 }

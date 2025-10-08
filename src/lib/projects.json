@@ -1,0 +1,51 @@
+{
+  "projects": [
+    {
+      "id": 1,
+      "name": "Project A",
+      "tasks": [
+        {
+          "id": 101,
+          "title": "Develop new feature",
+          "assignee": "Alice",
+          "status": "In Progress",
+          "dueDate": "2024-07-20"
+        },
+        {
+          "id": 102,
+          "title": "Fix bug in login page",
+          "assignee": "Bob",
+          "status": "To Do",
+          "dueDate": "2024-07-22"
+        },
+        {
+          "id": 103,
+          "title": "Deploy to production",
+          "assignee": "Charlie",
+          "status": "Done",
+          "dueDate": "2024-07-18"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Project B",
+      "tasks": [
+        {
+          "id": 201,
+          "title": "Design new UI",
+          "assignee": "David",
+          "status": "To Do",
+          "dueDate": "2024-07-25"
+        },
+        {
+          "id": 202,
+          "title": "Write documentation",
+          "assignee": "Eve",
+          "status": "In Progress",
+          "dueDate": "2024-07-28"
+        }
+      ]
+    }
+  ]
+}

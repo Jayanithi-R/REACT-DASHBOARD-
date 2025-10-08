@@ -1,61 +1,136 @@
 {
     "2025-10-13": {
-        "meetings": [
-            {
-                "id": 1,
-                "title": "Meeting Product",
-                "time": "9:00 - 9:45 AM",
-                "location": "On Zoom",
-                "team": "Product Team",
-                "attendees": [
-                    "https://i.pravatar.cc/150?img=1",
-                    "https://i.pravatar.cc/150?img=2"
-                ]
-            },
-            {
-                "id": 2,
-                "title": "Meeting Ops",
-                "time": "10:00 - 11:00 AM",
-                "location": "On Slack",
-                "team": "Operations Team",
-                "attendees": [
-                    "https://i.pravatar.cc/150?img=3",
-                    "https://i.pravatar.cc/150?img=4"
-                ]
-            }
-        ],
-        "events": []
+      "meetings": [
+        {
+          "title": "Meeting Product",
+          "time": "9:00 - 9:45 AM",
+          "avatars": ["/avatars/01.png", "/avatars/02.png", "/avatars/03.png"],
+          "team": "Product Team",
+          "location": "On Zoom"
+        },
+        {
+          "title": "Meeting Ops",
+          "time": "10:00 - 11:00 AM",
+          "avatars": ["/avatars/04.png", "/avatars/05.png", "/avatars/06.png"],
+          "team": "Operations Team",
+          "location": "On Slack"
+        }
+      ],
+      "events": []
     },
     "2025-10-14": {
-        "meetings": [
-            {
-                "id": 3,
-                "title": "Marketing Sync",
-                "time": "2:00 - 3:00 PM",
-                "location": "On Google Meet",
-                "team": "Marketing Team",
-                "attendees": [
-                    "https://i.pravatar.cc/150?img=5",
-                    "https://i.pravatar.cc/150?img=6",
-                    "https://i.pravatar.cc/150?img=7"
-                ]
-            }
-        ],
+        "meetings": [],
         "events": [
             {
-                "id": 1,
-                "title": "Company All-Hands",
-                "time": "4:00 - 5:00 PM"
+                "title": "Town Hall",
+                "time": "2:00 - 3:00 PM",
+                "avatars": ["/avatars/07.png", "/avatars/08.png", "/avatars/09.png"],
+                "team": "Company-wide",
+                "location": "Auditorium"
             }
         ]
     },
     "2025-10-15": {
+      "meetings": [
+        {
+          "title": "Project Alpha Stand-up",
+          "time": "9:30 - 10:00 AM",
+          "avatars": ["/avatars/01.png", "/avatars/04.png"],
+          "team": "Project Alpha",
+          "location": "Conference Room 1"
+        }
+      ],
+      "events": [
+        {
+            "title": "Office Yoga",
+            "time": "1:00 PM - 2:00 PM",
+            "avatars": ["/avatars/05.png", "/avatars/06.png", "/avatars/07.png"],
+            "team": "Wellness",
+            "location": "Recreation Room"
+        }
+      ]
+    },
+    "2025-10-16": {
+        "meetings": [
+            {
+              "title": "Marketing Strategy Review",
+              "time": "11:00 AM - 12:30 PM",
+              "avatars": ["/avatars/02.png", "/avatars/08.png"],
+              "team": "Marketing",
+              "location": "On Zoom"
+            }
+        ],
+        "events": []
+    },
+    "2025-10-17": {
         "meetings": [],
         "events": [
             {
-                "id": 2,
-                "title": "Design Showcase",
-                "time": "11:00 - 12:00 PM"
+                "title": "Friday Happy Hour",
+                "time": "5:00 PM onwards",
+                "avatars": ["/avatars/01.png", "/avatars/02.png", "/avatars/03.png", "/avatars/04.png", "/avatars/05.png"],
+                "team": "Company-wide",
+                "location": "Office Pantry"
+            }
+        ]
+    },
+    "2025-10-20": {
+        "meetings": [
+            {
+                "title": "Weekly Sprint Planning",
+                "time": "10:00 AM - 11:30 AM",
+                "avatars": ["/avatars/01.png", "/avatars/04.png", "/avatars/09.png"],
+                "team": "Engineering",
+                "location": "Conference Room 2"
+            }
+        ],
+        "events": []
+    },
+    "2025-10-22": {
+        "meetings": [
+            {
+                "title": "Q4 Budget Review",
+                "time": "2:00 PM - 4:00 PM",
+                "avatars": ["/avatars/01.png", "/avatars/10.png"],
+                "team": "Finance",
+                "location": "Board Room"
+            }
+        ],
+        "events": []
+    },
+    "2025-10-24": {
+        "meetings": [],
+        "events": [
+            {
+                "title": "Hackathon Kick-off",
+                "time": "4:00 PM - 5:00 PM",
+                "avatars": ["/avatars/01.png", "/avatars/02.png", "/avatars/03.png", "/avatars/04.png", "/avatars/05.png", "/avatars/06.png"],
+                "team": "Engineering",
+                "location": "Auditorium"
+            }
+        ]
+    },
+    "2025-10-28": {
+        "meetings": [
+            {
+                "title": "Candidate Interview",
+                "time": "11:00 AM - 12:00 PM",
+                "avatars": ["/avatars/01.png", "/avatars/03.png"],
+                "team": "Hiring",
+                "location": "Interview Room 1"
+            }
+        ],
+        "events": []
+    },
+    "2025-10-30": {
+        "meetings": [],
+        "events": [
+            {
+                "title": "Halloween Party",
+                "time": "3:00 PM onwards",
+                "avatars": [],
+                "team": "Company-wide",
+                "location": "Cafeteria"
             }
         ]
     }

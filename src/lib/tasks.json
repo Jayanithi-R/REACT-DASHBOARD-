@@ -1,0 +1,5 @@
+[
+    { "id": 1, "text": "Create a new landing page design for the marketing campaign.", "completed": true },
+    { "id": 2, "text": "Fix the bug in the user authentication flow on the mobile app.", "completed": false },
+    { "id": 3, "text": "Update the documentation for the API endpoints.", "completed": false }
+]

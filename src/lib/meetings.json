@@ -1,0 +1,22 @@
+[
+    {
+      "id": 1,
+      "time": "10:00 - 11:00",
+      "title": "Design Meeting",
+      "participants": [
+          { "id": 1, "name": "Alex" }, 
+          { "id": 2, "name": "Brian" }, 
+          { "id": 3, "name": "Clara" }
+      ]
+    },
+    {
+      "id": 2,
+      "time": "14:00 - 15:00",
+      "title": "Development Sync",
+      "participants": [
+          { "id": 4, "name": "David" }, 
+          { "id": 5, "name": "Eva" }, 
+          { "id": 6, "name": "Frank" }
+      ]
+    }
+]

@@ -1,3 +1,4 @@
+'use client';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Card, CardContent } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
@@ -5,21 +6,19 @@ import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { Button } from '@/components/ui/button';
-import { Menu } from 'lucide-react';
-
-const employees = [
-  { id: 'IM06587UT', name: 'Maria Smith', avatar: '/avatars/01.png', status: 'Present' },
-  { id: 'IM06587UV', name: 'John Doe', avatar: '/avatars/02.png', status: 'On Leave' },
-  { id: 'IM06587UW', name: 'Jane Doe', avatar: '/avatars/03.png', status: 'Present' },
-  { id: 'IM06587UX', name: 'Peter Jones', avatar: '/avatars/04.png', status: 'On Leave' },
-  { id: 'IM06587UY', name: 'User 1', avatar: '/avatars/05.png', status: 'Present' },
-];
-
-let leaveRequests = [
-  { id: 'lr1', employeeId: 'IM06587UV', leaveType: 'Annual Leave', from: '2024-07-29', to: '2024-07-30', status: 'Approved' },
-  { id: 'lr2', employeeId: 'IM06587UX', leaveType: 'Sick Leave', from: '2024-07-29', to: '2024-07-29', status: 'Pending' },
-  { id: 'lr3', employeeId: 'IM06587UT', leaveType: 'Annual Leave', from: '2024-08-05', to: '2024-08-10', status: 'Rejected' },
-];
+import { Menu, Plus } from 'lucide-react';
+import { useAttendance } from '@/hooks/use-attendance';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+  DialogFooter
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { useState } from 'react';
 
 const getStatusBadgeClass = (status) => {
   switch (status) {
@@ -32,27 +31,48 @@ const getStatusBadgeClass = (status) => {
   }
 };
 
-const updateLeaveStatus = (leaveId, newStatus) => {
-  const request = leaveRequests.find(r => r.id === leaveId);
-  if (request) {
-    request.status = newStatus;
-    console.log(`Leave request ${leaveId} status updated to ${newStatus}`);
-    if (newStatus === 'Approved') {
-      console.log(`Updating dashboard for employee ${request.employeeId}. Status: Absent`);
-    }
-  }
-};
-
 export function AttendancePageComponent() {
+  const { employees, leaveRequests, updateLeaveStatus, addLeaveRequest } = useAttendance();
+  const [open, setOpen] = useState(false);
+  const [leaveDetails, setLeaveDetails] = useState({ leaveType: '', from: '', to: '', reason: '' });
+
+  const handleAddLeaveRequest = () => {
+    const newRequest = {
+        id: leaveRequests.length + 1,
+        employeeId: 'EMP001', // Assuming the current user is EMP001
+        ...leaveDetails,
+        status: 'Pending'
+    };
+    addLeaveRequest(newRequest);
+    setOpen(false);
+    setLeaveDetails({ leaveType: '', from: '', to: '', reason: '' });
+  }
+
   return (
     <div className="space-y-4 p-2 sm:p-4 md:p-6">
         <div className="flex justify-between items-center">
             <h1 className="text-xl sm:text-2xl font-bold">Attendance</h1>
-            <div className="block sm:hidden">
-                <Button variant="ghost" size="icon">
-                    <Menu className="h-6 w-6" />
-                </Button>
-            </div>
+            <Dialog open={open} onOpenChange={setOpen}>
+              <DialogTrigger asChild>
+                <Button><Plus className="h-4 w-4 mr-2" />Create Request</Button>
+              </DialogTrigger>
+              <DialogContent>
+                <DialogHeader>
+                  <DialogTitle>Create Leave Request</DialogTitle>
+                </DialogHeader>
+                <div className="space-y-4">
+                  <Input placeholder="Leave Type" value={leaveDetails.leaveType} onChange={(e) => setLeaveDetails({...leaveDetails, leaveType: e.target.value})} />
+                  <div className="flex space-x-2">
+                    <Input type="date" placeholder="From" value={leaveDetails.from} onChange={(e) => setLeaveDetails({...leaveDetails, from: e.target.value})} />
+                    <Input type="date" placeholder="To" value={leaveDetails.to} onChange={(e) => setLeaveDetails({...leaveDetails, to: e.target.value})} />
+                  </div>
+                  <Textarea placeholder="Reason" value={leaveDetails.reason} onChange={(e) => setLeaveDetails({...leaveDetails, reason: e.target.value})} />
+                </div>
+                <DialogFooter>
+                  <Button onClick={handleAddLeaveRequest}>Submit Request</Button>
+                </DialogFooter>
+              </DialogContent>
+            </Dialog>
         </div>
       <Tabs defaultValue="all">
         <TabsList className="block sm:inline-block whitespace-nowrap overflow-x-auto">
@@ -63,7 +83,7 @@ export function AttendancePageComponent() {
           <EmployeeTable employees={employees} />
         </TabsContent>
         <TabsContent value="leave-requests">
-          <LeaveRequestTable leaveRequests={leaveRequests} />
+          <LeaveRequestTable employees={employees} leaveRequests={leaveRequests} updateLeaveStatus={updateLeaveStatus} />
         </TabsContent>
       </Tabs>
     </div>
@@ -109,7 +129,7 @@ function EmployeeTable({ employees }) {
   );
 }
 
-function LeaveRequestTable({ leaveRequests }) {
+function LeaveRequestTable({ employees, leaveRequests, updateLeaveStatus }) {
     const getEmployee = (employeeId) => employees.find(e => e.id === employeeId);
 
     return (

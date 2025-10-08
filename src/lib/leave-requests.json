@@ -1,0 +1,4 @@
+[
+    { "id": 1, "employeeId": 1, "leaveType": "Sickness", "days": 2 },
+    { "id": 2, "employeeId": 2, "leaveType": "Personal", "days": 1 }
+]

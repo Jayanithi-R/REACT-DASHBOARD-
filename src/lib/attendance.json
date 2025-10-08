@@ -1,0 +1,14 @@
+{
+  "employees": [
+    { "id": "IM06587UT", "name": "Maria Smith", "avatar": "/avatars/01.png", "status": "Present" },
+    { "id": "IM06587UV", "name": "John Doe", "avatar": "/avatars/02.png", "status": "On Leave" },
+    { "id": "IM06587UW", "name": "Jane Doe", "avatar": "/avatars/03.png", "status": "Present" },
+    { "id": "IM06587UX", "name": "Peter Jones", "avatar": "/avatars/04.png", "status": "On Leave" },
+    { "id": "IM06587UY", "name": "User 1", "avatar": "/avatars/05.png", "status": "Present" }
+  ],
+  "leaveRequests": [
+    { "id": "lr1", "employeeId": "IM06587UV", "leaveType": "Annual Leave", "from": "2024-07-29", "to": "2024-07-30", "status": "Approved" },
+    { "id": "lr2", "employeeId": "IM06587UX", "leaveType": "Sick Leave", "from": "2024-07-29", "to": "2024-07-29", "status": "Pending" },
+    { "id": "lr3", "employeeId": "IM06587UT", "leaveType": "Annual Leave", "from": "2024-08-05", "to": "2024-08-10", "status": "Rejected" }
+  ]
+}

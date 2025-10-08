@@ -1,23 +1,19 @@
+import { Inter } from 'next/font/google';
 import './globals.css';
-import { Toaster } from "@/components/ui/toaster"
-import { AppProviders } from './providers';
+import { SearchProvider } from '@/context/SearchContext';
+
+const inter = Inter({ subsets: ['latin'] });
 
 export const metadata = {
-  title: 'HRSync Dashboard',
-  description: 'Employee details and schedule management',
+  title: 'HRsync',
+  description: 'HR Management Dashboard',
 };
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
-      </head>
-      <body className="font-body antialiased" suppressHydrationWarning>
-        <AppProviders>{children}</AppProviders>
-        <Toaster />
+    <html lang="en">
+      <body className={`${inter.className} bg-gray-50`}>
+        <SearchProvider>{children}</SearchProvider>
       </body>
     </html>
   );

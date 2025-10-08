@@ -1,121 +1,55 @@
 'use client';
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { ChevronLeft, ChevronRight, Search } from "lucide-react";
-import React from "react";
-import scheduleData from '@/lib/schedule.json';
+import { Calendar } from "@/components/ui/calendar";
+import { Button } from "@/components/ui/button";
 
-// Helper to format a date as YYYY-MM-DD in a timezone-safe way
-const toISODateString = (date) => {
-    const year = date.getFullYear();
-    const month = (date.getMonth() + 1).toString().padStart(2, '0');
-    const day = date.getDate().toString().padStart(2, '0');
-    return `${year}-${month}-${day}`;
-};
-
-export function Schedule() {
-    const [currentDate, setCurrentDate] = React.useState(new Date('2025-10-13T00:00:00'));
-    const [activeTab, setActiveTab] = React.useState('meetings');
-    const [searchTerm, setSearchTerm] = React.useState('');
-
-    const formattedDate = toISODateString(currentDate);
-    const scheduleForDay = scheduleData[formattedDate] || { meetings: [], events: [] };
-
-    const handleWeekChange = (weeks) => {
-        const newDate = new Date(currentDate);
-        newDate.setDate(newDate.getDate() + (weeks * 7));
-        setCurrentDate(newDate);
-    };
-
-    const getWeekDays = (date) => {
-        const week = [];
-        const firstDayOfWeek = new Date(date);
-        const dayOfWeek = firstDayOfWeek.getDay();
-        const diff = firstDayOfWeek.getDate() - dayOfWeek + (dayOfWeek === 0 ? -6 : 1); // adjust when day is sunday
-        firstDayOfWeek.setDate(diff);
-
-        for (let i = 0; i < 7; i++) {
-            const weekDay = new Date(firstDayOfWeek);
-            weekDay.setDate(firstDayOfWeek.getDate() + i);
-            week.push(weekDay);
+export function Schedule({ selectedDate, onDateChange, activeTab, onTabChange, meetings, events }) {
+    const renderItems = (items) => {
+        if (!items || items.length === 0) {
+            return <p className="text-sm text-gray-500 text-center py-4">No {activeTab.toLowerCase()} scheduled for this date.</p>;
         }
-        return week;
+
+        return items.map((item, index) => (
+            <div key={index} className="border p-2 rounded-lg">
+                <div className="flex justify-between items-center">
+                    <h4 className="font-semibold">{item.title}</h4>
+                    <span className="text-sm text-gray-500">{item.time}</span>
+                </div>
+                <div className="flex items-center justify-between mt-2">
+                    <div className="flex -space-x-2">
+                        {item.avatars.map((avatar, i) => (
+                            <img key={i} className="inline-block h-6 w-6 rounded-full ring-2 ring-white" src={avatar} alt="" />
+                        ))}
+                    </div>
+                    <span className={`px-2 py-1 text-xs rounded-full ${item.team === 'Product Team' ? 'bg-blue-100 text-blue-600' : 'bg-green-100 text-green-600'}`}>{item.team}</span>
+                </div>
+                <p className="text-sm text-gray-500 mt-1">{item.location}</p>
+            </div>
+        ));
     };
 
-    const weekDays = getWeekDays(currentDate);
-
-    const filteredMeetings = scheduleForDay.meetings.filter(m => m.title.toLowerCase().includes(searchTerm.toLowerCase()));
-    const filteredEvents = scheduleForDay.events.filter(e => e.title.toLowerCase().includes(searchTerm.toLowerCase()));
-
-  return (
-    <Card>
-      <CardHeader className="flex flex-row items-center justify-between">
-        <CardTitle>Schedule</CardTitle>
-        <Button variant="link" size="sm">See All</Button>
-      </CardHeader>
-      <CardContent className="space-y-4">
-        <div className="flex items-center justify-between">
-          <Button variant="ghost" size="icon" onClick={() => handleWeekChange(-1)}><ChevronLeft className="h-4 w-4" /></Button>
-          <span className="font-semibold text-sm">{currentDate.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}</span>
-          <Button variant="ghost" size="icon" onClick={() => handleWeekChange(1)}><ChevronRight className="h-4 w-4" /></Button>
-        </div>
-        <div className="grid grid-cols-7 text-center text-xs text-muted-foreground">
-            {weekDays.map((day, i) => (
-                <span key={i}>{day.toLocaleDateString('en-US', { weekday: 'short' })}</span>
-            ))}
-        </div>
-        <div className="grid grid-cols-7 text-center text-sm">
-            {weekDays.map((day, i) => {
-                const isSelected = day.toDateString() === currentDate.toDateString();
-                return <span key={i} className={`p-2 cursor-pointer ${isSelected ? 'bg-primary text-primary-foreground rounded-full' : ''}`} onClick={() => setCurrentDate(day)}>{day.getDate()}</span>
-            })}
-        </div>
-        <div className="relative">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-            <Input 
-                placeholder="Search..." 
-                className="pl-10 w-full bg-transparent border-b"
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-            />
-        </div>
-        <div className="flex justify-around bg-gray-100 p-1 rounded-lg">
-            <Button variant={activeTab === 'meetings' ? 'outline' : 'ghost'} size="sm" className={`flex-1 ${activeTab === 'meetings' && 'bg-background'}`} onClick={() => setActiveTab('meetings')}>Meetings</Button>
-            <Button variant={activeTab === 'events' ? 'outline' : 'ghost'} size="sm" className={`flex-1 ${activeTab === 'events' && 'bg-background'}`} onClick={() => setActiveTab('events')}>Events</Button>
-        </div>
-        <div>
-            {activeTab === 'meetings' && filteredMeetings.map((meeting) => (
-                <div key={meeting.id} className="mt-2 p-3 rounded-lg bg-gray-50">
-                    <div className="flex items-center justify-between">
-                        <div>
-                            <p className="font-bold">{meeting.title}</p>
-                            <p className="text-sm text-muted-foreground">{meeting.time}</p>
-                            <div className="flex items-center mt-2">
-                                <div className="flex -space-x-2 mr-2">
-                                    {meeting.attendees.map((attendee, index) => (
-                                        <Avatar key={index} className="h-6 w-6 border-2 border-background">
-                                            <AvatarImage src={attendee} />
-                                        </Avatar>
-                                    ))}
-                                </div>
-                            </div>
-                        </div>
-                        <Button variant="outline" size="sm">{meeting.team}</Button>
+    return (
+        <Card>
+            <CardHeader>
+                <CardTitle>Schedule</CardTitle>
+            </CardHeader>
+            <CardContent>
+                <Calendar
+                    mode="single"
+                    selected={selectedDate}
+                    onSelect={onDateChange}
+                    className="rounded-md border"
+                />
+                <div className="mt-4 space-y-4">
+                    <div className="flex justify-around items-center bg-gray-100 rounded-lg p-1">
+                        <Button variant={activeTab === 'Meetings' ? 'secondary' : 'ghost'} onClick={() => onTabChange('Meetings')} className="flex-1">Meetings</Button>
+                        <Button variant={activeTab === 'Events' ? 'secondary' : 'ghost'} onClick={() => onTabChange('Events')} className="flex-1">Events</Button>
+                    </div>
+                    <div className="space-y-2">
+                        {activeTab === 'Meetings' ? renderItems(meetings) : renderItems(events)}
                     </div>
                 </div>
-            ))}
-            {activeTab === 'events' && filteredEvents.map((event) => (
-                <div key={event.id} className="mt-2 p-3 rounded-lg bg-gray-50">
-                     <p className="font-bold">{event.title}</p>
-                     <p className="text-sm text-muted-foreground">{event.time}</p>
-                </div>
-            ))}
-             {(activeTab === 'meetings' && filteredMeetings.length === 0) && <p className="text-center text-muted-foreground pt-4">No meetings for this day.</p>}
-             {(activeTab === 'events' && filteredEvents.length === 0) && <p className="text-center text-muted-foreground pt-4">No events for this day.</p>}
-        </div>
-      </CardContent>
-    </Card>
-  );
+            </CardContent>
+        </Card>
+    );
 }
