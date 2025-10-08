@@ -56,6 +56,17 @@ export function Board() {
     setProjects(newProjects);
   };
 
+  const handleUpdateTask = (updatedTask) => {
+    const newProjects = projects.map(project => ({
+      ...project,
+      tasks: project.tasks.map(task =>
+        task.id === updatedTask.id ? updatedTask : task
+      ),
+    }));
+    setProjects(newProjects);
+  };
+
+
   if (!projects.length) {
     return <div>Loading...</div>
   }
@@ -87,7 +98,7 @@ export function Board() {
                                 {...provided.dragHandleProps}
                                 className="mb-4"
                               >
-                                <TaskCard task={task} />
+                                <TaskCard task={task} onUpdateTask={handleUpdateTask} />
                               </div>
                             )}
                           </Draggable>

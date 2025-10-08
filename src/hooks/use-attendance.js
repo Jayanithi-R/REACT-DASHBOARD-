@@ -21,11 +21,27 @@ export const useAttendance = () => {
       );
 
       const request = updatedRequests.find(r => r.id === leaveId);
+      
+      if (request) {
+        let employeeStatus;
+        switch (newStatus) {
+          case 'Approved':
+            employeeStatus = 'On Leave';
+            break;
+          case 'WFH':
+            employeeStatus = 'WFH';
+            break;
+          case 'Rejected':
+          case 'Pending':
+            employeeStatus = 'Present';
+            break;
+          default:
+            employeeStatus = 'Present';
+        }
 
-      if (newStatus === 'Approved') {
         setEmployees(prevEmployees => 
           prevEmployees.map(employee => 
-            employee.id === request.employeeId ? { ...employee, status: 'On Leave' } : employee
+            employee.id === request.employeeId ? { ...employee, status: employeeStatus } : employee
           )
         );
       }

@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useState } from 'react';
 
 const getStatusBadgeClass = (status) => {
@@ -27,6 +28,7 @@ const getStatusBadgeClass = (status) => {
     case 'Approved': return 'bg-green-500 text-white';
     case 'Pending': return 'bg-yellow-500 text-white';
     case 'Rejected': return 'bg-red-500 text-white';
+    case 'WFH': return 'bg-blue-500 text-white';
     default: return 'bg-gray-500 text-white';
   }
 };
@@ -34,18 +36,25 @@ const getStatusBadgeClass = (status) => {
 export function AttendancePageComponent() {
   const { employees, leaveRequests, updateLeaveStatus, addLeaveRequest } = useAttendance();
   const [open, setOpen] = useState(false);
-  const [leaveDetails, setLeaveDetails] = useState({ leaveType: '', from: '', to: '', reason: '' });
+  const [leaveDetails, setLeaveDetails] = useState({ employeeId: '', leaveType: '', from: '', to: '', reason: '' });
 
   const handleAddLeaveRequest = () => {
+    if (!leaveDetails.employeeId) {
+        console.error("Employee not selected");
+        return;
+    }
     const newRequest = {
-        id: leaveRequests.length + 1,
-        employeeId: 'EMP001', // Assuming the current user is EMP001
-        ...leaveDetails,
+        id: `lr${leaveRequests.length + 1}`,
+        employeeId: leaveDetails.employeeId,
+        leaveType: leaveDetails.leaveType,
+        from: leaveDetails.from,
+        to: leaveDetails.to,
+        reason: leaveDetails.reason,
         status: 'Pending'
     };
     addLeaveRequest(newRequest);
     setOpen(false);
-    setLeaveDetails({ leaveType: '', from: '', to: '', reason: '' });
+    setLeaveDetails({ employeeId: '', leaveType: '', from: '', to: '', reason: '' });
   }
 
   return (
@@ -61,6 +70,16 @@ export function AttendancePageComponent() {
                   <DialogTitle>Create Leave Request</DialogTitle>
                 </DialogHeader>
                 <div className="space-y-4">
+                    <Select onValueChange={(value) => setLeaveDetails({...leaveDetails, employeeId: value})}>
+                        <SelectTrigger>
+                            <SelectValue placeholder="Select Employee" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            {employees.map(employee => (
+                                <SelectItem key={employee.id} value={employee.id}>{employee.name}</SelectItem>
+                            ))}
+                        </SelectContent>
+                    </Select>
                   <Input placeholder="Leave Type" value={leaveDetails.leaveType} onChange={(e) => setLeaveDetails({...leaveDetails, leaveType: e.target.value})} />
                   <div className="flex space-x-2">
                     <Input type="date" placeholder="From" value={leaveDetails.from} onChange={(e) => setLeaveDetails({...leaveDetails, from: e.target.value})} />
@@ -130,7 +149,6 @@ function EmployeeTable({ employees }) {
 }
 
 function LeaveRequestTable({ employees, leaveRequests, updateLeaveStatus }) {
-    const getEmployee = (employeeId) => employees.find(e => e.id === employeeId);
 
     return (
         <Card>
@@ -147,40 +165,47 @@ function LeaveRequestTable({ employees, leaveRequests, updateLeaveStatus }) {
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        {leaveRequests.map((request) => {
-                            const employee = getEmployee(request.employeeId);
+                        {employees.map((employee) => {
+                            const request = leaveRequests.find(r => r.employeeId === employee.id);
                             return (
-                                <TableRow key={request.id}>
+                                <TableRow key={employee.id}>
                                     <TableCell>
-                                        {employee && (
-                                            <div className="flex items-center space-x-2">
-                                                <Avatar>
-                                                    <AvatarImage src={employee.avatar} />
-                                                    <AvatarFallback>{employee.name.charAt(0)}</AvatarFallback>
-                                                </Avatar>
-                                                <span className="font-medium">{employee.name}</span>
-                                            </div>
+                                        <div className="flex items-center space-x-2">
+                                            <Avatar>
+                                                <AvatarImage src={employee.avatar} />
+                                                <AvatarFallback>{employee.name.charAt(0)}</AvatarFallback>
+                                            </Avatar>
+                                            <span className="font-medium">{employee.name}</span>
+                                        </div>
+                                    </TableCell>
+                                    <TableCell className="hidden sm:table-cell">{request?.leaveType || '-'}</TableCell>
+                                    <TableCell className="hidden md:table-cell">{request?.from || '-'}</TableCell>
+                                    <TableCell className="hidden md:table-cell">{request?.to || '-'}</TableCell>
+                                    <TableCell>
+                                        {request ? (
+                                          <Badge className={getStatusBadgeClass(request.status)}>
+                                              {request.status}
+                                          </Badge>
+                                        ) : (
+                                          <Badge className={getStatusBadgeClass('Present')}>
+                                            Present
+                                          </Badge>
                                         )}
                                     </TableCell>
-                                    <TableCell className="hidden sm:table-cell">{request.leaveType}</TableCell>
-                                    <TableCell className="hidden md:table-cell">{request.from}</TableCell>
-                                    <TableCell className="hidden md:table-cell">{request.to}</TableCell>
                                     <TableCell>
-                                        <Badge className={getStatusBadgeClass(request.status)}>
-                                            {request.status}
-                                        </Badge>
-                                    </TableCell>
-                                    <TableCell>
-                                        <DropdownMenu>
-                                            <DropdownMenuTrigger asChild>
-                                                <Button variant="outline" size="sm">Edit</Button>
-                                            </DropdownMenuTrigger>
-                                            <DropdownMenuContent>
-                                                <DropdownMenuItem onClick={() => updateLeaveStatus(request.id, 'Approved')}>Approved</DropdownMenuItem>
-                                                <DropdownMenuItem onClick={() => updateLeaveStatus(request.id, 'Pending')}>Pending</DropdownMenuItem>
-                                                <DropdownMenuItem onClick={() => updateLeaveStatus(request.id, 'Rejected')}>Rejected</DropdownMenuItem>
-                                            </DropdownMenuContent>
-                                        </DropdownMenu>
+                                        {(request || employee) && (
+                                            <DropdownMenu>
+                                                <DropdownMenuTrigger asChild>
+                                                    <Button variant="outline" size="sm">Edit</Button>
+                                                </DropdownMenuTrigger>
+                                                <DropdownMenuContent>
+                                                    <DropdownMenuItem onClick={() => updateLeaveStatus(request.id, 'Approved')}>Approved</DropdownMenuItem>
+                                                    <DropdownMenuItem onClick={() => updateLeaveStatus(request.id, 'Pending')}>Pending</DropdownMenuItem>
+                                                    <DropdownMenuItem onClick={() => updateLeaveStatus(request.id, 'Rejected')}>Rejected</DropdownMenuItem>
+                                                    <DropdownMenuItem onClick={() => updateLeaveStatus(request.id, 'WFH')}>WFH</DropdownMenuItem>
+                                                </DropdownMenuContent>
+                                            </DropdownMenu>
+                                        )}
                                     </TableCell>
                                 </TableRow>
                             );
