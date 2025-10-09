@@ -12,7 +12,7 @@ export function InternshipCard() {
     ];
 
     return (
-        <Card className="h-full">
+        <Card className="h-200">
             <CardHeader className="flex-row items-center justify-between pb-2">
                 <div className="flex items-center gap-2">
                     <Briefcase className="h-5 w-5 text-muted-foreground" />
@@ -28,7 +28,7 @@ export function InternshipCard() {
                     <p className="text-xs text-muted-foreground">Total Intern</p>
                     <p className="text-2xl font-bold">8 Intern</p>
                 </div>
-                <div className="flex items-center justify-between">
+                <div className="flex flex-wrap items-center justify-between gap-[15px] ">
                    <div className="flex items-center gap-2">
                      <div className="flex -space-x-2 overflow-hidden">
                         {avatars.map((avatar, i) => (
