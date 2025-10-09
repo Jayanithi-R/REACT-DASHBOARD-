@@ -165,47 +165,41 @@ function LeaveRequestTable({ employees, leaveRequests, updateLeaveStatus }) {
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        {employees.map((employee) => {
-                            const request = leaveRequests.find(r => r.employeeId === employee.id);
+                        {leaveRequests.map((request) => {
+                            const employee = employees.find(e => e.id === request.employeeId);
                             return (
-                                <TableRow key={employee.id}>
+                                <TableRow key={request.id}>
                                     <TableCell>
-                                        <div className="flex items-center space-x-2">
-                                            <Avatar>
-                                                <AvatarImage src={employee.avatar} />
-                                                <AvatarFallback>{employee.name.charAt(0)}</AvatarFallback>
-                                            </Avatar>
-                                            <span className="font-medium">{employee.name}</span>
-                                        </div>
-                                    </TableCell>
-                                    <TableCell className="hidden sm:table-cell">{request?.leaveType || '-'}</TableCell>
-                                    <TableCell className="hidden md:table-cell">{request?.from || '-'}</TableCell>
-                                    <TableCell className="hidden md:table-cell">{request?.to || '-'}</TableCell>
-                                    <TableCell>
-                                        {request ? (
-                                          <Badge className={getStatusBadgeClass(request.status)}>
-                                              {request.status}
-                                          </Badge>
-                                        ) : (
-                                          <Badge className={getStatusBadgeClass('Present')}>
-                                            Present
-                                          </Badge>
+                                        {employee && (
+                                            <div className="flex items-center space-x-2">
+                                                <Avatar>
+                                                    <AvatarImage src={employee.avatar} />
+                                                    <AvatarFallback>{employee.name.charAt(0)}</AvatarFallback>
+                                                </Avatar>
+                                                <span className="font-medium">{employee.name}</span>
+                                            </div>
                                         )}
                                     </TableCell>
+                                    <TableCell className="hidden sm:table-cell">{request.leaveType}</TableCell>
+                                    <TableCell className="hidden md:table-cell">{request.from}</TableCell>
+                                    <TableCell className="hidden md:table-cell">{request.to}</TableCell>
                                     <TableCell>
-                                        {(request || employee) && (
-                                            <DropdownMenu>
-                                                <DropdownMenuTrigger asChild>
-                                                    <Button variant="outline" size="sm">Edit</Button>
-                                                </DropdownMenuTrigger>
-                                                <DropdownMenuContent>
-                                                    <DropdownMenuItem onClick={() => updateLeaveStatus(request.id, 'Approved')}>Approved</DropdownMenuItem>
-                                                    <DropdownMenuItem onClick={() => updateLeaveStatus(request.id, 'Pending')}>Pending</DropdownMenuItem>
-                                                    <DropdownMenuItem onClick={() => updateLeaveStatus(request.id, 'Rejected')}>Rejected</DropdownMenuItem>
-                                                    <DropdownMenuItem onClick={() => updateLeaveStatus(request.id, 'WFH')}>WFH</DropdownMenuItem>
-                                                </DropdownMenuContent>
-                                            </DropdownMenu>
-                                        )}
+                                        <Badge className={getStatusBadgeClass(request.status)}>
+                                            {request.status}
+                                        </Badge>
+                                    </TableCell>
+                                    <TableCell>
+                                        <DropdownMenu>
+                                            <DropdownMenuTrigger asChild>
+                                                <Button variant="outline" size="sm">Edit</Button>
+                                            </DropdownMenuTrigger>
+                                            <DropdownMenuContent>
+                                                <DropdownMenuItem onClick={() => updateLeaveStatus(request.id, 'Approved')}>Approved</DropdownMenuItem>
+                                                <DropdownMenuItem onClick={() => updateLeaveStatus(request.id, 'Pending')}>Pending</DropdownMenuItem>
+                                                <DropdownMenuItem onClick={() => updateLeaveStatus(request.id, 'Rejected')}>Rejected</DropdownMenuItem>
+                                                <DropdownMenuItem onClick={() => updateLeaveStatus(request.id, 'WFH')}>WFH</DropdownMenuItem>
+                                            </DropdownMenuContent>
+                                        </DropdownMenu>
                                     </TableCell>
                                 </TableRow>
                             );

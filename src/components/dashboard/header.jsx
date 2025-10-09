@@ -3,6 +3,7 @@ import { UserNav } from './user-nav';
 import { Search, Calendar } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
+import { CreateRequestDialog } from './create-request-dialog';
 
 export function Header({ searchQuery, onSearchChange }) {
   return (
@@ -27,7 +28,7 @@ export function Header({ searchQuery, onSearchChange }) {
             Schedule
           </Button>
         </Link>
-        <Button>+ Create Request</Button>
+        <CreateRequestDialog />
         <UserNav />
       </div>
     </header>

@@ -1,12 +1,9 @@
 'use client';
-import { Sidebar } from '@/components/sidebar';
 import { Header } from '@/components/dashboard/header';
 import { AttendancePageComponent } from '@/components/attendance/attendance-page';
 
 export default function AttendancePage() {
   return (
-    <div className="flex min-h-screen">
-      <Sidebar />
       <div className="flex-1 flex flex-col">
         <header className="sticky top-0 z-10 w-full">
           <Header />
@@ -15,6 +12,5 @@ export default function AttendancePage() {
           <AttendancePageComponent />
         </main>
       </div>
-    </div>
   );
 }
